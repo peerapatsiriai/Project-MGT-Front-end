@@ -205,7 +205,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-05.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-08.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -236,7 +236,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-06.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-07.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -267,7 +267,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-07.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-06.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -298,7 +298,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-08.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-05.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -329,7 +329,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-01.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-04.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -360,7 +360,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-02.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-03.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -391,7 +391,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-03.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-02.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">
@@ -422,7 +422,7 @@ export default function DiscoverItem1() {
                             <div className="tf-card-box style-1">
                                 <div className="card-media">
                                     <Link href="#">
-                                        <img src="/assets/images/box-item/card-item-04.jpg" alt="" />
+                                        <img src="/assets/images/box-item/banner-01.jpg" alt="" />
                                     </Link>
                                     <span className="wishlist-button icon-heart" />
                                     <div className="featured-countdown">

@@ -1121,6 +1121,14 @@ a:focus {
     -o-transform: translateY(-50%);
     transform: translateY(-50%);
 }
+#site-logo-inner h3{
+    color: #E2FE26;
+    
+}
+#site-logo-inner h3:hover{
+    color: #fff;;
+    
+}
 
 .flat-wallet {
     display: flex;

@@ -26,8 +26,8 @@ export default function FlatTitle1() {
                     <div className="row">
                         <div className="col-12 pages-title">
                             <div className="content">
-                                <h1 data-wow-delay="0s" className="wow fadeInUp">World of top works</h1>
-                                <p className="wow fadeInUp" data-wow-delay="0.1s">Welcome to the world of rare digital art. Explore the best art from hand-picked digital artist out there and find the hidden gem.</p>
+                                <h1 data-wow-delay="0s" className="wow fadeInUp">Project Management</h1>
+                                <p className="wow fadeInUp" data-wow-delay="0.1s">Welcome to CE reform project management system. This project is a system to help organize the teaching and learning of preproject and project subjects. And it is a place to publicize information about subjects projects. Created by the Faculty of Engineering Computer RMUTL.</p>
                                 <div data-wow-delay="0.2s" className=" wow fadeInUp flat-button flex justify-center">
                                     <Link href="#" className="tf-button style-1 h50 w190 mr-16">Discover more <i className="icon-arrow-up-right2" /></Link>
                                     <Link href="#" className="tf-button style-1 h50 w190 active">All collections <i className="icon-arrow-up-right2" /></Link>
