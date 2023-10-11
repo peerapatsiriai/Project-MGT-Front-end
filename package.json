@@ -1,0 +1,28 @@
+{
+    "name": "name",
+    "version": "0.1.0",
+    "private": true,
+    "author": "author",
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint",
+        "sass": "sass --watch public/assets/scss/main.scss:public/assets/css/main.css"
+    },
+    "dependencies": {
+        "@headlessui/react": "^1.7.17",
+        "chart.js": "^4.4.0",
+        "eslint": "8.41.0",
+        "eslint-config-next": "13.4.3",
+        "next": "13.4.3",
+        "react": "18.2.0",
+        "react-chartjs-2": "^5.2.0",
+        "react-countup": "^6.4.2",
+        "react-dom": "18.2.0",
+        "react-visibility-sensor": "^5.1.1",
+        "sass": "^1.62.1",
+        "swiper": "^10.2.0",
+        "wowjs": "^1.1.3"
+    }
+}

@@ -1,0 +1,354 @@
+import Layout from "@/components/layout/Layout"
+import Link from "next/link"
+export default function Home() {
+
+    return (
+        <>
+
+            <Layout headerStyle={1} footerStyle={1}>
+
+                <div>
+                    <div className="flat-title-page">
+                        <div className="themesflat-container">
+                            <div className="row">
+                                <div className="col-12">
+                                    <h1 className="heading text-center">Blog grid #2</h1>
+                                    <ul className="breadcrumbs flex justify-center">
+                                        <li className="icon-keyboard_arrow_right">
+                                            <Link href="/">Home</Link>
+                                        </li>
+                                        <li>
+                                            <Link href="#">Explore</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="tf-section-5 tf-grid-blog">
+                        <div className="themesflat-container">
+                            <div className="row flex flex-wrap">
+                                <div className="col-md-4">
+                                    <div className="side-bar">
+                                        <div className="widget-search">
+                                            <form action="#" method="get" role="search" className="search-form relative">
+                                                <input type="search" id="search" className="search-field style-1" placeholder="Search..." name="s" title="Search for" required />
+                                                <button className="search search-submit" type="submit" title="Search">
+                                                    <i className="icon-search" />
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div className="widget widget-categories">
+                                            <h5 className="title-widget">Categories</h5>
+                                            <ul>
+                                                <li>
+                                                    <div className="cate-item"><Link href="#">NFTs</Link></div>
+                                                    <div className="number">(1.483)</div>
+                                                </li>
+                                                <li>
+                                                    <div className="cate-item"><Link href="#">Digital Art</Link></div>
+                                                    <div className="number">(97)</div>
+                                                </li>
+                                                <li>
+                                                    <div className="cate-item"><Link href="#">Crypto</Link></div>
+                                                    <div className="number">(45)</div>
+                                                </li>
+                                                <li>
+                                                    <div className="cate-item"><Link href="#">Technology</Link></div>
+                                                    <div className="number">(728)</div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div className="widget widget-related-posts">
+                                            <h5 className="title-widget">Related posts</h5>
+                                            <div className="related-posts-item main">
+                                                <div className="card-media">
+                                                    <img src="/assets/images/blog/sidebar-01.jpg" alt="" />
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <h5><Link href="/item-details">Lorem ipsum dolor sit amet, consectetur adipiscing pulvinar</Link></h5>
+                                            </div>
+                                            <div className="related-posts-item">
+                                                <div className="card-media">
+                                                    <img src="/assets/images/blog/sidebar-02.jpg" alt="" />
+                                                </div>
+                                                <div className="card-content">
+                                                    <h5><Link href="/item-details">Explore Arc8: Web3 Concepts Meet Gaming</Link></h5>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                            </div>
+                                            <div className="related-posts-item">
+                                                <div className="card-media">
+                                                    <img src="/assets/images/blog/sidebar-03.jpg" alt="" />
+                                                </div>
+                                                <div className="card-content">
+                                                    <h5><Link href="/item-details">Explore Arc8: Web3 Concepts Meet Gaming</Link></h5>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                            </div>
+                                            <div className="related-posts-item">
+                                                <div className="card-media">
+                                                    <img src="/assets/images/blog/sidebar-04.jpg" alt="" />
+                                                </div>
+                                                <div className="card-content">
+                                                    <h5><Link href="/item-details">Explore Arc8: Web3 Concepts Meet Gaming</Link></h5>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="widget widget-tag ">
+                                            <h5 className="title-widget">Popular tags</h5>
+                                            <ul className="flex flex-wrap">
+                                                <li><Link href="/blog" className="box-widget-tag">ICO</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Digital Art</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Gaming</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">NFTs</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Crypto</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Concepts</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Technology</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Land</Link></li>
+                                                <li><Link href="/blog" className="box-widget-tag">Web3</Link></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-md-8">
+                                    <div className="wrap-inner row">
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-10.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Unreal Engine for Fortnite is a big deal</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-01.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Cody Fisher</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-11.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Star Atlas Showroom 2.1: Massive ships and pretty skins</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-02.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Marvin McKinney</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-12.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Vision Pro: Apple’s mixed-reality headset is here</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-03.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Savannah Nguyen</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-13.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">New Shrapnel map to mix blossom and blood</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-02.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Wade Warren</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-14.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Meta sticks to guns with lighter, VR focussed Quest 3</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-03.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Jenny Wilson</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-15.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Shardbound carves out a place for the great comeback</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-01.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Annette Black</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-16.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">Vision Pro: Apple’s mixed-reality headset is here</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-03.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Savannah Nguyen</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                        <div className="col-md-6 col-12">
+                                            <article className="tf-card-article">
+                                                <div className="card-media">
+                                                    <Link href="/blog-details">
+                                                        <img src="/assets/images/blog/blog-grid-17.jpg" alt="" />
+                                                    </Link>
+                                                </div>
+                                                <div className="meta-info flex">
+                                                    <div className="item art active">Digital Art</div>
+                                                    <div className="item date">Mon, 08 May </div>
+                                                </div>
+                                                <div className="card-title">
+                                                    <h5><Link href="/item-details">New Shrapnel map to mix blossom and blood</Link></h5>
+                                                </div>
+                                                <div className="card-bottom flex items-center justify-between">
+                                                    <div className="author flex items-center justify-between">
+                                                        <div className="avatar">
+                                                            <img src="/assets/images/avatar/avatar-box-02.jpg" alt="Image" />
+                                                        </div>
+                                                        <div className="info">
+                                                            <span>Posted by:</span>
+                                                            <h6><Link href="/author-2">Wade Warren</Link> </h6>
+                                                        </div>
+                                                    </div>
+                                                    <Link className="link" href="#"><i className="icon-arrow-up-right2" /></Link>
+                                                </div>
+                                            </article>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </Layout>
+        </>
+    )
+}
