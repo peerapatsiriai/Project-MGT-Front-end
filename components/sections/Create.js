@@ -12,6 +12,7 @@ export default function Create() {
         <div className='heading-section'>
           <h2 className='tf-title pb-30'>Create New File</h2>
         </div>
+
         <div className='widget-tabs relative'>
           <ul className='widget-menu-tab'>
             <li
@@ -39,7 +40,9 @@ export default function Create() {
               </span>
             </li>
           </ul>
+
           <div className='widget-content-tab'>
+            {/* Content Active 1 */}
             <div
               className={activeIndex === 1 ? 'widget-content-inner upload active' : 'widget-content-inner upload'}
               style={{ display: `${activeIndex == 1 ? '' : 'none'}` }}
@@ -219,6 +222,7 @@ export default function Create() {
                 </form>
               </div>
             </div>
+
             <div
               className={activeIndex === 2 ? 'widget-content-inner description active' : 'widget-content-inner description'}
               style={{ display: `${activeIndex == 2 ? '' : 'none'}` }}

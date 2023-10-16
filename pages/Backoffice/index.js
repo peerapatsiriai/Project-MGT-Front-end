@@ -5,7 +5,8 @@ import { useState } from 'react';
 // Component Import
 import Create from '@/components/sections/Create';
 import Market from '@/components/sections/Market';
-import Preproject_table from '@/components/Backoffice/Preproject_table';
+import Preproject_table from '@/components/Backoffice/Pre_project_Component/Preproject_table';
+import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -288,6 +289,7 @@ export default function Home() {
                       justifyContent: 'center',
                       height: '60px',
                       backgroundColor: '#333',
+                      fontFamily: 'EB Garamond',
                       color: '#DDF247',
                       fontSize: '25px',
                       fontWeight: 'bold',
@@ -303,14 +305,14 @@ export default function Home() {
 
               {/* header Sidebar Show */}
               <div className='create menu-tab'>
-                <a
+                {/* <a
                   className='tf-button style-1 type-1 tablinks'
                   data-tabs='create'
                   onClick={() => handleOnClick(9)}
                 >
                   <span>Create</span>
                   <i className='icon-create' />
-                </a>
+                </a> */}
               </div>
               {/*End header Sidebar Show */}
 
@@ -498,7 +500,16 @@ export default function Home() {
                 id='market'
                 className={activeIndex === 1 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Preproject_table />
+                <Preproject_table
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Add_General_Data />
               </div>
 
               {/* display Project table */}
