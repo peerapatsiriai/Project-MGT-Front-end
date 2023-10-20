@@ -61,7 +61,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                 data-line='#000'
               />
             </div>
-            <h2 style={{ fontFamily: 'EB Garamond' }}>Pre Project Management page</h2>
+            <h2 style={{ fontFamily: 'Manrope' }}>Pre-Project Management Page</h2>
             <div className='bg-home7'>
               <AutoSlider1 />
               <AutoSlider2 />
