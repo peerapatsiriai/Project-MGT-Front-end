@@ -7,6 +7,7 @@ import Create from '@/components/sections/Create';
 import Market from '@/components/sections/Market';
 import Preproject_table from '@/components/Backoffice/Pre_project_Component/Preproject_table';
 import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
+import Edit_General_Data from '@/components/Backoffice/Pre_project_Component/Edit_project/Edit_General_Data';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -22,6 +23,9 @@ export default function Home() {
 
   const [isMobileSidebar, setMobileSidebar] = useState(false);
   const handleMobileSidebar = () => setMobileSidebar(!isMobileSidebar);
+
+  // data variables
+  const [crossdata, setCrossData] = useState([]); // Send data across properties
 
   return (
     <>
@@ -47,6 +51,7 @@ export default function Home() {
                     name='s'
                     title='Search for'
                     required
+                    style={{ background: '#161616', color: '#8A8AA0' }}
                   />
                   <button
                     className='search search-submit'
@@ -503,13 +508,28 @@ export default function Home() {
                 <Preproject_table
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
+                  crossData={crossdata}
+                  setCrossData={setCrossData}
                 />
               </div>
               <div
                 id='market'
                 className={activeIndex === 1.1 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Add_General_Data />
+                <Add_General_Data
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Edit_General_Data
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossData={crossdata}
+                />
               </div>
 
               {/* display Project table */}

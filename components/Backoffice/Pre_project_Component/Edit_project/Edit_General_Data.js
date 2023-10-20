@@ -16,9 +16,11 @@ import CardActions from '@mui/material/CardActions';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
+// import LoadingComponent from 'src/pages/pages/component/LoadingComponent';
 
-export default function Add_General_Data({ activeIndex, setActiveIndex }) {
-  const router = useRouter(); // router สร้าง path
+export default function Edit_General_Data({ activeIndex, setActiveIndex, crossData }) {
+  const requestdata = crossData; // Get project id from properties
+
   // นำเข้าตัวsweetalert2
   const Swal = require('sweetalert2');
 
@@ -82,8 +84,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     }
   };
 
-  // ฟังก์ชันสำหรับ INSERT DATA
-  const handleInsertSubmit = (e) => {
+  // ฟังก์ชันสำหรับ Edit DATA
+  const handleEditSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
 
@@ -137,35 +139,42 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     }
 
     const data = {
+      preproject_id: requestdata,
       section_id: selectedTerm,
       preproject_name_th: projectNameTh,
       preproject_name_eng: projectNameEn,
       project_code: projectCode,
       project_status: projectstatus,
       project_type: projecttype,
-      created_by: '11',
       adviser: advisorId,
       subadviser: allAdvisorSubValues,
       committee: allCommitteeValues,
       studen_id: allStudent,
     };
 
-    axios
-      .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/insertpreproject`, data)
-      .then((response) => {
-        console.log(response);
+    console.log('Send data', data);
 
-        // window.location.reload()
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    Swal.fire({
-      icon: 'success',
-      title: 'เพิ่มข้อมูลแล้วเสร็จ',
-    });
-    setActiveIndex(1);
-    // router.push(`/Backoffice`);
+    // axios
+    //   .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/updatepreproject`, data)
+    //   .then((response) => {
+    //     console.log(response);
+    //     handleClose();
+
+    //     // window.location.reload()
+    //     Route.replace(Route.asPath, undefined, { scroll: false });
+    //     handleCancel(); // รีข้อมูล
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+
+    // Swal.fire({
+    //   icon: 'success',
+    //   title: 'อัปเดทข้อมูลแล้วเสร็จ',
+    // });
+
+    // setActiveIndex(1);
+    // router.push(`/BackOffice`);
   };
 
   // ตัวแปรเช็คว่ามีข้อมูลให้ Map หรือไม่
@@ -177,6 +186,73 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const [yearData, setYearData] = useState([]); // รับข้อมูลปี
   const [termData, setTermData] = useState([]); // รับข้อมูล เทอม กับ Sec
   const [teacherData, setTeacherData] = useState([]); // รับข้อมูลชื่ออาจารย์
+
+  // ดึงข้อมูล Api มา Set form Edit
+  useEffect(() => {
+    const fetchEditData = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${requestdata}`);
+
+        setCurriculumsId(response.data.PreprojectData[0].curriculum_id);
+        setSubjectId(response.data.PreprojectData[0].subject_id);
+        setYearId(response.data.PreprojectData[0].sem_year);
+        setSelectedTerm(response.data.PreprojectData[0].section_id);
+        setProjectCode(response.data.PreprojectData[0].project_code);
+        setProjectType(response.data.PreprojectData[0].project_type);
+        setProjectStatus(response.data.PreprojectData[0].project_status);
+        setProjectNameTh(response.data.PreprojectData[0].preproject_name_th);
+        setProjectNameEn(response.data.PreprojectData[0].preproject_name_eng);
+        setAdvisorId(response.data.PreprojectData[0].tea_id);
+
+        //--------------------------------------เซตค่าเริ่มต้นให้ Sub Advisors--------------------------------------------//
+
+        // เช็คว่ามีข้อมูล Sub Advisors มากกว่า 0 ค่าหรือไม่
+        if (response.data.PreprojectSubAdviser.length > 0) {
+          setSelectedValueAdvisorSub(response.data.PreprojectSubAdviser[0].tea_id);
+
+          // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
+          const subAdvisersFromSecondElement = response.data.PreprojectSubAdviser.slice(1);
+
+          // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
+          const initialSubAdvisorIds = subAdvisersFromSecondElement.map((subAdvisor) => subAdvisor.tea_id);
+          setAdditionalSubAdvisorForms(initialSubAdvisorIds);
+        }
+
+        //--------------------------------------จบการเซตค่าเริ่มต้นให้ Sub Advisors--------------------------------------------//
+
+        //--------------------------------------เซตค่าเริ่มต้นให้ Committee--------------------------------------------//
+
+        setSelectedValueCommittee(response.data.PreprojectCommittee[0].tea_id);
+
+        // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
+        const CommitteeFromSecondElement = response.data.PreprojectCommittee.slice(1);
+
+        // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
+        const initialCommittee = CommitteeFromSecondElement.map((committee) => committee.tea_id);
+        setAdditionalCommitteeForms(initialCommittee);
+
+        //--------------------------------------จบการเซตค่าเริ่มต้นให้ Committee--------------------------------------------//
+
+        //--------------------------------------เซตค่าเริ่มต้นให้ Student--------------------------------------------//
+        setSelectedValueStudent(response.data.PreprojectStudent[0]);
+        // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
+        const StudentFromSecondElement = response.data.PreprojectStudent.slice(1);
+        // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
+        const initialStudent = StudentFromSecondElement.map((student) => student.Id);
+        setAdditionalStudentForms(initialStudent);
+
+        // นำค่าที่เซตเริ่มต้นทั้งหมดไปเก็บใน allStudentValues
+        const allStudentData = [response.data.PreprojectStudent[0].Id, ...initialStudent].filter((value) => value !== '');
+        setAllStudent(allStudentData);
+
+        //--------------------------------------จบการเซตค่าเริ่มต้นให้ Student--------------------------------------------//
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchEditData();
+  }, [requestdata, activeIndex]);
 
   // ดึงข้อมูลหลักสูตรจาก Api curriculums
   useEffect(() => {
@@ -391,7 +467,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
               value={contentTeacher.tea_id}
               disabled={allAdvisorSubValues.includes(contentTeacher.tea_id)}
             >
-              {contentTeacher.tea_name} {contentTeacher.tea_lname}
+              {contentTeacher.tea_name}
             </MenuItem>
           ))}
         </Select>
@@ -460,9 +536,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
             <MenuItem
               key={contentTeacher.tea_id}
               value={contentTeacher.tea_id}
-              disabled={allCommitteeValues.includes(contentTeacher.instructor_id)}
+              disabled={allCommitteeValues.includes(contentTeacher.tea_id)}
             >
-              {contentTeacher.tea_name} {contentTeacher.tea_lname}
+              {contentTeacher.tea_name}
             </MenuItem>
           ))}
         </Select>
@@ -485,6 +561,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     setAllStudentValues(updatedAllStudentValues);
   }, [selectedValueStudent, additionalStudentForms]);
 
+  // อัปเดทค่า นักศึกษาใหม่
   useEffect(() => {
     const updatedAllStudent = allStudentValues.map((value) => value?.Id).filter((id) => id !== undefined);
     setAllStudent(updatedAllStudent);
@@ -519,9 +596,20 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     });
   };
 
-  // display Student Name on Autocomplete
   const getOptionLabel = (option) => {
-    return option ? `${option.stu_name} ${option.stu_lname} ${option.stu_id}` : '';
+    if (!option) return '';
+
+    const selectedStudent = selectStudent.find((student) => student.Id === option);
+
+    if (selectedStudent) {
+      return `${selectedStudent.stu_name} ${selectedStudent.stu_lname} ${selectedStudent.stu_id}`;
+    }
+
+    if (option) {
+      return `${option.stu_name} ${option.stu_lname} ${option.stu_id}`;
+    }
+
+    return '';
   };
 
   const AdditionalStudentForm = ({ formIndex }) => {
@@ -550,7 +638,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   return (
     <div>
       <div className='heading-section'>
-        <h2 className='tf-title pb-30'>ADD PROJECT</h2>
+        <h2 className='tf-title pb-30'>EDIT PROJECT</h2>
       </div>
       <div
         style={{
@@ -561,6 +649,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
         }}
       >
         <Card>
+          {/* <LoadingComponent /> */}
           <form>
             <CardContent>
               <Grid
@@ -707,7 +796,6 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   item
                   xs={12}
                   sm={4}
-                  style={{ backgroundColor: 'white !important' }}
                 >
                   <TextField
                     fullWidth
@@ -848,7 +936,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                           key={value}
                           value={contentTeacher.tea_id}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.tea_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -902,7 +990,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                           value={contentTeacher.tea_id}
                           disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.tea_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -965,7 +1053,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                           value={contentTeacher.tea_id}
                           disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.tea_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1048,7 +1136,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 type='submit'
                 sx={{ mr: 2 }}
                 variant='outlined'
-                onClick={handleInsertSubmit}
+                onClick={handleEditSubmit}
               >
                 บัณทึก
               </Button>
@@ -1066,8 +1154,6 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 variant='outlined'
                 onClick={function () {
                   setActiveIndex(1);
-                  //window.location.reload();
-                  //router.push(`/Backoffice`);
                 }}
               >
                 ย้อนกลับ

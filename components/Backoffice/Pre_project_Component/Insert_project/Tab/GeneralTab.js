@@ -17,7 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
 
-export default function Add_General_Data({ activeIndex, setActiveIndex }) {
+export default function PreprojectInsert() {
   const router = useRouter(); // router สร้าง path
   // นำเข้าตัวsweetalert2
   const Swal = require('sweetalert2');
@@ -164,7 +164,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
       icon: 'success',
       title: 'เพิ่มข้อมูลแล้วเสร็จ',
     });
-    setActiveIndex(1);
+    window.location.reload();
     // router.push(`/Backoffice`);
   };
 
@@ -290,13 +290,11 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     setCurriculumsId(event.target.value);
     setSubjectId('');
     setYearId('');
-    setTermData('');
   }; // จัดการการเปลี่ยนแปลงค่าของหลักสูตร
 
   const handleSubjectChange = (event) => {
     setSubjectId(event.target.value);
     setYearId('');
-    setTermData('');
   }; // จัดการการเปลี่ยนแปลงค่าของวิชา
 
   const handleYearChange = (event) => {
@@ -548,534 +546,519 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   };
 
   return (
-    <div>
-      <div className='heading-section'>
-        <h2 className='tf-title pb-30'>ADD PROJECT</h2>
-      </div>
-      <div
-        style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.3)',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-        }}
-      >
-        <Card>
-          <form>
-            <CardContent>
+    <Card>
+      <form>
+        <CardContent>
+          <Grid
+            container
+            spacing={5}
+          >
+            <Grid
+              item
+              xs={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600 }}
+              >
+                ข้อมูลจำเป็น**(กรุณาระบุข้อมูลตามลำดับ)
+              </Typography>
+            </Grid>
+
+            {/* Curriculum Select */}
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='curriculum-label'>หลักสูตร</InputLabel>
+                <Select
+                  label='Curriculum'
+                  value={curriculumsId}
+                  onChange={handleCurriculumsChange}
+                  labelId='curriculum-label'
+                  error={submitted && !curriculumsId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                >
+                  {curriculumsData.map((curriculum) => (
+                    <MenuItem
+                      key={curriculum.curriculum_id}
+                      value={curriculum.curriculum_id}
+                    >
+                      {curriculum.curriculum_name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Subject Select */}
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='subject-label'>วิชา</InputLabel>
+                <Select
+                  label='Subject'
+                  value={subjectId}
+                  onChange={handleSubjectChange}
+                  labelId='subject-label'
+                  error={submitted && !subjectId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                  disabled={!curriculumsId || !hasData}
+                >
+                  {subjectsData && subjectsData.length > 0 ? (
+                    subjectsData.map((subject) => (
+                      <MenuItem
+                        key={subject.subject_id}
+                        value={subject.subject_id}
+                      >
+                        {subject.subject_name_th}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Year Select */}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='year-label'>ปีการศึกษา</InputLabel>
+                <Select
+                  label='Year'
+                  value={yearId}
+                  onChange={handleYearChange}
+                  labelId='year-label'
+                  error={submitted && !yearId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                  disabled={!subjectId || !hasData}
+                >
+                  {yearData && yearData.length > 0 ? (
+                    yearData.map((year) => (
+                      <MenuItem
+                        key={year.sem_year}
+                        value={year.sem_year}
+                      >
+                        {year.sem_year}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Term Select */}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='term-label'>เทอม/เซค</InputLabel>
+                <Select
+                  label='Term'
+                  value={selectedTerm}
+                  onChange={handleTermChange}
+                  labelId='term-label'
+                  error={submitted && !selectedTerm} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                  disabled={!yearId || !hasData}
+                >
+                  {termData && termData.length > 0 ? (
+                    termData.map((term) => (
+                      <MenuItem
+                        key={term.section_id}
+                        value={term.section_id}
+                      >
+                        เทอม{term.semester_order} {term.section_name}
+                      </MenuItem>
+                    ))
+                  ) : (
+                    <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                  )}
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Project-Code TextField */}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+              style={{ backgroundColor: 'white !important' }}
+            >
+              <TextField
+                fullWidth
+                type='text'
+                label='รหัสโครงงาน'
+                placeholder='CE0101'
+                value={projectCode}
+                error={submitted && !projectCode} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                onChange={handleProjectCodeChange}
+              />
+            </Grid>
+
+            {/* Project-Type Select */}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='term-label'>ประเภทของโครงงาน</InputLabel>
+                <Select
+                  label='Project-Type'
+                  defaultValue=''
+                  id='select-04'
+                  labelId='Project-Type'
+                  onChange={handleProjectTypeChange}
+                  error={submitted && !projecttype} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                  value={projecttype}
+                >
+                  <MenuItem value={'HardWare'}>HardWare</MenuItem>
+                  <MenuItem value={'SoftWare'}>SoftWare</MenuItem>
+                  <MenuItem value={'Network'}>Network</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Project-Status Select */}
+            <Grid
+              item
+              xs={12}
+              sm={4}
+            >
+              <FormControl fullWidth>
+                <InputLabel id='term-label'>สถานะของโครงงาน</InputLabel>
+                <Select
+                  label='Project-Status'
+                  defaultValue=''
+                  id='select-04'
+                  labelId='Project-Type'
+                  onChange={handleProjectStatusChange}
+                  error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                  value={projectstatus}
+                >
+                  <MenuItem value={'0'}>ไม่ผ่าน</MenuItem>
+                  <MenuItem value={'1'}>โครงงานยังไม่ได้รับการอนุมัติ</MenuItem>
+                  <MenuItem value={'2'}>ยังไม่ได้ดำเนินการ</MenuItem>
+                  <MenuItem value={'3'}>อยู่ระหว่างการดำเนินการ</MenuItem>
+                  <MenuItem value={'4'}>สามารถสอบได้</MenuItem>
+                  <MenuItem value={'5'}>ยังไม่ผ่านการสอบ</MenuItem>
+                  <MenuItem value={'6'}>ผ่านแล้วแต่ยังไม่ได้โอน</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            {/* Project-Name Th,En TextField */}
+            <Grid
+              item
+              xs={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600 }}
+              >
+                ชื่อโครงงาน**
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <TextField
+                fullWidth
+                type='text'
+                label='ชื่อโครงงาน(ภาษาไทย)'
+                placeholder='ชื่อโครงงาน(ภาษาไทย)'
+                error={submitted && !projectNameTh} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                value={projectNameTh}
+                onChange={(e) => {
+                  handleProjectNameThChange;
+                  handleChange(e, 'preproject_name_th', 'th');
+                }}
+              />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={6}
+            >
+              <TextField
+                fullWidth
+                type='text'
+                label='ชื่อโครงงาน(ภาษาอังกฤษ)'
+                placeholder='ชื่อโครงงาน(ภาษาอังกฤษ)'
+                error={submitted && !projectNameEn} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                value={projectNameEn}
+                onChange={(e) => {
+                  handleProjectNameEnChange;
+                  handleChange(e, 'preproject_name_eng', 'en');
+                }}
+              />
+            </Grid>
+
+            {/* Advisor Select */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600, mb: 5 }}
+              >
+                ชื่ออาจารย์ที่ปรึกษา**
+              </Typography>
+              <FormControl fullWidth>
+                <InputLabel id='advisor-label'>ที่ปรึกษา</InputLabel>
+                <Select
+                  label='Advisor'
+                  labelId='advisor-label'
+                  value={advisorId}
+                  onChange={handleAdvisorChange}
+                  disabled={!hasData}
+                  error={submitted && !advisorId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                >
+                  {teacherData.map((contentTeacher, value) => (
+                    <MenuItem
+                      key={value}
+                      value={contentTeacher.tea_id}
+                    >
+                      {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            {/* Sub Advisor Select */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600 }}
+              >
+                ชื่ออาจารย์ที่ปรึกษารอง**
+              </Typography>
               <Grid
                 container
-                spacing={5}
+                justifyContent='flex-end'
+                alignItems='center'
               >
-                <Grid
-                  item
-                  xs={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleAddSubAdvisorData}
                   >
-                    ข้อมูลจำเป็น**(กรุณาระบุข้อมูลตามลำดับ)
-                  </Typography>
+                    เพิ่มข้อมูล
+                  </Button>
                 </Grid>
-
-                {/* Curriculum Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='curriculum-label'>หลักสูตร</InputLabel>
-                    <Select
-                      label='Curriculum'
-                      value={curriculumsId}
-                      onChange={handleCurriculumsChange}
-                      labelId='curriculum-label'
-                      error={submitted && !curriculumsId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    >
-                      {curriculumsData.map((curriculum) => (
-                        <MenuItem
-                          key={curriculum.curriculum_id}
-                          value={curriculum.curriculum_id}
-                        >
-                          {curriculum.curriculum_name}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Subject Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='subject-label'>วิชา</InputLabel>
-                    <Select
-                      label='Subject'
-                      value={subjectId}
-                      onChange={handleSubjectChange}
-                      labelId='subject-label'
-                      error={submitted && !subjectId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!curriculumsId || !hasData}
-                    >
-                      {subjectsData && subjectsData.length > 0 ? (
-                        subjectsData.map((subject) => (
-                          <MenuItem
-                            key={subject.subject_id}
-                            value={subject.subject_id}
-                          >
-                            {subject.subject_name_th}
-                          </MenuItem>
-                        ))
-                      ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
-                      )}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Year Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='year-label'>ปีการศึกษา</InputLabel>
-                    <Select
-                      label='Year'
-                      value={yearId}
-                      onChange={handleYearChange}
-                      labelId='year-label'
-                      error={submitted && !yearId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!subjectId || !hasData}
-                    >
-                      {yearData && yearData.length > 0 ? (
-                        yearData.map((year) => (
-                          <MenuItem
-                            key={year.sem_year}
-                            value={year.sem_year}
-                          >
-                            {year.sem_year}
-                          </MenuItem>
-                        ))
-                      ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
-                      )}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Term Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='term-label'>เทอม/เซค</InputLabel>
-                    <Select
-                      label='Term'
-                      value={selectedTerm}
-                      onChange={handleTermChange}
-                      labelId='term-label'
-                      error={submitted && !selectedTerm} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!yearId || !hasData}
-                    >
-                      {termData && termData.length > 0 ? (
-                        termData.map((term) => (
-                          <MenuItem
-                            key={term.section_id}
-                            value={term.section_id}
-                          >
-                            เทอม{term.semester_order} {term.section_name}
-                          </MenuItem>
-                        ))
-                      ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
-                      )}
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Project-Code TextField */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                  style={{ backgroundColor: 'white !important' }}
-                >
-                  <TextField
-                    fullWidth
-                    type='text'
-                    label='รหัสโครงงาน'
-                    placeholder='CE0101'
-                    value={projectCode}
-                    error={submitted && !projectCode} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    onChange={handleProjectCodeChange}
-                  />
-                </Grid>
-
-                {/* Project-Type Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='term-label'>ประเภทของโครงงาน</InputLabel>
-                    <Select
-                      label='Project-Type'
-                      defaultValue=''
-                      id='select-04'
-                      labelId='Project-Type'
-                      onChange={handleProjectTypeChange}
-                      error={submitted && !projecttype} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      value={projecttype}
-                    >
-                      <MenuItem value={'HardWare'}>HardWare</MenuItem>
-                      <MenuItem value={'SoftWare'}>SoftWare</MenuItem>
-                      <MenuItem value={'Network'}>Network</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Project-Status Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={4}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel id='term-label'>สถานะของโครงงาน</InputLabel>
-                    <Select
-                      label='Project-Status'
-                      defaultValue=''
-                      id='select-04'
-                      labelId='Project-Type'
-                      onChange={handleProjectStatusChange}
-                      error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      value={projectstatus}
-                    >
-                      <MenuItem value={'0'}>ไม่ผ่าน</MenuItem>
-                      <MenuItem value={'1'}>โครงงานยังไม่ได้รับการอนุมัติ</MenuItem>
-                      <MenuItem value={'2'}>ยังไม่ได้ดำเนินการ</MenuItem>
-                      <MenuItem value={'3'}>อยู่ระหว่างการดำเนินการ</MenuItem>
-                      <MenuItem value={'4'}>สามารถสอบได้</MenuItem>
-                      <MenuItem value={'5'}>ยังไม่ผ่านการสอบ</MenuItem>
-                      <MenuItem value={'6'}>ผ่านแล้วแต่ยังไม่ได้โอน</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Grid>
-
-                {/* Project-Name Th,En TextField */}
-                <Grid
-                  item
-                  xs={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleClearSubAdvisorData}
                   >
-                    ชื่อโครงงาน**
-                  </Typography>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
-                  <TextField
-                    fullWidth
-                    type='text'
-                    label='ชื่อโครงงาน(ภาษาไทย)'
-                    placeholder='ชื่อโครงงาน(ภาษาไทย)'
-                    error={submitted && !projectNameTh} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    value={projectNameTh}
-                    onChange={(e) => {
-                      handleProjectNameThChange;
-                      handleChange(e, 'preproject_name_th', 'th');
-                    }}
-                  />
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sm={6}
-                >
-                  <TextField
-                    fullWidth
-                    type='text'
-                    label='ชื่อโครงงาน(ภาษาอังกฤษ)'
-                    placeholder='ชื่อโครงงาน(ภาษาอังกฤษ)'
-                    error={submitted && !projectNameEn} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    value={projectNameEn}
-                    onChange={(e) => {
-                      handleProjectNameEnChange;
-                      handleChange(e, 'preproject_name_eng', 'en');
-                    }}
-                  />
-                </Grid>
-
-                {/* Advisor Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600, mb: 5 }}
-                  >
-                    ชื่ออาจารย์ที่ปรึกษา**
-                  </Typography>
-                  <FormControl fullWidth>
-                    <InputLabel id='advisor-label'>ที่ปรึกษา</InputLabel>
-                    <Select
-                      label='Advisor'
-                      labelId='advisor-label'
-                      value={advisorId}
-                      onChange={handleAdvisorChange}
-                      disabled={!hasData}
-                      error={submitted && !advisorId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    >
-                      {teacherData.map((contentTeacher, value) => (
-                        <MenuItem
-                          key={value}
-                          value={contentTeacher.tea_id}
-                        >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                </Grid>
-                {/* Sub Advisor Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}
-                  >
-                    ชื่ออาจารย์ที่ปรึกษารอง**
-                  </Typography>
-                  <Grid
-                    container
-                    justifyContent='flex-end'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleAddSubAdvisorData}
-                      >
-                        เพิ่มข้อมูล
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleClearSubAdvisorData}
-                      >
-                        ล้างข้อมูล
-                      </Button>
-                    </Grid>
-                  </Grid>
-                  <FormControl fullWidth>
-                    <InputLabel id='sub-advisor-label'>ที่ปรึกษารอง</InputLabel>
-                    <Select
-                      label='Sub Advisor'
-                      labelId='sub-advisor-label'
-                      value={selectedValueAdvisorSub || ''}
-                      onChange={handleSubAdvisorChange}
-                    >
-                      {selectableSubTeachers.map((contentTeacher) => (
-                        <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
-                        >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  {additionalSubAdvisorForms.map((_, index) => (
-                    <AdditionalSubAdvisorForm
-                      key={index}
-                      formIndex={index}
-                      selectedOptions={additionalSubAdvisorForms}
-                    />
-                  ))}
-                </Grid>
-
-                {/* Committee Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}
-                  >
-                    ชื่อคณะกรรมการ**
-                  </Typography>
-                  <Grid
-                    container
-                    justifyContent='flex-end'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleAddCommitteeData}
-                      >
-                        เพิ่มข้อมูล
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleClearCommitteeData}
-                      >
-                        ล้างข้อมูล
-                      </Button>
-                    </Grid>
-                  </Grid>
-                  <FormControl fullWidth>
-                    <InputLabel id='committee-label'>กรรมการ</InputLabel>
-                    <Select
-                      label='Committee'
-                      labelId='committee-label'
-                      value={selectedValueCommittee || ''}
-                      onChange={handleCommitteeChange}
-                      error={submitted && allCommitteeValues.length === 0} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                    >
-                      {selecCommittee.map((contentTeacher) => (
-                        <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
-                        >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </FormControl>
-                  {additionalCommitteeForms.map((_, index) => (
-                    <AdditionalCommitteeForm
-                      key={index}
-                      formIndex={index}
-                      selectedOptions={additionalCommitteeForms}
-                    />
-                  ))}
-                </Grid>
-
-                {/* Student Select */}
-                <Grid
-                  item
-                  xs={12}
-                  sm={12}
-                >
-                  <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}
-                  >
-                    รายชื่อนักศึกษา**
-                  </Typography>
-                  <Grid
-                    container
-                    justifyContent='flex-end'
-                    alignItems='center'
-                  >
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleAddStudentData}
-                      >
-                        เพิ่มข้อมูล
-                      </Button>
-                    </Grid>
-                    <Grid item>
-                      <Button
-                        size='small'
-                        onClick={handleClearStudentData}
-                      >
-                        ล้างข้อมูล
-                      </Button>
-                    </Grid>
-                  </Grid>
-                  <FormControl fullWidth>
-                    <FormControl fullWidth>
-                      <Autocomplete
-                        id='student-label'
-                        value={selectedValueStudent === '' ? null : selectedValueStudent}
-                        onChange={handleStudentChange}
-                        options={selectStudent}
-                        getOptionLabel={getOptionLabel}
-                        renderInput={(params) => (
-                          <TextField
-                            {...params}
-                            label='ชื่อนักศึกษา'
-                            error={submitted && allStudent.length === 0}
-                          />
-                        )}
-                      />
-                    </FormControl>
-                  </FormControl>
-                  {additionalStudentForms.map((_, index) => (
-                    <AdditionalStudentForm
-                      key={index}
-                      formIndex={index}
-                    />
-                  ))}
+                    ล้างข้อมูล
+                  </Button>
                 </Grid>
               </Grid>
-            </CardContent>
-            <Divider sx={{ margin: 0 }} />
-            <CardActions>
-              <Button
-                size='large'
-                color='success'
-                type='submit'
-                sx={{ mr: 2 }}
-                variant='outlined'
-                onClick={handleInsertSubmit}
+              <FormControl fullWidth>
+                <InputLabel id='sub-advisor-label'>ที่ปรึกษารอง</InputLabel>
+                <Select
+                  label='Sub Advisor'
+                  labelId='sub-advisor-label'
+                  value={selectedValueAdvisorSub || ''}
+                  onChange={handleSubAdvisorChange}
+                >
+                  {selectableSubTeachers.map((contentTeacher) => (
+                    <MenuItem
+                      key={contentTeacher.tea_id}
+                      value={contentTeacher.tea_id}
+                      disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
+                    >
+                      {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {additionalSubAdvisorForms.map((_, index) => (
+                <AdditionalSubAdvisorForm
+                  key={index}
+                  formIndex={index}
+                  selectedOptions={additionalSubAdvisorForms}
+                />
+              ))}
+            </Grid>
+
+            {/* Committee Select */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600 }}
               >
-                บัณทึก
-              </Button>
-              <Button
-                size='large'
-                color='warning'
-                variant='outlined'
-                onClick={handleResetForm}
+                ชื่อคณะกรรมการ**
+              </Typography>
+              <Grid
+                container
+                justifyContent='flex-end'
+                alignItems='center'
               >
-                รีข้อมูล
-              </Button>
-              <Button
-                size='large'
-                color='error'
-                variant='outlined'
-                onClick={function () {
-                  setActiveIndex(1);
-                  //window.location.reload();
-                  //router.push(`/Backoffice`);
-                }}
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleAddCommitteeData}
+                  >
+                    เพิ่มข้อมูล
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleClearCommitteeData}
+                  >
+                    ล้างข้อมูล
+                  </Button>
+                </Grid>
+              </Grid>
+              <FormControl fullWidth>
+                <InputLabel id='committee-label'>กรรมการ</InputLabel>
+                <Select
+                  label='Committee'
+                  labelId='committee-label'
+                  value={selectedValueCommittee || ''}
+                  onChange={handleCommitteeChange}
+                  error={submitted && allCommitteeValues.length === 0} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                >
+                  {selecCommittee.map((contentTeacher) => (
+                    <MenuItem
+                      key={contentTeacher.tea_id}
+                      value={contentTeacher.tea_id}
+                      disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
+                    >
+                      {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              {additionalCommitteeForms.map((_, index) => (
+                <AdditionalCommitteeForm
+                  key={index}
+                  formIndex={index}
+                  selectedOptions={additionalCommitteeForms}
+                />
+              ))}
+            </Grid>
+
+            {/* Student Select */}
+            <Grid
+              item
+              xs={12}
+              sm={12}
+            >
+              <Typography
+                variant='body2'
+                sx={{ fontWeight: 600 }}
               >
-                ย้อนกลับ
-              </Button>
-            </CardActions>
-          </form>
-        </Card>
-      </div>
-    </div>
+                รายชื่อนักศึกษา**
+              </Typography>
+              <Grid
+                container
+                justifyContent='flex-end'
+                alignItems='center'
+              >
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleAddStudentData}
+                  >
+                    เพิ่มข้อมูล
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Button
+                    size='small'
+                    onClick={handleClearStudentData}
+                  >
+                    ล้างข้อมูล
+                  </Button>
+                </Grid>
+              </Grid>
+              <FormControl fullWidth>
+                <FormControl fullWidth>
+                  <Autocomplete
+                    id='student-label'
+                    value={selectedValueStudent === '' ? null : selectedValueStudent}
+                    onChange={handleStudentChange}
+                    options={selectStudent}
+                    getOptionLabel={getOptionLabel}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        label='ชื่อนักศึกษา'
+                        error={submitted && allStudent.length === 0}
+                      />
+                    )}
+                  />
+                </FormControl>
+              </FormControl>
+              {additionalStudentForms.map((_, index) => (
+                <AdditionalStudentForm
+                  key={index}
+                  formIndex={index}
+                />
+              ))}
+            </Grid>
+          </Grid>
+        </CardContent>
+        <Divider sx={{ margin: 0 }} />
+        <CardActions>
+          <Button
+            size='large'
+            color='success'
+            type='submit'
+            sx={{ mr: 2 }}
+            variant='outlined'
+            onClick={handleInsertSubmit}
+          >
+            บัณทึก
+          </Button>
+          <Button
+            size='large'
+            color='warning'
+            variant='outlined'
+            onClick={handleResetForm}
+          >
+            รีข้อมูล
+          </Button>
+          <Button
+            size='large'
+            color='error'
+            variant='outlined'
+            onClick={function () {
+              window.location.reload();
+              //router.push(`/Backoffice`);
+            }}
+          >
+            ย้อนกลับ
+          </Button>
+        </CardActions>
+      </form>
+    </Card>
   );
 }

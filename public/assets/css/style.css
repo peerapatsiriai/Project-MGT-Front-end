@@ -667,8 +667,8 @@ input[type="color"] {
     border-radius: 12px;
     padding: 15px 26px;
     width: 100%;
-    background: #161616;
-    color: #8A8AA0;
+    /* background: #161616; */
+    /* color: #8A8AA0; */
 }
 
 /* Input focus */
@@ -768,8 +768,8 @@ input[type="reset"]:focus,
 input[type="submit"]:focus {
     outline: 0;
     border: none;
-    background-color: rgba(22, 22, 22, 1);
-    color: rgba(221, 242, 71, 1);
+    /* background-color: rgba(22, 22, 22, 1); */
+    /* color: rgba(221, 242, 71, 1); */
 }
 
 button.style-1:hover,
@@ -782,8 +782,8 @@ input.style-1[type="reset"]:focus,
 input.style-1[type="submit"]:focus {
     outline: 0;
     border: none;
-    color: rgba(22, 22, 22, 1);
-    background-color: rgba(221, 242, 71, 1);
+    /* color: rgba(22, 22, 22, 1); */
+    /* background-color: rgba(221, 242, 71, 1); */
 }
 
 .btn-submit button[type="submit"]:hover {

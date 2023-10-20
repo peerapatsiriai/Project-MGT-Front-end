@@ -6,10 +6,11 @@ import axios from 'axios';
 // Import Component
 import AutoSlider1 from '@/components/slider/AutoSlider1';
 import AutoSlider2 from '@/components/slider/AutoSlider2';
+import { Menu } from '@headlessui/react';
 
 // Next Imports
 
-export default function Preproject_table({ activeIndex, setActiveIndex }) {
+export default function Preproject_table({ activeIndex, setActiveIndex, crossData, setCrossData }) {
   // data variables
   const [prejectdata, setProjectData] = useState([]);
 
@@ -34,11 +35,17 @@ export default function Preproject_table({ activeIndex, setActiveIndex }) {
       }
     };
     fetchData();
-  }, []);
+  }, [activeIndex]);
 
   // Rout to Insert Project page
   const handleInsertProjectClick = () => {
     setActiveIndex(1.1);
+  };
+
+  // Rout to Edit Project page
+  const handleEditProjectClick = (project_id) => {
+    setCrossData(project_id);
+    setActiveIndex(1.2);
   };
 
   return (
@@ -107,13 +114,14 @@ export default function Preproject_table({ activeIndex, setActiveIndex }) {
                 className='tf-button style-1 type-1 tablinks'
                 data-tabs='create'
                 onClick={handleInsertProjectClick}
+                style={{ cursor: 'pointer' }}
               >
                 <span>Insert Project</span>
                 <i className='icon-create' />
               </div>
             </div>
+            {/* End Insert Project Button */}
           </div>
-          {/* End Insert Project Button */}
 
           {/* Table Content */}
           <div
@@ -126,17 +134,20 @@ export default function Preproject_table({ activeIndex, setActiveIndex }) {
                 data
               </h6>
               <i className='icon-keyboard_arrow_down' />
-              <div className='content'>
+              <div
+                className='content'
+                style={{ overflowX: 'auto' }}
+              >
                 {/* header Colum */}
                 <div className='table-heading'>
                   <div className='column'>Project Id</div>
                   <div className='column'>Project Name</div>
-                  <div className='column'>Term</div>
-                  <div className='column'>Sec</div>
-                  <div className='column'>Year</div>
+                  <div className='column'>Term/Year/Sec</div>
                   <div className='column'>Project Type</div>
                   <div className='column'>Status</div>
-                  <div className='column'>Action</div>
+                  {/* <div className='column'>Edit</div> */}
+                  {/* <div className='column'>Detail</div> */}
+                  <div className='column'>Menu</div>
                 </div>
                 {/* End header Colum */}
 
@@ -149,9 +160,9 @@ export default function Preproject_table({ activeIndex, setActiveIndex }) {
                     >
                       <div className='column'>{project.preproject_id}</div>
                       <div className='column'>{project.preproject_name_th}</div>
-                      <div className='column'>{project.semester_order}</div>
-                      <div className='column'>{project.section_name}</div>
-                      <div className='column'>{project.sem_year}</div>
+                      <div className='column'>
+                        Term{project.semester_order} {project.section_name} {project.sem_year}
+                      </div>
                       <div className='column'>{project.project_type}</div>
                       <div className='column'>
                         <span>
@@ -170,12 +181,86 @@ export default function Preproject_table({ activeIndex, setActiveIndex }) {
                         </span>
                       </div>
                       {/* Button Colum */}
-                      <div className='column'>
-                        <span>
-                          <span className='tf-color'>{project.created_by}</span>
-                        </span>
-                      </div>
+                      {/* <div className='column'>
+                        <div className='create menu-tab'>
+                          <div
+                            className='tf-button style-2 type-1 tablinks'
+                            data-tabs='create'
+                            onClick={() => handleEditProjectClick(project.preproject_id)}
+                            style={{ cursor: 'pointer' }}
+                          >
+                            <span>Edit Data</span>
+                          </div>
+                        </div>
+                      </div> */}
                       {/* End Button Colum */}
+
+                      {/* Select Button Colum */}
+                      <div className='column'>
+                        <Menu
+                          as='div'
+                          className='dropdown'
+                        >
+                          <Menu.Button
+                            className='btn btn-secondary dropdown-toggle'
+                            type='button'
+                            id='dropdownMenuButton'
+                            aria-haspopup='true'
+                            aria-expanded='false'
+                          >
+                            <svg
+                              width={20}
+                              height={20}
+                              viewBox='0 0 20 20'
+                              fill='none'
+                              xmlns='http://www.w3.org/2000/svg'
+                            >
+                              <path
+                                d='M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z'
+                                stroke='white'
+                                strokeWidth='1.5'
+                                strokeLinecap='round'
+                                strokeLinejoin='round'
+                              />
+                            </svg>
+                            <span className='inner'>Menu</span>
+                          </Menu.Button>
+                          <Menu.Items
+                            as='div'
+                            className='dropdown-menu d-block'
+                          >
+                            <div className='dropdown-item'>
+                              <div
+                                className='sort-filter'
+                                onClick={() => handleEditProjectClick(project.preproject_id)}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                <span>Edit Data</span>
+                              </div>
+                            </div>
+                            <div className='dropdown-item'>
+                              <div
+                                className='sort-filter'
+                                onClick={() => handleEditProjectClick(project.preproject_id)}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                <span>Detail</span>
+                              </div>
+                            </div>
+                            <div className='dropdown-item'>
+                              <div className='sort-filter'>
+                                <span>Photography</span>
+                              </div>
+                            </div>
+                            <div className='dropdown-item'>
+                              <div className='sort-filter'>
+                                <span>Music</span>
+                              </div>
+                            </div>
+                          </Menu.Items>
+                        </Menu>
+                      </div>
+                      {/* End Select Button Colum */}
                     </div>
                   ))
                 ) : (
