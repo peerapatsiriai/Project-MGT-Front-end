@@ -48,6 +48,12 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
     setActiveIndex(1.2);
   };
 
+  // Rout to Edit Project page
+  const handleDetailProjectClick = (project_id) => {
+    setCrossData(project_id);
+    setActiveIndex(1.3);
+  };
+
   return (
     <>
       <div className='wrapper-content'>
@@ -241,7 +247,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                             <div className='dropdown-item'>
                               <div
                                 className='sort-filter'
-                                onClick={() => handleEditProjectClick(project.preproject_id)}
+                                onClick={() => handleDetailProjectClick(project.preproject_id)}
                                 style={{ cursor: 'pointer' }}
                               >
                                 <span>Detail</span>
