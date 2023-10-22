@@ -54,7 +54,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F7_u7RobsAAvqZy?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>
@@ -69,7 +69,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F8XcRm4bMAAEP2o?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>
@@ -82,7 +82,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F8SQfFsaUAAeuL7?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>
@@ -95,7 +95,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F8NEEC5aIAAWJWy?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>
@@ -108,7 +108,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F8sUpiLaAAA9-YV?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>
@@ -121,7 +121,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://pbs.twimg.com/media/F8cIRQfawAAPoHq?format=jpg&name=small'
+                  src='https://wallpapercave.com/wp/wp2866512.jpg'
                   alt=''
                 />
               </Link>

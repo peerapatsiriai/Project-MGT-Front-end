@@ -22,7 +22,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 // import CE01Record from './CE01Record' // เรียกใช้งานหน้า CE01Record
 
-const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // กำหนดขาดสูดของไฟล์ที่อัปโหลดเป็น 1GB
+const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // กำหนดขนาดสูดของไฟล์ที่อัปโหลดเป็น 1GB
 
 const ACCEPTED_FILE_TYPES = [
   'application/msword',
