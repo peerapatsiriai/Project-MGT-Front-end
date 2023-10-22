@@ -406,9 +406,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     return (
       <FormControl
         fullWidth
-        style={{ marginTop: '15px' }}>
-        <InputLabel id={`additional-sub-advisor-label-${formIndex}`}>
-          ที่ปรึกษารอง {formIndex + 2}
+        style={{ marginTop: '15px' }} sx={ dropdownStyle}>
+        <InputLabel id={`additional-sub-advisor-label-${formIndex}`} sx={inputLabelStyle}>
+          Sup Adviser {formIndex + 2}
         </InputLabel>
         <Select
           label={`additional sub advisor ${formIndex + 1}`}
@@ -484,9 +484,10 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     return (
       <FormControl
         fullWidth
-        style={{ marginTop: '15px' }}>
-        <InputLabel id={`additional-committee-label-${formIndex}`}>
-          กรรมการ {formIndex + 2}
+        style={{ marginTop: '15px' }} sx={dropdownStyle}>
+
+        <InputLabel id={`additional-committee-label-${formIndex}`} sx={inputLabelStyle}>
+          Committee {formIndex + 2}
         </InputLabel>
         <Select
           label={`additional committee ${formIndex + 1}`}
@@ -579,6 +580,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const AdditionalStudentForm = ({ formIndex }) => {
     return (
       <FormControl
+        sx={dropdownStyle}
         fullWidth
         style={{ marginTop: '15px' }}>
         <Autocomplete
@@ -592,7 +594,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
           renderInput={(params) => (
             <TextField
               {...params}
-              label={`นักศึกษา ${formIndex + 2}`}
+              label={`Student ${formIndex + 2}`}
+              InputLabelProps={{
+                style: {
+                  color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                  fontFamily: 'Azeret Mono',
+                },
+              }}
             />
           )}
         />
@@ -600,25 +608,85 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     );
   };
 
+  //------------------------------ Custom Style --------------------------//
+  const dropdownStyle = {
+    border: '1px solid #DDF247',
+    fontFamily: 'Manrope',
+    color: 'rgba(221, 242, 71, 1)', // change color of arrow icon in dropdown but not work
+    '&:focus': {
+      border: '1px solid #DDF247',
+    },
+  };
+
+  const inputLabelStyle = {
+    color: 'rgba(255, 255, 255, 0.53)',
+    fontFamily: 'Azeret Mono',
+    
+  };
+
+  const typographyStyle = {
+    color: '#DDF247',
+    // color: '#fff',
+    fontFamily: 'Manrope',
+    fontSize: '16px',
+    fontWeight: 900,
+  };
+
+  const textFieldStyle = {
+    borderColor: 'rgba(221, 242, 71, 1)',
+    border: '1px solid #DDF247',
+    fontFamily: 'Azeret Mono',
+    color: 'rgba(221, 242, 71, 1)',
+  };
+
+  // For add and clear button
+  const buttonStyle = {
+    color: '#fff', 
+    // color: '#DDF247',
+    // color: 'rgba(255, 255, 255, 0.53)',
+    fontFamily: 'Azeret Mono',
+  }
+  
+  // For submit button
+  const buttonStyle2 = {
+    fontWeight: 700,
+    fontSize: '14px',
+    lineHeight: '22px',
+    backgroundColor: 'rgba(221, 242, 71, 1)',
+    color: 'rgba(22, 22, 22, 1)',
+    borderRadius: '14px',
+    padding: '10px',
+    height: '50px',
+    border: 'none',
+    display: 'inline-block',
+    WebkitAppearance: 'none',
+    WebkitTransition: 'all ease 0.3s',
+    MozTransition: 'all ease 0.3s',
+    transition: 'all ease 0.3s',
+    width: '90px',
+    margin: '0px 10px',
+    '&:hover': {
+      // outline: '0',
+      border: 'none',
+      // backgroundColor:' rgba(22, 22, 22, 1)',
+      color: 'rgba(221, 242, 71, 1)'
+    },
+  };
+
   return (
     <div style={{ fontFamily: 'Manrope' }}>
       <div className='heading-section'>
         <h2
           className='tf-title pb-30'
-          style={{ color: 'rgba(221, 242, 71, 1)' }}>
+          style={{ color: 'rgba(221, 242, 71, 1)', fontFamily: 'Manrope' }}>
           ADD PROJECT
         </h2>
       </div>
-      <div
-        style={{
-          // backgroundColor: 'rgba(255, 255, 255, 0.3)',
-          padding: '20px',
-          // borderRadius: '8px',
-          // boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-
-          color: 'rgba(255, 255, 255, 0.3)',
-        }}>
-        <Card style={{ backgroundColor: '#161616', color: 'white' }}>
+      <div>
+        <Card
+          style={{
+            backgroundColor: '#161616',
+          }}>
           <form>
             <CardContent>
               <Grid
@@ -629,14 +697,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}>
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
-                    style={{
-                      color: '#DDF247',
-                      fontFamily: 'Manrope',
-                      fontSize: '16px',
-                      fontWeight: 900,
-                    }}>
-                    Required information**(Please specify information in order)
+                    sx={typographyStyle}>
+                    Required information** (Please specify information in order)
                   </Typography>
                 </Grid>
 
@@ -645,12 +707,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   item
                   xs={12}
                   sm={6}>
-                  <FormControl
-                    fullWidth
-                    >
-                    <InputLabel id='curriculum-label' style={{ color: '#fff' }} >Curriculums</InputLabel>
+                  <FormControl fullWidth>
+                    <InputLabel
+                      id='curriculum-label'
+                      sx={inputLabelStyle}>
+                      Curriculums
+                    </InputLabel>
                     <Select
-                      style={{  borderColor: 'white' }}
+                      sx={dropdownStyle}
                       label='Curriculum'
                       value={curriculumsId}
                       onChange={handleCurriculumsChange}
@@ -673,8 +737,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={6}>
                   <FormControl fullWidth>
-                    <InputLabel id='subject-label'>Subjects</InputLabel>
+                    <InputLabel
+                      id='subject-label'
+                      sx={inputLabelStyle}>
+                      Subjects
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Subject'
                       value={subjectId}
                       onChange={handleSubjectChange}
@@ -702,8 +771,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={4}>
                   <FormControl fullWidth>
-                    <InputLabel id='year-label'>Year</InputLabel>
+                    <InputLabel
+                      id='year-label'
+                      sx={inputLabelStyle}>
+                      Year
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Year'
                       value={yearId}
                       onChange={handleYearChange}
@@ -731,8 +805,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={4}>
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>Term/Sec</InputLabel>
+                    <InputLabel
+                      id='term-label'
+                      sx={inputLabelStyle}>
+                      Term/Sec
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Term'
                       value={selectedTerm}
                       onChange={handleTermChange}
@@ -744,7 +823,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                           <MenuItem
                             key={term.section_id}
                             value={term.section_id}>
-                            เทอม{term.semester_order} {term.section_name}
+                            Term{term.semester_order} {term.section_name}
                           </MenuItem>
                         ))
                       ) : (
@@ -759,8 +838,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   item
                   xs={12}
                   sm={4}
-                  style={{ backgroundColor: 'white !important' }}>
+   >
                   <TextField
+                    sx={textFieldStyle}
                     fullWidth
                     type='text'
                     label='Pre-project Code'
@@ -768,6 +848,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     value={projectCode}
                     error={submitted && !projectCode} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                     onChange={handleProjectCodeChange}
+                    InputLabelProps={{
+                      style: {
+                        color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                        fontFamily: 'Azeret Mono',
+                      },
+                    }}
                   />
                 </Grid>
 
@@ -777,8 +863,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={4}>
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>Pre-project Type</InputLabel>
+                    <InputLabel
+                      id='term-label'
+                      sx={inputLabelStyle}>
+                      Pre-project Type
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Project-Type'
                       defaultValue=''
                       id='select-04'
@@ -799,8 +890,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={4}>
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>Pre-project status</InputLabel>
+                    <InputLabel
+                      id='term-label'
+                      sx={inputLabelStyle}>
+                      Pre-project status
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Project-Status'
                       defaultValue=''
                       id='select-04'
@@ -827,8 +923,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}>
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
-                    style={{ color: 'rgba(221, 242, 71, 1)' }}>
+                    sx={typographyStyle}>
                     Pre-project Name **
                   </Typography>
                 </Grid>
@@ -837,15 +932,22 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={6}>
                   <TextField
+                  sx={textFieldStyle}
                     fullWidth
                     type='text'
                     label='Pre-project Name(Thai)'
-                    placeholder='ชื่อโครงงาน(ภาษาไทย)'
+                    placeholder='Pre-project Name(Thai)'
                     error={submitted && !projectNameTh} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                     value={projectNameTh}
                     onChange={(e) => {
                       handleProjectNameThChange;
                       handleChange(e, 'preproject_name_th', 'th');
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                        fontFamily: 'Azeret Mono',
+                      },
                     }}
                   />
                 </Grid>
@@ -854,15 +956,22 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={6}>
                   <TextField
+                    sx={textFieldStyle}
                     fullWidth
                     type='text'
                     label='Pre-project Name(English)'
-                    placeholder='ชื่อโครงงาน(ภาษาอังกฤษ)'
+                    placeholder='Pre-project Name(English)'
                     error={submitted && !projectNameEn} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                     value={projectNameEn}
                     onChange={(e) => {
                       handleProjectNameEnChange;
                       handleChange(e, 'preproject_name_eng', 'en');
+                    }}
+                    InputLabelProps={{
+                      style: {
+                        color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                        fontFamily: 'Azeret Mono',
+                      },
                     }}
                   />
                 </Grid>
@@ -874,18 +983,27 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   sm={12}>
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600, mb: 5 }}>
-                    Adviser Name**
+                    sx={typographyStyle}>
+                    Adviser Name **
                   </Typography>
+                  <br></br>
+                  <br></br>
                   <FormControl fullWidth>
-                    <InputLabel id='advisor-label'>Adviser</InputLabel>
+                    <InputLabel id='advisor-label' sx={inputLabelStyle}>Adviser</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Advisor'
                       labelId='advisor-label'
                       value={advisorId}
                       onChange={handleAdvisorChange}
                       disabled={!hasData}
                       error={submitted && !advisorId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
+                      InputLabelProps={{
+                        style: {
+                          color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                          fontFamily: 'Azeret Mono',
+                        },
+                      }}
                     >
                       {teacherData.map((contentTeacher, value) => (
                         <MenuItem
@@ -904,7 +1022,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   sm={12}>
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}>
+                    sx={typographyStyle}>
                     Sub Adviser**
                   </Typography>
                   <Grid
@@ -913,6 +1031,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     alignItems='center'>
                     <Grid item>
                       <Button
+                        sx={buttonStyle}
                         size='small'
                         onClick={handleAddSubAdvisorData}>
                         Add
@@ -920,6 +1039,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </Grid>
                     <Grid item>
                       <Button
+                      sx={buttonStyle}
                         size='small'
                         onClick={handleClearSubAdvisorData}>
                         Clear
@@ -927,8 +1047,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </Grid>
                   </Grid>
                   <FormControl fullWidth>
-                    <InputLabel id='sub-advisor-label'>Sub Adviser</InputLabel>
+                    <InputLabel id='sub-advisor-label' sx={inputLabelStyle}>Sub Adviser</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Sub Advisor'
                       labelId='sub-advisor-label'
                       value={selectedValueAdvisorSub || ''}
@@ -961,7 +1082,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   sm={12}>
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}>
+                    sx={typographyStyle}>
                     Committee Name**
                   </Typography>
                   <Grid
@@ -970,6 +1091,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     alignItems='center'>
                     <Grid item>
                       <Button
+                      sx={buttonStyle}
                         size='small'
                         onClick={handleAddCommitteeData}>
                         Add
@@ -977,6 +1099,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </Grid>
                     <Grid item>
                       <Button
+                      sx={buttonStyle}
                         size='small'
                         onClick={handleClearCommitteeData}>
                         Clear
@@ -984,8 +1107,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </Grid>
                   </Grid>
                   <FormControl fullWidth>
-                    <InputLabel id='committee-label'>Committee</InputLabel>
+                    <InputLabel id='committee-label' sx={inputLabelStyle}>Committee</InputLabel>
                     <Select
+                    sx={dropdownStyle}
                       label='Committee'
                       labelId='committee-label'
                       value={selectedValueCommittee || ''}
@@ -1019,8 +1143,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   xs={12}
                   sm={12}>
                   <Typography
-                    variant='body2'
-                    sx={{ fontWeight: 600 }}>
+                  sx={typographyStyle}
+                    variant='body2'>
                     Student Member Name**
                   </Typography>
                   <Grid
@@ -1029,6 +1153,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     alignItems='center'>
                     <Grid item>
                       <Button
+                      sx={buttonStyle}
                         size='small'
                         onClick={handleAddStudentData}>
                         Add
@@ -1036,6 +1161,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </Grid>
                     <Grid item>
                       <Button
+                      sx={buttonStyle}
                         size='small'
                         onClick={handleClearStudentData}>
                         Clear
@@ -1056,9 +1182,16 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                         getOptionLabel={getOptionLabel}
                         renderInput={(params) => (
                           <TextField
+                          sx={textFieldStyle}
                             {...params}
                             label='Student Name'
                             error={submitted && allStudent.length === 0}
+                            InputLabelProps={{
+                              style: {
+                                color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+                                fontFamily: 'Azeret Mono',
+                              },
+                            }}
                           />
                         )}
                       />
@@ -1079,12 +1212,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 size='large'
                 color='success'
                 type='submit'
-                sx={{ mr: 2 }}
+                sx={buttonStyle2}
                 variant='outlined'
                 onClick={handleInsertSubmit}>
-                Save
+                Insert
               </Button>
               <Button
+                sx={buttonStyle2}
                 size='large'
                 color='warning'
                 variant='outlined'
@@ -1092,6 +1226,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 Reset
               </Button>
               <Button
+                sx={buttonStyle2}
                 size='large'
                 color='error'
                 variant='outlined'
