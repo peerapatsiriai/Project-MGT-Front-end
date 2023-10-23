@@ -18,6 +18,10 @@ import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
 // import withStyles  from '@material-ui/core';
 
+// Custom Style
+import { dropdownStyle, inputLabelStyle, typographyStyle, textFieldStyle, buttonStyle, buttonStyle2 } from 'public/assets/custom_Style/style'; // Adjust the path to your styles file
+
+
 export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const router = useRouter(); // router สร้าง path
   // นำเข้าตัวsweetalert2
@@ -407,15 +411,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     return (
       <FormControl
         fullWidth
-        style={{ marginTop: '15px' }}
-        >
+        style={{ marginTop: '15px' }}>
         <InputLabel
           id={`additional-sub-advisor-label-${formIndex}`}
           sx={inputLabelStyle}>
           Sup Adviser {formIndex + 2}
         </InputLabel>
         <Select
-        sx={dropdownStyle}
+          sx={dropdownStyle}
           label={`additional sub advisor ${formIndex + 1}`}
           labelId={`additional-sub-advisor-label-${formIndex}`}
           value={additionalSubAdvisor || ''}
@@ -610,108 +613,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     );
   };
 
-  //------------------------------ Custom Style --------------------------//
-  const dropdownStyle = {
-    border: '1px solid #DDF247',
-    fontFamily: 'Manrope',
-    color: 'rgba(221, 242, 71, 1)', // change color of arrow icon in dropdown but not work
-    '.MuiSelect-icon': {
-      color: 'rgba(255, 255, 255, 0.53)',
-    },
-    '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-      border: '#DDF247',
-    },
-    
-  };
-
-  const inputLabelStyle = {
-    color: 'rgba(255, 255, 255, 0.53)',
-    fontFamily: 'Azeret Mono',
-    backgroundColor: '#161616',
-    padding: '0 10px 0 10px',
-    '&.Mui-focused': {
-      color: '#161616',
-      backgroundColor: '#DDF247',
-    },
-  };
-
-  const typographyStyle = {
-    color: '#DDF247',
-    // color: '#fff',
-    fontFamily: 'Manrope',
-    fontSize: '16px',
-    fontWeight: 900,
-  };
-
-  const textFieldStyle = {
-    borderColor: 'rgba(221, 242, 71, 1)',
-    border: '0.5px solid #DDF247',
-    fontFamily: 'Azeret Mono',
-    color: 'rgba(221, 242, 71, 1)',
-    '& input': {
-      color: 'rgba(255, 255, 255, 0.53)',
-
-      color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
-      fontFamily: 'Azeret Mono',
-    },
-    '& label': {
-      color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
-      fontFamily: 'Azeret Mono',
-    },
-    '& label.Mui-focused': {
-      color: '#161616',
-      padding: '0 10px 0 10px',
-      backgroundColor: '#DDF247',
-    },
-    '& .MuiInput-underline:after': {
-      // borderBottomColor: 'rgba(221, 242, 71, 1)',
-    },
-    '& .MuiOutlinedInput-root': {
-      '& fieldset': {
-        // borderColor: 'rgba(221, 242, 71, 1)',
-      },
-      '&:hover fieldset': {
-        // borderColor: 'rgba(221, 242, 71, 1)',
-      },
-      '&.Mui-focused fieldset': {
-        borderColor: 'transparent',
-      },
-    },
-  };
-
-  // For add and clear button
-  const buttonStyle = {
-    color: '#fff',
-    // color: '#DDF247',
-    // color: 'rgba(255, 255, 255, 0.53)',
-    fontFamily: 'Azeret Mono',
-  };
-
-  // For submit button
-  const buttonStyle2 = {
-    fontWeight: 700,
-    fontSize: '14px',
-    lineHeight: '22px',
-    backgroundColor: 'rgba(221, 242, 71, 1)',
-    color: 'rgba(22, 22, 22, 1)',
-    borderRadius: '14px',
-    padding: '10px',
-    height: '50px',
-    border: 'none',
-    display: 'inline-block',
-    WebkitAppearance: 'none',
-    WebkitTransition: 'all ease 0.3s',
-    MozTransition: 'all ease 0.3s',
-    transition: 'all ease 0.3s',
-    width: '90px',
-    margin: '0px 10px',
-    '&:hover': {
-      // outline: '0',
-      border: 'none',
-      // backgroundColor:' rgba(22, 22, 22, 1)',
-      color: 'rgba(221, 242, 71, 1)',
-    },
-  };
+  
 
   return (
     <div style={{ fontFamily: 'Manrope' }}>
@@ -903,7 +805,6 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     </InputLabel>
                     <Select
                       sx={dropdownStyle}
-                      
                       label='Project-Type'
                       defaultValue=''
                       id='select-04'
