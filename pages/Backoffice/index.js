@@ -4,10 +4,11 @@ import { useState } from 'react';
 
 // Component Import
 import Create from '@/components/sections/Create';
-import Market from '@/components/sections/Market';
 import Preproject_table from '@/components/Backoffice/Pre_project_Component/Preproject_table';
 import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
 import Edit_General_Data from '@/components/Backoffice/Pre_project_Component/Edit_project/Edit_General_Data';
+import Project_Detail from '@/components/Backoffice/Pre_project_Component/Detail_project/Project_Detail';
+import CE01_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE01/CE01_upload';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -25,7 +26,7 @@ export default function Home() {
   const handleMobileSidebar = () => setMobileSidebar(!isMobileSidebar);
 
   // data variables
-  const [crossdata, setCrossData] = useState([]); // Send data across properties
+  const [crossdata, setCrossData] = useState([]); // Send Project_id data across properties
 
   return (
     <>
@@ -530,6 +531,37 @@ export default function Home() {
                   setActiveIndex={setActiveIndex}
                   crossData={crossdata}
                 />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Project_Detail
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossData={crossdata}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE01_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
               </div>
 
               {/* display Project table */}
