@@ -36,14 +36,14 @@ export const dropdownStyle = {
     fontFamily: 'Azeret Mono',
     color: 'rgba(221, 242, 71, 1)',
     '& input': {
-      color: 'rgba(255, 255, 255, 0.53)',
-
       color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
       fontFamily: 'Azeret Mono',
     },
     '& label': {
       color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
       fontFamily: 'Azeret Mono',
+      backgroundColor: '#161616',
+      padding: '0 10px 0 10px',
     },
     '& label.Mui-focused': {
       color: '#161616',
