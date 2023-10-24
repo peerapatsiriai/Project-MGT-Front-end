@@ -19,8 +19,14 @@ import Autocomplete from '@mui/material/Autocomplete';
 // import withStyles  from '@material-ui/core';
 
 // Custom Style
-import { dropdownStyle, inputLabelStyle, typographyStyle, textFieldStyle, buttonStyle, buttonStyle2 } from 'public/assets/style_custom/style'; // Adjust the path to your styles file
-
+import {
+  dropdownStyle,
+  inputLabelStyle,
+  typographyStyle,
+  textFieldStyle,
+  buttonStyle,
+  buttonStyle2,
+} from 'public/assets/style_custom/style'; // Adjust the path to your styles file
 
 export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const router = useRouter(); // router สร้าง path
@@ -613,8 +619,6 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     );
   };
 
-  
-
   return (
     <div style={{ fontFamily: 'Manrope' }}>
       <div className='heading-section'>
@@ -839,15 +843,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       onChange={handleProjectStatusChange}
                       error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                       value={projectstatus}>
-                      <MenuItem value={'0'}>ไม่ผ่าน</MenuItem>
-                      <MenuItem value={'1'}>
-                        โครงงานยังไม่ได้รับการอนุมัติ
-                      </MenuItem>
-                      <MenuItem value={'2'}>ยังไม่ได้ดำเนินการ</MenuItem>
-                      <MenuItem value={'3'}>อยู่ระหว่างการดำเนินการ</MenuItem>
-                      <MenuItem value={'4'}>สามารถสอบได้</MenuItem>
-                      <MenuItem value={'5'}>ยังไม่ผ่านการสอบ</MenuItem>
-                      <MenuItem value={'6'}>ผ่านแล้วแต่ยังไม่ได้โอน</MenuItem>
+                      <MenuItem value={'0'}>Reject</MenuItem>
+                      <MenuItem value={'1'}>Wait for Approve</MenuItem>
+                      <MenuItem value={'2'}>Inprocess</MenuItem>
+                      <MenuItem value={'3'}>Can examination</MenuItem>
+                      <MenuItem value={'4'}>Examinationing</MenuItem>
+                      <MenuItem value={'5'}>Examination passed</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
