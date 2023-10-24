@@ -21,6 +21,9 @@ import CE04_upload from '@/components/Backoffice/Pre_project_Component/Detail_pr
 import CE05_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE05/CE05_upload';
 import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE06/CE06_upload';
 
+//============================================== Project-table===============================================//
+import Project_table from '@/components/Backoffice/Project_Component/Project_table';
+
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
   const handleOnClick = (index) => {
@@ -706,7 +709,13 @@ export default function Home() {
                 id='bid'
                 className={activeIndex === 2 ? 'tabcontent active' : 'tabcontent'}
               >
-                <ActiveBid />
+                <Project_table
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossData={crossdata}
+                  setCrossData={setCrossData}
+                  searchValue={searchTerm}
+                />
               </div>
             </div>
             {/*------------------------------End Display Content-------------------------------*/}
