@@ -38,6 +38,7 @@ export default function Home() {
 
   // data variables
   const [crossdata, setCrossData] = useState([]); // Send Project_id data across properties
+  const [searchTerm, setSearchTerm] = useState(''); // Search data variable
 
   return (
     <>
@@ -55,6 +56,10 @@ export default function Home() {
                   method='get'
                   role='search'
                   className='search-form relative'
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSearch(searchTerm);
+                  }}
                 >
                   <input
                     type='search'
@@ -65,6 +70,8 @@ export default function Home() {
                     title='Search for'
                     required
                     style={{ background: '#161616', color: '#8A8AA0' }}
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                   <button
                     className='search search-submit'
@@ -524,6 +531,7 @@ export default function Home() {
                   setActiveIndex={setActiveIndex}
                   crossData={crossdata}
                   setCrossData={setCrossData}
+                  searchValue={searchTerm}
                 />
               </div>
               <div

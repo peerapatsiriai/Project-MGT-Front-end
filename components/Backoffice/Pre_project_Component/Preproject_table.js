@@ -10,7 +10,7 @@ import { Menu } from '@headlessui/react';
 
 // Next Imports
 
-export default function Preproject_table({ activeIndex, setActiveIndex, crossData, setCrossData }) {
+export default function Preproject_table({ activeIndex, setActiveIndex, crossData, setCrossData, searchValue }) {
   // data variables
   const [prejectdata, setProjectData] = useState([]);
 
@@ -138,35 +138,37 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
 
                 {/* Data Table */}
                 {prejectdata && prejectdata.length > 0 ? (
-                  prejectdata.map((project) => (
-                    <div
-                      className='table-item'
-                      key={project.preproject_id}
-                    >
-                      <div className='column'>{project.preproject_id}</div>
-                      <div className='column'>{project.preproject_name_th}</div>
-                      <div className='column'>
-                        Term{project.semester_order} {project.section_name} {project.sem_year}
-                      </div>
-                      <div className='column'>{project.project_type}</div>
-                      <div className='column'>
-                        <span>
-                          <span className='tf-color'>
-                            {(() => {
-                              if (project.project_status === 0) return 'Reject';
-                              else if (project.project_status === '1') return 'Wait for Confirm';
-                              else if (project.project_status === '2') return 'Confirm and In Process';
-                              else if (project.project_status === '3') return 'Ready to Test';
-                              else if (project.project_status === '4') return 'In Testing';
-                              else if (project.project_status === '5') return 'Tested Pass';
-                              else if (project.project_status === '6') return 'Transfer';
-                              else return 'Unknown Status';
-                            })()}
+                  prejectdata
+                    .filter((project) => project.preproject_name_th.includes(searchValue))
+                    .map((project) => (
+                      <div
+                        className='table-item'
+                        key={project.preproject_id}
+                      >
+                        <div className='column'>{project.preproject_id}</div>
+                        <div className='column'>{project.preproject_name_th}</div>
+                        <div className='column'>
+                          Term{project.semester_order} {project.section_name} {project.sem_year}
+                        </div>
+                        <div className='column'>{project.project_type}</div>
+                        <div className='column'>
+                          <span>
+                            <span className='tf-color'>
+                              {(() => {
+                                if (project.project_status === 0) return 'Reject';
+                                else if (project.project_status === '1') return 'Wait for Confirm';
+                                else if (project.project_status === '2') return 'Confirm and In Process';
+                                else if (project.project_status === '3') return 'Ready to Test';
+                                else if (project.project_status === '4') return 'In Testing';
+                                else if (project.project_status === '5') return 'Tested Pass';
+                                else if (project.project_status === '6') return 'Transfer';
+                                else return 'Unknown Status';
+                              })()}
+                            </span>
                           </span>
-                        </span>
-                      </div>
-                      {/* Button Colum */}
-                      {/* <div className='column'>
+                        </div>
+                        {/* Button Colum */}
+                        {/* <div className='column'>
                         <div className='create menu-tab'>
                           <div
                             className='tf-button style-2 type-1 tablinks'
@@ -178,80 +180,80 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                           </div>
                         </div>
                       </div> */}
-                      {/* End Button Colum */}
+                        {/* End Button Colum */}
 
-                      {/* Select Button Colum */}
-                      <div className='column'>
-                        <Menu
-                          as='div'
-                          className='dropdown'
-                        >
-                          <Menu.Button
-                            className='btn btn-secondary dropdown-toggle'
-                            type='button'
-                            id='dropdownMenuButton'
-                            aria-haspopup='true'
-                            aria-expanded='false'
-                          >
-                            <svg
-                              width={20}
-                              height={20}
-                              viewBox='0 0 20 20'
-                              fill='none'
-                              xmlns='http://www.w3.org/2000/svg'
-                            >
-                              <path
-                                d='M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z'
-                                stroke='white'
-                                strokeWidth='1.5'
-                                strokeLinecap='round'
-                                strokeLinejoin='round'
-                              />
-                            </svg>
-                            <span className='inner'>Menu</span>
-                          </Menu.Button>
-                          <Menu.Items
+                        {/* Select Button Colum */}
+                        <div className='column'>
+                          <Menu
                             as='div'
-                            className='dropdown-menu d-block'
+                            className='dropdown'
                           >
-                            <div className='dropdown-item'>
-                              <div
-                                className='sort-filter'
-                                onClick={() => handleEditProjectClick(project.preproject_id)}
-                                style={{ cursor: 'pointer' }}
+                            <Menu.Button
+                              className='btn btn-secondary dropdown-toggle'
+                              type='button'
+                              id='dropdownMenuButton'
+                              aria-haspopup='true'
+                              aria-expanded='false'
+                            >
+                              <svg
+                                width={20}
+                                height={20}
+                                viewBox='0 0 20 20'
+                                fill='none'
+                                xmlns='http://www.w3.org/2000/svg'
                               >
-                                <span>Edit Data</span>
+                                <path
+                                  d='M16.875 6.25L16.3542 15.11C16.3261 15.5875 16.1166 16.0363 15.7685 16.3644C15.4204 16.6925 14.96 16.8752 14.4817 16.875H5.51833C5.03997 16.8752 4.57962 16.6925 4.23152 16.3644C3.88342 16.0363 3.6739 15.5875 3.64583 15.11L3.125 6.25M8.33333 9.375H11.6667M2.8125 6.25H17.1875C17.705 6.25 18.125 5.83 18.125 5.3125V4.0625C18.125 3.545 17.705 3.125 17.1875 3.125H2.8125C2.295 3.125 1.875 3.545 1.875 4.0625V5.3125C1.875 5.83 2.295 6.25 2.8125 6.25Z'
+                                  stroke='white'
+                                  strokeWidth='1.5'
+                                  strokeLinecap='round'
+                                  strokeLinejoin='round'
+                                />
+                              </svg>
+                              <span className='inner'>Menu</span>
+                            </Menu.Button>
+                            <Menu.Items
+                              as='div'
+                              className='dropdown-menu d-block'
+                            >
+                              <div className='dropdown-item'>
+                                <div
+                                  className='sort-filter'
+                                  onClick={() => handleEditProjectClick(project.preproject_id)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  <span>Edit Data</span>
+                                </div>
                               </div>
-                            </div>
-                            <div className='dropdown-item'>
-                              <div
-                                className='sort-filter'
-                                onClick={() => handleDetailProjectClick(project.preproject_id)}
-                                style={{ cursor: 'pointer' }}
-                              >
-                                <span>Detail</span>
+                              <div className='dropdown-item'>
+                                <div
+                                  className='sort-filter'
+                                  onClick={() => handleDetailProjectClick(project.preproject_id)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  <span>Detail</span>
+                                </div>
                               </div>
-                            </div>
-                            <div className='dropdown-item'>
-                              <div
-                                className='sort-filter'
-                                onClick={() => handleTransferProjectClick(project.preproject_id)}
-                                style={{ cursor: 'pointer' }}
-                              >
-                                <span>Transfer</span>
+                              <div className='dropdown-item'>
+                                <div
+                                  className='sort-filter'
+                                  onClick={() => handleTransferProjectClick(project.preproject_id)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  <span>Transfer</span>
+                                </div>
                               </div>
-                            </div>
-                            <div className='dropdown-item'>
-                              <div className='sort-filter'>
-                                <span>Music</span>
+                              <div className='dropdown-item'>
+                                <div className='sort-filter'>
+                                  <span>Music</span>
+                                </div>
                               </div>
-                            </div>
-                          </Menu.Items>
-                        </Menu>
+                            </Menu.Items>
+                          </Menu>
+                        </div>
+                        {/* End Select Button Colum */}
                       </div>
-                      {/* End Select Button Colum */}
-                    </div>
-                  ))
+                    ))
                 ) : (
                   <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '200px' }}>
                     <p>No data</p>
