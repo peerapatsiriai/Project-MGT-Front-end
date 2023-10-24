@@ -123,14 +123,14 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                 {/* Data Table */}
                 {projectdata && projectdata.length > 0 ? (
                   projectdata
-                    .filter((project) => project.preproject_name_th.includes(searchValue))
+                    .filter((project) => project.project_name_th.includes(searchValue))
                     .map((project) => (
                       <div
                         className='table-item'
                         key={project.preproject_id}
                       >
                         <div className='column'>{project.preproject_id}</div>
-                        <div className='column'>{project.preproject_name_th}</div>
+                        <div className='column'>{project.project_name_th}</div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
                         </div>
