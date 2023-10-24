@@ -10,16 +10,22 @@ import {
   DialogActions,
   Box,
   Grid,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
 } from '@mui/material';
 import axios from 'axios';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SendIcon from '@mui/icons-material/Send';
 import { styled } from '@mui/system';
+import { useRouter } from 'next/router';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { DataGrid } from '@mui/x-data-grid';
 
-const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // กำหนดขนาดสูดของไฟล์ที่อัปโหลดเป็น 1GB
+const MAX_FILE_SIZE = 1 * 1024 * 1024 * 1024; // กำหนดขาดสูดของไฟล์ที่อัปโหลดเป็น 1GB
 
 const ACCEPTED_FILE_TYPES = [
   'application/msword',
@@ -43,14 +49,13 @@ const WhiteBlackButton = styled(Button)({
   },
 });
 
-const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
+const CE06_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   // นำเข้าตัวsweetalert2
   const Swal = require('sweetalert2');
+  const router = useRouter(); // router สร้าง path
 
   // เก็บค่าจาก Props ลงในตัวแปร
   const projectID = crossData;
-
-  console.log('รหัสโครงการหน้า Upload', projectID);
 
   const [selectedFile, setSelectedFile] = useState(null); // ตัวแปรเก็บค่าไฟล์ที่อัปโหลด
   const [documentName, setDocumentName] = useState(''); // เก็บชื่อเอกสารพร้อมนามสกุลก่อนกดอัปโหลดไฟล์
@@ -59,14 +64,19 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const [fileInputKey, setFileInputKey] = useState(0); // ตัวแปร state สำหรับ key ของ input(ทำให้ input รีค่าใหม่ทึกครั้งที่มีการ อัปโหลดไฟล์)
   const [index, setIndex] = useState(''); // ตัวนับเอกสาร
   const [refreshFlag, setRefreshFlag] = useState(true); // ตัวแปรรีค่าทีเซตใน useEffect
+  const [Role, setRole] = useState(''); // เก็บ Role ผู้ส่ง
 
   //-------------------รีเซตค่า input ใหม่ทุกครั้งที่มีการเรียก Component-------------------------//
-  // ดึงข้อมูลโครงงานจาก id
   useEffect(() => {
     setRowData('');
     setSelectedFile('');
+    setStudentData('');
+    setAdvisorData('');
+    setInstructorData('');
+    setCommitteeData('');
   }, [projectID, activeIndex]);
 
+  //-------------------------------------------------เริ่มกระบวนการ ฮัปโหลดเอกสาร------------------------------------------//
   //-------------------เริ่มการดึงข้อมูล Api มาเซตข้อมูล-------------------------//
 
   // ดึงข้อมูลโครงงานจาก id
@@ -75,7 +85,8 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${projectID}`);
 
-        setDocumentName('CE01_' + response.data.PreprojectData[0].preproject_name_th);
+        // console.log('ข้อมูลโครงงาน', response.data)
+        setDocumentName('CE06_' + response.data.PreprojectData[0].preproject_name_th);
       } catch (error) {
         console.error(error);
       }
@@ -89,8 +100,12 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE01`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE06`
         );
+
+        // console.log('ข้อมูลเอกสาร', response.data)
+
+        // console.log('ข้อมูลIndex', response.data.index)
         setIndex(response.data.index);
       } catch (error) {
         console.error(error);
@@ -151,11 +166,15 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const ResetData = () => {
     setShowFileDetails(false);
     setSelectedFile(null);
+    setStudentData('');
+    setAdvisorData('');
+    setInstructorData('');
+    setCommitteeData('');
   };
 
-  // ฟังก์ชันสำหรับ ส่งเอกสาร CE01
-  const handleCE01Upload = async () => {
-    const docType = 'CE01';
+  // ฟังก์ชันสำหรับ ส่งเอกสาร CE06
+  const handleCE06Upload = async () => {
+    const docType = 'CE06';
     try {
       // ประกอบร่างชื่อใหม่
       const documentNameWithoutSpecialChars = documentName.replace(/[ :]/g, '_'); // แทนที่เครื่องหมายพิเศษด้วย _
@@ -168,7 +187,6 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
       const body = new FormData();
       body.append('file', selectedFile); //ส่งไฟล์เข้า Api
       body.append('newFilename', newFilename); //ส่งชื่อเอกสารเข้าไปใน Api
-
       // ส่งข้อมูลประเภทเอกสารเข้าไปในหน้า Upload
       body.append('docType', docType); //ส่งชื่อเอกสารเข้าไปใน Api
 
@@ -186,19 +204,31 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         return; // ออกจากฟังก์ชันหลังจากแสดงข้อผิดพลาด
       }
 
+      // ตรวจสอบค่าว่างของ Input ก่อนส่ง
+      if (!studentData && !advisor && !committee) {
+        Swal.fire({
+          icon: 'error',
+          title: 'คุณกรอกข้อมูลไม่ครบ...',
+          text: 'กรุณาระบุข้อมูลให้ครบถ้วน!',
+        });
+
+        return;
+      }
+
       // ส่วนส่งข้อมูลไปยัง API ภายนอก
       const data = {
         preproject_id: projectID,
-        document_type: 'CE01',
+        document_type: 'CE06',
         document_name: newFilename,
+        adviser: advisor,
+        studen_id: studentData,
+        committee: committee,
         instructor: '',
-        adviser: '',
-        studen_id: '',
-        document_owner: '0',
         description: '0',
-        committee: '',
-        role: '0',
+        document_owner: '0',
+        role: Role,
       };
+      console.log(data);
 
       try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/uploadpreprojectdocuments`, data);
@@ -229,6 +259,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //--------------------------------------------------------------ฟังก์ชันดาวน์โหลดเอกสาร--------------------------------------------------//
   // กำหนดตัวแปร
   const [rowdata, setRowData] = useState([]); // ตัวแปรเก็บค่า Row
+  console.log('ข้อมูลแถว', rowdata);
 
   // กำหนดหัว Colum
   const columns = [
@@ -246,7 +277,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
       renderCell: (params) => (
         <Button
           variant='h6'
-          style={{ color: 'pink', margin: '10px' }}
+          style={{ color: 'pink' }}
           onClick={() => handlePreview(params.row.document_name)}
         >
           ...
@@ -275,8 +306,10 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE01`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE06`
         );
+
+        // console.log('ข้อมูล CE06', response.data)
 
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
         const rowData = response.data.documentList.map((document) => ({
@@ -299,7 +332,9 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //----------------------------เริ่มฟังก์ชันดาวโหลดเอกสาร--------------------------//
   const handleDownload = async (FileName) => {
     const fileName = FileName;
-    const docType = 'CE01';
+    const docType = 'CE06';
+
+    console.log('ชื่อไฟล์', fileName);
 
     try {
       const downloadResponse = await fetch('/api/download', {
@@ -336,6 +371,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //----------------------------จบฟังก์ชันดาวโหลดเอกสาร--------------------------//
 
   //----------------------------เริ่มฟังก์พรีวิวเอกสาร--------------------------//
+  // State to control the preview dialog
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewDocumentUrl, setPreviewDocumentUrl] = useState('');
 
@@ -347,7 +383,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fileName: FileName, docType: 'CE01' }),
+        body: JSON.stringify({ fileName: FileName, docType: 'CE06' }),
         responseType: 'blob',
       });
 
@@ -375,9 +411,180 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
 
   //--------------------------------------------------------------จบฟังก์ชันดาวน์โหลดเอกสาร--------------------------------------------------//
 
+  //---------------------------------ฟังก์ชันระบุ Role ผู้ส่ง------------------------------------//
+  const [studentData, setStudentData] = useState(''); // เก็บค่าข้อมูลนักศึกษา
+  const [advisor, setAdvisorData] = useState(''); // เก็บค่าข้อมูลอาจารที่ปรึกษา
+  const [instructor, setInstructorData] = useState([]); // เก็บค่าข้อมูลอาจารย์
+  const [committee, setCommitteeData] = useState([]); // เก็บค่าข้อมูลกรรมการ
+
+  //   console.log('ควยลอก', advisor)
+
+  //ตัวแปรรับข้อมูล
+  const [getStudentData, setGetStudentData] = useState(''); // รับค่าข้อมูลนักศึกษา
+  const [getAdvisor, setGetAdvisorData] = useState(''); // รับค่าข้อมูลอาจารที่ปรึกษา
+  const [getInstructor, setGetInstructorData] = useState([]); // รับค่าข้อมูลอาจารย์
+  const [getCommittee, setGetCommitteeData] = useState([]); // รับค่าข้อมูลกรรมการ
+
+  // console.log('ชื่อกรรมการ', getCommittee)
+
+  // เก็บข้อมูลลง Api
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE06`
+        );
+
+        // console.log('ข้อมูล CE06', response.data)
+        console.log('คนจริง', response.data);
+        console.log('อาจารย์ที่ปรึกษา', response.data.adviser);
+        setGetStudentData(response.data.students);
+        setGetAdvisorData(response.data.adviser);
+        setGetCommitteeData(response.data.committee);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, [projectID, activeIndex]);
+
+  // เซตข้อมูลลง Role
+  useEffect(() => {
+    // กำหนด Role ก่อนส่ง
+    // s = student
+    // i = instructor
+    // a = advisor
+    // c = committee
+
+    if (committee) {
+      setRole('c');
+    } else if (studentData) {
+      setRole('s');
+    } else if (advisor) {
+      setRole('a');
+    }
+  }, [advisor, committee, studentData]);
+
+  //---------ฟังก์ชันจัดการการเปลี่ยนแปลงของค่าใน Select dropdown---------//
+
+  const handleStudentChange = (event) => {
+    setStudentData(event.target.value);
+    setCommitteeData('');
+    setAdvisorData('');
+  };
+
+  const handleAdvisorChange = (event) => {
+    setAdvisorData(event.target.value);
+    setStudentData('');
+    setCommitteeData('');
+  };
+
+  const handleCommitteeChange = (event) => {
+    setCommitteeData(event.target.value);
+    setAdvisorData('');
+    setStudentData('');
+  };
+
+  //---------จบ ฟังก์ชันจัดการการเปลี่ยนแปลงของค่าใน Select dropdown---------//
+
+  //---------------------------------จบฟังก์ชันระบุ Role ผู้ส่ง------------------------------------//
   return (
     <div>
-      <Box style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
+      {/* ฟังก์ชันระบุ Roleและเลือกผู้ส่งเอกสาร  */}
+      <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: '15px', marginBottom: '15px' }}>
+        <Card sx={{ mb: 0.5, borderRadius: 2, width: '70%' }}>
+          <Typography
+            align='center'
+            variant='h6'
+            style={{
+              fontWeight: 'bold',
+              marginTop: 10,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <AccountCircleIcon style={{ marginRight: '0.2rem', height: '5vh' }} /> ระบุ Role ผู้ส่งเอกสาร
+          </Typography>
+          <CardContent>
+            <Grid
+              container
+              spacing={2}
+              sx={{ display: 'flex', justifyContent: 'center' }}
+            >
+              {/* Student Select */}
+              {/* <Grid item xs={12} sm={3}>
+                <FormControl fullWidth>
+                  <InputLabel id='Student-label'>นักศึกษา</InputLabel>
+                  <Select label='นักศึกษา' value={studentData} onChange={handleStudentChange} labelId='student-label'>
+                    {getStudentData.length > 0 ? (
+                      getStudentData.map(student => (
+                        <MenuItem key={student.studen_id} value={student.studen_id}>
+                          {student.studen_first_name} {student.studen_last_name} รหัสนักศึกษา {student.studen_number}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Grid> */}
+
+              {/* Advisor Select */}
+              <Grid
+                item
+                xs={12}
+                sm={3}
+              >
+                <FormControl fullWidth>
+                  <InputLabel id='Advisor-label'>อาจารย์ที่ปรึกษา</InputLabel>
+                  <Select
+                    label='อาจารย์ที่ปรึกษา'
+                    value={advisor}
+                    onChange={handleAdvisorChange}
+                    labelId='Advisor-label'
+                  >
+                    {getAdvisor.length > 0 ? (
+                      getAdvisor.map((advisor) => (
+                        <MenuItem
+                          key={advisor.tea_id}
+                          value={advisor.tea_id}
+                        >
+                          {advisor.tea_name} {advisor.tea_lname}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              {/* Committee Select */}
+              {/* <Grid item xs={12} sm={3}>
+                <FormControl fullWidth>
+                  <InputLabel id='Committee-label'>กรรมการ</InputLabel>
+                  <Select label='กรรมการ' value={committee} onChange={handleCommitteeChange} labelId='committee-label'>
+                    {getCommittee.length > 0 ? (
+                      getCommittee.map(committee => (
+                        <MenuItem key={committee.instructor_id} value={committee.instructor_id}>
+                          {committee.instructors_name}
+                        </MenuItem>
+                      ))
+                    ) : (
+                      <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                    )}
+                  </Select>
+                </FormControl>
+              </Grid> */}
+            </Grid>
+          </CardContent>
+        </Card>
+      </Box>
+
+      {/* ฟังก์ชันอัปโหลดเอกสาร */}
+      <Box style={{ display: 'flex', justifyContent: 'center' }}>
         <Card style={{ width: '60%', borderRadius: 15 }}>
           <Typography
             align='center'
@@ -390,7 +597,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
               justifyContent: 'center',
             }}
           >
-            <PostAddIcon style={{ marginRight: '0.2rem', height: '5vh' }} /> อัปโหลดเอกสาร CE 01
+            <PostAddIcon style={{ marginRight: '0.2rem', height: '5vh' }} /> อัปโหลดเอกสาร CE 06
           </Typography>
           <CardContent align='center'>
             {/* Upload Input */}
@@ -429,8 +636,8 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                   endIcon={<SendIcon />}
                   disabled={!selectedFile}
                   onClick={() => {
-                    handleCE01Upload();
-                    setRefreshFlag((prevFlag) => !prevFlag); // เรียกใช้ useEffect ใน CE01Record
+                    handleCE06Upload();
+                    setRefreshFlag((prevFlag) => !prevFlag); // เรียกใช้ useEffect ใน CE02Record
                   }}
                 >
                   ส่ง
@@ -514,6 +721,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         </Button>
       </Box>
 
+      {/* เริ่มทำฟังก์ชัน Download เอกสาร */}
       <Box sx={{ mt: 10, display: 'flex', justifyContent: 'center' }}>
         <Card style={{ width: '80%', borderRadius: 15 }}>
           <Typography
@@ -597,4 +805,4 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   );
 };
 
-export default CE01_upload;
+export default CE06_upload;

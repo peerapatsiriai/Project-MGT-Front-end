@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Detail_Data({ Project_data, Committee_data, Students_data, SubAdviser_data }) {
-  // console.log('01 Project_data', Project_data);
-  // console.log('02 Committee_data', Committee_data);
-  console.log('03 Students_data', Students_data);
-  // console.log('04 SubAdviser_data', SubAdviser_data);
-
   return (
     <>
       <div>

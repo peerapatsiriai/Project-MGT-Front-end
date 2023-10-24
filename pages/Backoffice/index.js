@@ -3,12 +3,23 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 // Component Import
-import Create from '@/components/sections/Create';
+//============================================== Pre-Project-table===============================================//
 import Preproject_table from '@/components/Backoffice/Pre_project_Component/Preproject_table';
+//==============================================Insert Project===============================================//
+import Create from '@/components/sections/Create';
 import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
+//==============================================Edit Project===============================================//
 import Edit_General_Data from '@/components/Backoffice/Pre_project_Component/Edit_project/Edit_General_Data';
+//==============================================Project Transfer===============================================//
+import Pre_project_transfer from '@/components/Backoffice/Pre_project_Component/Transfer_pre_project/Pre_project_transfer';
+//==============================================Project Detail===============================================//
 import Project_Detail from '@/components/Backoffice/Pre_project_Component/Detail_project/Project_Detail';
 import CE01_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE01/CE01_upload';
+import CE02_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE02/CE02_upload';
+import CE03_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE03/CE03_upload';
+import CE04_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE04/CE04_upload';
+import CE05_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE05/CE05_upload';
+import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE06/CE06_upload';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -37,6 +48,7 @@ export default function Home() {
         >
           <div id='market-header'>
             <div className='market-header flex items-center justify-between'>
+              {/* Search Input */}
               <div className='widget-search'>
                 <form
                   action='#'
@@ -63,6 +75,7 @@ export default function Home() {
                   </button>
                 </form>
               </div>
+              {/* Search Input */}
               <div
                 className='admin_active'
                 id='header_admin'
@@ -562,6 +575,122 @@ export default function Home() {
                     />
                   </div>
                 </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE02_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_3 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE03_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_4 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE04_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_5 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE05_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 1.3_6 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <CE06_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossData={crossdata}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div
+                id='market'
+                className={activeIndex === 1.4 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Pre_project_transfer
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossData={crossdata}
+                />
               </div>
 
               {/* display Project table */}

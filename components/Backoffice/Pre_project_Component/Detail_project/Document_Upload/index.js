@@ -2,11 +2,34 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Document_Upload({ DocumentData, activeIndex, setActiveIndex, crossData }) {
-  console.log('DocumentData', DocumentData);
-
   // Rout to CE01 Upload Document page
   const CE01Page = (project_id) => {
     setActiveIndex(1.3_1);
+  };
+
+  // Rout to CE02 Upload Document page
+  const CE02Page = (project_id) => {
+    setActiveIndex(1.3_2);
+  };
+
+  // Rout to CE03 Upload Document page
+  const CE03Page = (project_id) => {
+    setActiveIndex(1.3_3);
+  };
+
+  // Rout to CE04 Upload Document page
+  const CE04Page = (project_id) => {
+    setActiveIndex(1.3_4);
+  };
+
+  // Rout to CE05 Upload Document page
+  const CE05Page = (project_id) => {
+    setActiveIndex(1.3_5);
+  };
+
+  // Rout to CE06 Upload Document page
+  const CE06Page = (project_id) => {
+    setActiveIndex(1.3_6);
   };
 
   return (
@@ -85,7 +108,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
 
                   <div className='button-place-bid'>
                     <a
-                      onClick={() => CE01Page(crossData)}
+                      onClick={() => CE02Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -132,7 +155,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
 
                   <div className='button-place-bid'>
                     <a
-                      onClick={() => CE01Page(crossData)}
+                      onClick={() => CE03Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -179,7 +202,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
 
                   <div className='button-place-bid'>
                     <a
-                      onClick={() => CE01Page(crossData)}
+                      onClick={() => CE04Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -226,7 +249,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
 
                   <div className='button-place-bid'>
                     <a
-                      onClick={() => CE01Page(crossData)}
+                      onClick={() => CE05Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -273,7 +296,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
 
                   <div className='button-place-bid'>
                     <a
-                      onClick={() => CE01Page(crossData)}
+                      onClick={() => CE06Page(crossData)}
                       href='#'
                       className='tf-button'
                     >

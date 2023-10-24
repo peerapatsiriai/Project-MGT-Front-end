@@ -14,8 +14,6 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
   // data variables
   const [prejectdata, setProjectData] = useState([]);
 
-  console.log('prejectdata', prejectdata);
-
   // filter Control
   // const [activeIndex, setActiveIndex] = useState(1);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -28,7 +26,6 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preprojects`);
-        console.log(response.data.data);
         setProjectData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -37,6 +34,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
     fetchData();
   }, [activeIndex]);
 
+  //=====================================Rount page Functions================================//
   // Rout to Insert Project page
   const handleInsertProjectClick = () => {
     setActiveIndex(1.1);
@@ -53,6 +51,13 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
     setCrossData(project_id);
     setActiveIndex(1.3);
   };
+
+  // Rout to Transfer Project page
+  const handleTransferProjectClick = (project_id) => {
+    setCrossData(project_id);
+    setActiveIndex(1.4);
+  };
+  //=====================================End Rount page Functions================================//
 
   return (
     <>
@@ -80,36 +85,10 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
             <h2 className='tf-title pb-30'>PROJECT - LIST</h2>
           </div>
 
-          {/* Content 01 */}
           <div className='widget-tabs relative'>
-            {/* Filter Button */}
-            <ul className='widget-menu-tab'>
-              <li
-                className={activeIndex === 1 ? 'item-title active' : 'item-title'}
-                onClick={() => handleOnClick(1)}
-              >
-                <span className='inner'>All history</span>
-              </li>
-              <li
-                className={activeIndex === 2 ? 'item-title active' : 'item-title'}
-                onClick={() => handleOnClick(2)}
-              >
-                <span className='inner'>Transaction</span>
-              </li>
-              <li
-                className={activeIndex === 3 ? 'item-title active' : 'item-title'}
-                onClick={() => handleOnClick(3)}
-              >
-                <span className='inner'>Upload</span>
-              </li>
-              <li
-                className={activeIndex === 4 ? 'item-title active' : 'item-title'}
-                onClick={() => handleOnClick(4)}
-              >
-                <span className='inner'>Operation</span>
-              </li>
-            </ul>
-            {/* End Filter Button */}
+            {/* filter Button */}
+
+            {/* End filter Button */}
 
             {/* Insert Project Button */}
             <div
@@ -254,8 +233,12 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                               </div>
                             </div>
                             <div className='dropdown-item'>
-                              <div className='sort-filter'>
-                                <span>Photography</span>
+                              <div
+                                className='sort-filter'
+                                onClick={() => handleTransferProjectClick(project.preproject_id)}
+                                style={{ cursor: 'pointer' }}
+                              >
+                                <span>Transfer</span>
                               </div>
                             </div>
                             <div className='dropdown-item'>

@@ -43,7 +43,7 @@ const WhiteBlackButton = styled(Button)({
   },
 });
 
-const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
+const CE02_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   // นำเข้าตัวsweetalert2
   const Swal = require('sweetalert2');
 
@@ -61,7 +61,6 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const [refreshFlag, setRefreshFlag] = useState(true); // ตัวแปรรีค่าทีเซตใน useEffect
 
   //-------------------รีเซตค่า input ใหม่ทุกครั้งที่มีการเรียก Component-------------------------//
-  // ดึงข้อมูลโครงงานจาก id
   useEffect(() => {
     setRowData('');
     setSelectedFile('');
@@ -75,7 +74,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${projectID}`);
 
-        setDocumentName('CE01_' + response.data.PreprojectData[0].preproject_name_th);
+        setDocumentName('CE02_' + response.data.PreprojectData[0].preproject_name_th);
       } catch (error) {
         console.error(error);
       }
@@ -89,7 +88,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE01`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE02`
         );
         setIndex(response.data.index);
       } catch (error) {
@@ -153,9 +152,9 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     setSelectedFile(null);
   };
 
-  // ฟังก์ชันสำหรับ ส่งเอกสาร CE01
-  const handleCE01Upload = async () => {
-    const docType = 'CE01';
+  // ฟังก์ชันสำหรับ ส่งเอกสาร CE02
+  const handleCE02Upload = async () => {
+    const docType = 'CE02';
     try {
       // ประกอบร่างชื่อใหม่
       const documentNameWithoutSpecialChars = documentName.replace(/[ :]/g, '_'); // แทนที่เครื่องหมายพิเศษด้วย _
@@ -189,7 +188,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
       // ส่วนส่งข้อมูลไปยัง API ภายนอก
       const data = {
         preproject_id: projectID,
-        document_type: 'CE01',
+        document_type: 'CE02',
         document_name: newFilename,
         instructor: '',
         adviser: '',
@@ -275,7 +274,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE01`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE02`
         );
 
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
@@ -299,7 +298,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //----------------------------เริ่มฟังก์ชันดาวโหลดเอกสาร--------------------------//
   const handleDownload = async (FileName) => {
     const fileName = FileName;
-    const docType = 'CE01';
+    const docType = 'CE02';
 
     try {
       const downloadResponse = await fetch('/api/download', {
@@ -347,7 +346,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ fileName: FileName, docType: 'CE01' }),
+        body: JSON.stringify({ fileName: FileName, docType: 'CE02' }),
         responseType: 'blob',
       });
 
@@ -390,7 +389,7 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
               justifyContent: 'center',
             }}
           >
-            <PostAddIcon style={{ marginRight: '0.2rem', height: '5vh' }} /> อัปโหลดเอกสาร CE 01
+            <PostAddIcon style={{ marginRight: '0.2rem', height: '5vh' }} /> อัปโหลดเอกสาร CE 02
           </Typography>
           <CardContent align='center'>
             {/* Upload Input */}
@@ -429,8 +428,8 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                   endIcon={<SendIcon />}
                   disabled={!selectedFile}
                   onClick={() => {
-                    handleCE01Upload();
-                    setRefreshFlag((prevFlag) => !prevFlag); // เรียกใช้ useEffect ใน CE01Record
+                    handleCE02Upload();
+                    setRefreshFlag((prevFlag) => !prevFlag); // เรียกใช้ useEffect ใน CE02Record
                   }}
                 >
                   ส่ง
@@ -597,4 +596,4 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   );
 };
 
-export default CE01_upload;
+export default CE02_upload;
