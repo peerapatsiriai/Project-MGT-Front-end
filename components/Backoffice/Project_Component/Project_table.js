@@ -10,9 +10,14 @@ import { Menu } from '@headlessui/react';
 
 // Next Imports
 
-export default function Project_table({ activeIndex, setActiveIndex, crossData, setCrossData, searchValue }) {
+export default function Project_table({ activeIndex, setActiveIndex, crossData, setCrossDataProject, searchValue }) {
   // data variables
   const [projectdata, setProjectData] = useState([]);
+
+  console.log('ข้อมูลโปรเจค', projectdata);
+
+  // sweetalert2 Import
+  const Swal = require('sweetalert2');
 
   // filter Control
   // const [activeIndex, setActiveIndex] = useState(1);
@@ -26,7 +31,6 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/getallprojects`);
-        // console.log('รักนะซารัน', response);
         setProjectData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -36,29 +40,61 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
   }, [activeIndex]);
 
   //=====================================Rount page Functions================================//
-  // Rout to Insert Project page
-  const handleInsertProjectClick = () => {
-    setActiveIndex(1.1);
-  };
 
-  // Rout to Edit Project page
-  const handleEditProjectClick = (project_id) => {
-    setCrossData(project_id);
-    setActiveIndex(1.2);
-  };
-
-  // Rout to Edit Project page
+  // Rout to Detail Project page
   const handleDetailProjectClick = (project_id) => {
-    setCrossData(project_id);
-    setActiveIndex(1.3);
+    setCrossDataProject(project_id);
+    setActiveIndex(2.1);
   };
 
-  // Rout to Transfer Project page
-  const handleTransferProjectClick = (project_id) => {
-    setCrossData(project_id);
-    setActiveIndex(1.4);
-  };
   //=====================================End Rount page Functions================================//
+
+  // ฟังก์ชันสำหรับ Delete Project
+  const handleDeleteSubmit = (projectId) => {
+    Swal.fire({
+      title: 'Do you want to delete the data?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'yes',
+      cancelButtonText: 'no',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data = {
+          project_id: projectId,
+        };
+
+        if (projectId !== '') {
+          axios
+            .put(`${process.env.NEXT_PUBLIC_API}api/project-mgt/deleteproject`, data)
+            .then(function (response) {
+              console.log(response);
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Finished deleting data.',
+                text: 'You can no longer recover data.',
+              });
+
+              // setActiveIndex(1);
+              setProjectData((prevData) => prevData.filter((project) => project.project_id !== projectId));
+            })
+            .catch(function (error) {
+              console.log(error);
+
+              Swal.fire({
+                icon: 'error',
+                title: 'An error occurred.',
+                text: 'Unable to delete data',
+              });
+            });
+        } else {
+          console.log('not have any id to delete');
+        }
+      } else if (result.isDenied) {
+        console.log('cancelled delete');
+      }
+    });
+  };
 
   return (
     <>
@@ -109,7 +145,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
               >
                 {/* header Colum */}
                 <div className='table-heading'>
-                  <div className='column'>Project Id</div>
+                  <div className='column'>Project Code</div>
                   <div className='column'>Project Name</div>
                   <div className='column'>Term/Year/Sec</div>
                   <div className='column'>Project Type</div>
@@ -129,7 +165,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                         className='table-item'
                         key={project.preproject_id}
                       >
-                        <div className='column'>{project.preproject_id}</div>
+                        <div className='column'>{project.project_code}</div>
                         <div className='column'>{project.project_name_th}</div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
@@ -203,16 +239,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                               <div className='dropdown-item'>
                                 <div
                                   className='sort-filter'
-                                  onClick={() => handleEditProjectClick(project.preproject_id)}
-                                  style={{ cursor: 'pointer' }}
-                                >
-                                  <span>Edit Data</span>
-                                </div>
-                              </div>
-                              <div className='dropdown-item'>
-                                <div
-                                  className='sort-filter'
-                                  onClick={() => handleDetailProjectClick(project.preproject_id)}
+                                  onClick={() => handleDetailProjectClick(project.project_id)}
                                   style={{ cursor: 'pointer' }}
                                 >
                                   <span>Detail</span>
@@ -221,15 +248,10 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                               <div className='dropdown-item'>
                                 <div
                                   className='sort-filter'
-                                  onClick={() => handleTransferProjectClick(project.preproject_id)}
+                                  onClick={() => handleDeleteSubmit(project.project_id)}
                                   style={{ cursor: 'pointer' }}
                                 >
-                                  <span>Transfer</span>
-                                </div>
-                              </div>
-                              <div className='dropdown-item'>
-                                <div className='sort-filter'>
-                                  <span>Music</span>
+                                  <span>Delete</span>
                                 </div>
                               </div>
                             </Menu.Items>

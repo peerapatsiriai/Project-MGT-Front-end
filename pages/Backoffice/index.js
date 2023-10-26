@@ -8,11 +8,11 @@ import Preproject_table from '@/components/Backoffice/Pre_project_Component/Prep
 //==============================================Insert Project===============================================//
 import Create from '@/components/sections/Create';
 import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
-//==============================================Edit Project===============================================//
+//==============================================Edit Pre-Project===============================================//
 import Edit_General_Data from '@/components/Backoffice/Pre_project_Component/Edit_project/Edit_General_Data';
 //==============================================Project Transfer===============================================//
 import Pre_project_transfer from '@/components/Backoffice/Pre_project_Component/Transfer_pre_project/Pre_project_transfer';
-//==============================================Project Detail===============================================//
+//==============================================Pre-Project Detail===============================================//
 import Project_Detail from '@/components/Backoffice/Pre_project_Component/Detail_project/Project_Detail';
 import CE01_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE01/CE01_upload';
 import CE02_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE02/CE02_upload';
@@ -23,6 +23,8 @@ import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_pr
 
 //============================================== Project-table===============================================//
 import Project_table from '@/components/Backoffice/Project_Component/Project_table';
+//==============================================Project Detail===============================================//
+import Project_Real_Detail from '@/components/Backoffice/Project_Component/Detail_Real_Project/Project_Real_Detail';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -40,7 +42,8 @@ export default function Home() {
   const handleMobileSidebar = () => setMobileSidebar(!isMobileSidebar);
 
   // data variables
-  const [crossdata, setCrossData] = useState([]); // Send Project_id data across properties
+  const [crossdata, setCrossData] = useState([]); // Send Pre_project_id data across properties
+  const [crossdataProject, setCrossDataProject] = useState([]); // Send Project_id data across properties
   const [searchTerm, setSearchTerm] = useState(''); // Search data variable
 
   return (
@@ -712,9 +715,19 @@ export default function Home() {
                 <Project_table
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
-                  crossData={crossdata}
-                  setCrossData={setCrossData}
+                  crossdataProject={crossdataProject}
+                  setCrossDataProject={setCrossDataProject}
                   searchValue={searchTerm}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Project_Real_Detail
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossdataProject={crossdataProject}
                 />
               </div>
             </div>

@@ -23,14 +23,14 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
             {/* Content 01 */}
             <div className='details-item'>
               <span>Project Name TH</span>
-              <span className='tf-color'>{Project_data.preproject_name_th}</span>
+              <span className='tf-color'>{Project_data.preproject_name_th || Project_data.project_name_th}</span>
             </div>
             {/* End Content 01 */}
 
             {/* Content 02 */}
             <div className='details-item'>
               <span>Project Name EN</span>
-              <span className='tf-color'>{Project_data.preproject_name_eng}</span>
+              <span className='tf-color'>{Project_data.preproject_name_eng || Project_data.project_name_eng}</span>
             </div>
             {/* End Content 02 */}
 
@@ -115,7 +115,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {SubAdviser_data.length > 0
                   ? SubAdviser_data.map((subAdviser, index) => (
                       <span key={index}>
-                        {subAdviser.tea_name}
+                        {subAdviser.tea_name} {subAdviser.tea_lname}
                         {index < SubAdviser_data.length - 1 ? ', ' : ''}
                       </span>
                     ))
@@ -131,7 +131,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {Committee_data.length > 0
                   ? Committee_data.map((Committee, index) => (
                       <span key={index}>
-                        {Committee.tea_name}
+                        {Committee.tea_name} {Committee.tea_lname}
                         {index < Committee_data.length - 1 ? ', ' : ''}
                       </span>
                     ))

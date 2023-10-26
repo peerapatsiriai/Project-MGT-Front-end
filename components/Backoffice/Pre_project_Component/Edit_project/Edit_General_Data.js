@@ -152,29 +152,26 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
       studen_id: allStudent,
     };
 
-    console.log('Send data', data);
+    axios
+      .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/updatepreproject`, data)
+      .then((response) => {
+        console.log(response);
+        handleClose();
 
-    // axios
-    //   .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/updatepreproject`, data)
-    //   .then((response) => {
-    //     console.log(response);
-    //     handleClose();
+        // window.location.reload()
+        Route.replace(Route.asPath, undefined, { scroll: false });
+        handleCancel(); // รีข้อมูล
+      })
+      .catch((error) => {
+        console.log(error);
+      });
 
-    //     // window.location.reload()
-    //     Route.replace(Route.asPath, undefined, { scroll: false });
-    //     handleCancel(); // รีข้อมูล
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    Swal.fire({
+      icon: 'success',
+      title: 'อัปเดทข้อมูลแล้วเสร็จ',
+    });
 
-    // Swal.fire({
-    //   icon: 'success',
-    //   title: 'อัปเดทข้อมูลแล้วเสร็จ',
-    // });
-
-    // setActiveIndex(1);
-    // router.push(`/BackOffice`);
+    setActiveIndex(1);
   };
 
   // ตัวแปรเช็คว่ามีข้อมูลให้ Map หรือไม่
@@ -936,7 +933,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                           key={value}
                           value={contentTeacher.tea_id}
                         >
-                          {contentTeacher.tea_name}
+                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
                     </Select>
@@ -990,7 +987,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                           value={contentTeacher.tea_id}
                           disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
                         >
-                          {contentTeacher.tea_name}
+                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1053,7 +1050,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                           value={contentTeacher.tea_id}
                           disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
                         >
-                          {contentTeacher.tea_name}
+                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
                     </Select>

@@ -14,6 +14,10 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
   // data variables
   const [prejectdata, setProjectData] = useState([]);
 
+  console.log('prejectdata', prejectdata);
+  // sweetalert2 Import
+  const Swal = require('sweetalert2');
+
   // filter Control
   // const [activeIndex, setActiveIndex] = useState(1);
   const [selectedDate, setSelectedDate] = useState(null);
@@ -58,6 +62,53 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
     setActiveIndex(1.4);
   };
   //=====================================End Rount page Functions================================//
+
+  // ฟังก์ชันสำหรับ Delete Project
+  const handleDeleteSubmit = (projectId) => {
+    Swal.fire({
+      title: 'Do you want to delete the data?',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'yes',
+      cancelButtonText: 'no',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const data = {
+          preproject_id: projectId,
+        };
+
+        if (projectId !== '') {
+          axios
+            .put(`${process.env.NEXT_PUBLIC_API}api/project-mgt/deletepreproject`, data)
+            .then(function (response) {
+              console.log(response);
+
+              Swal.fire({
+                icon: 'success',
+                title: 'Finished deleting data.',
+                text: 'You can no longer recover data.',
+              });
+
+              // setActiveIndex(1);
+              setProjectData((prevData) => prevData.filter((project) => project.preproject_id !== projectId));
+            })
+            .catch(function (error) {
+              console.log(error);
+
+              Swal.fire({
+                icon: 'error',
+                title: 'An error occurred.',
+                text: 'Unable to delete data',
+              });
+            });
+        } else {
+          console.log('not have any id to delete');
+        }
+      } else if (result.isDenied) {
+        console.log('cancelled delete');
+      }
+    });
+  };
 
   return (
     <>
@@ -125,7 +176,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
               >
                 {/* header Colum */}
                 <div className='table-heading'>
-                  <div className='column'>Project Id</div>
+                  <div className='column'>Project Code</div>
                   <div className='column'>Project Name</div>
                   <div className='column'>Term/Year/Sec</div>
                   <div className='column'>Project Type</div>
@@ -145,7 +196,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                         className='table-item'
                         key={project.preproject_id}
                       >
-                        <div className='column'>{project.preproject_id}</div>
+                        <div className='column'>{project.project_code}</div>
                         <div className='column'>{project.preproject_name_th}</div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
@@ -156,6 +207,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                             <span className='tf-color'>
                               {(() => {
                                 if (project.project_status === 0) return 'Reject';
+                                else if (project.project_status === '0') return 'Reject';
                                 else if (project.project_status === '1') return 'Wait for Confirm';
                                 else if (project.project_status === '2') return 'Confirm and In Process';
                                 else if (project.project_status === '3') return 'Ready to Test';
@@ -219,35 +271,45 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                               <div className='dropdown-item'>
                                 <div
                                   className='sort-filter'
-                                  onClick={() => handleEditProjectClick(project.preproject_id)}
-                                  style={{ cursor: 'pointer' }}
-                                >
-                                  <span>Edit Data</span>
-                                </div>
-                              </div>
-                              <div className='dropdown-item'>
-                                <div
-                                  className='sort-filter'
                                   onClick={() => handleDetailProjectClick(project.preproject_id)}
                                   style={{ cursor: 'pointer' }}
                                 >
                                   <span>Detail</span>
                                 </div>
                               </div>
-                              <div className='dropdown-item'>
-                                <div
-                                  className='sort-filter'
-                                  onClick={() => handleTransferProjectClick(project.preproject_id)}
-                                  style={{ cursor: 'pointer' }}
-                                >
-                                  <span>Transfer</span>
+                              {project.project_status !== '6' && (
+                                <div className='dropdown-item'>
+                                  <div
+                                    className='sort-filter'
+                                    onClick={() => handleEditProjectClick(project.preproject_id)}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    <span>Edit Data</span>
+                                  </div>
                                 </div>
-                              </div>
-                              <div className='dropdown-item'>
-                                <div className='sort-filter'>
-                                  <span>Music</span>
+                              )}
+                              {project.project_status !== '6' && (
+                                <div className='dropdown-item'>
+                                  <div
+                                    className='sort-filter'
+                                    onClick={() => handleTransferProjectClick(project.preproject_id)}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    <span>Transfer</span>
+                                  </div>
                                 </div>
-                              </div>
+                              )}
+                              {project.project_status !== '6' && (
+                                <div className='dropdown-item'>
+                                  <div
+                                    className='sort-filter'
+                                    onClick={() => handleDeleteSubmit(project.preproject_id)}
+                                    style={{ cursor: 'pointer' }}
+                                  >
+                                    <span>Delete</span>
+                                  </div>
+                                </div>
+                              )}
                             </Menu.Items>
                           </Menu>
                         </div>

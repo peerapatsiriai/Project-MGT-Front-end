@@ -3,21 +3,20 @@ import Layout from '@/components/layout/Layout';
 import axios from 'axios';
 
 // Component Import
-import Slider from './Project_Slider/Slider';
-import Detail_Data from './Detail/Detail_Data';
-import Document_Upload from './Document_Upload';
+import Slider from '../../Pre_project_Component/Detail_project/Project_Slider/Slider';
+import Detail_Data from '../../Pre_project_Component/Detail_project/Detail/Detail_Data';
+import Document_Project_Upload from './Document_Project_Upload';
 
-export default function Project_Detail({ activeIndex, setActiveIndex, crossData, setCrossData }) {
+export default function Project_Real_Detail({ activeIndex, setActiveIndex, crossdataProject }) {
   // data variables
   const [prejectdata, setProjectData] = useState([]);
-
-  console.log('prejectdata', prejectdata);
 
   // Fetch data from API
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${crossData}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/project?project_id=${crossdataProject}`);
+        console.log('ข้อมูลตอบสนอง', response);
         setProjectData(response.data);
       } catch (error) {
         console.error(error);
@@ -44,12 +43,11 @@ export default function Project_Detail({ activeIndex, setActiveIndex, crossData,
               SubAdviser_data={prejectdata.PreprojectSubAdviser}
             />
             {/* Document Upload */}
-            <Document_Upload
+            <Document_Project_Upload
               DocumentData={prejectdata.PreprojectDocument}
               activeIndex={activeIndex}
               setActiveIndex={setActiveIndex}
-              crossData={crossData}
-              setCrossData={setCrossData}
+              crossData={crossdataProject}
             />
           </>
         ) : (

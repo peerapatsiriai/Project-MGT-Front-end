@@ -54,7 +54,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/62fc18e0c9c52ba40dd443d7_w360.webp'
                   alt=''
                 />
               </Link>
@@ -69,7 +69,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/6397f35f2ccda98eff05fef3_w360.webp'
                   alt=''
                 />
               </Link>
@@ -82,7 +82,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/62fc18e0c9c52ba40dd443d8_w360.webp'
                   alt=''
                 />
               </Link>
@@ -95,7 +95,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/62fc18e0c9c52ba40dd443d9_w360.webp'
                   alt=''
                 />
               </Link>
@@ -108,7 +108,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/6397f3212ccda98eff05f79d_w360.webp'
                   alt=''
                 />
               </Link>
@@ -121,7 +121,7 @@ export default function TitileSlider3() {
             <div className='card-media'>
               <Link href='#'>
                 <img
-                  src='https://wallpapercave.com/wp/wp2866512.jpg'
+                  src='https://s3.duellinksmeta.com/cards/60c2b3a9a0e24f2d54a515b1_w360.webp'
                   alt=''
                 />
               </Link>
