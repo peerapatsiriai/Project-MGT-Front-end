@@ -54,6 +54,29 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const [allStudentValues, setAllStudentValues] = useState([]); // เก็บข้อมูลนักเรียนทั้งหมด(ใช้อันนี้บัคเยอะนะ)
   const [allStudent, setAllStudent] = useState([]); // รับ Id นักเรียนเพื่อส่งฟอร์ม
 
+  // รีข้อมูล Inpit ทุกครั้งที่เปลี่ยนหน้า
+  useEffect(() => {
+    setCurriculumsId('');
+    setSubjectId('');
+    setYearId('');
+    setProjectType('');
+    setAdvisorId('');
+    setProjectCode('');
+    setProjectNameTh('');
+    setProjectNameEn('');
+    setSelectedTerm('');
+    setProjectStatus('');
+    setSelectedValueAdvisorSub(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalSubAdvisorForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    setSelectedValueCommittee(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalCommitteeForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    // ล้างค่าของ นศ.
+    setSelectedValueStudent(''); // เซ็ตค่า selectedValueStudent เป็น null หรือค่าว่าง
+    setAdditionalStudentForms([]); // เซ็ตค่า additionalStudentForms เป็นอาเรย์ว่าง
+    setAllStudentValues([]); // เซ็ตค่า allStudentValues เป็นอาเรย์ว่าง
+    setAllStudent([]);
+  }, [activeIndex]);
+
   // ฟังก์ชันรีเซ็ตข้อมูลในฟอร์ม
   const handleResetForm = () => {
     setCurriculumsId('');
@@ -123,11 +146,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     }
 
     // เพิ่มเงื่อนไขเพื่อตรวจสอบข้อมูลที่ซ้ำกันของเหล่าอาจารย์ทั้งหลาย
-    const allTeacherValues = [
-      advisorId,
-      ...allAdvisorSubValues,
-      ...allCommitteeValues,
-    ];
+    const allTeacherValues = [advisorId, ...allAdvisorSubValues, ...allCommitteeValues];
     const uniqueValues = new Set(allTeacherValues);
     if (allTeacherValues.length !== uniqueValues.size) {
       Swal.fire({
@@ -166,10 +185,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     };
 
     axios
-      .post(
-        `${process.env.NEXT_PUBLIC_API}api/project-mgt/insertpreproject`,
-        data
-      )
+      .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/insertpreproject`, data)
       .then((response) => {
         console.log(response);
 
@@ -200,9 +216,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums`
-        );
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums`);
         setCurriculumsData(response.data.data);
       } catch (error) {
         console.error(error);
@@ -217,12 +231,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     const fetchSubjectsData = async () => {
       if (curriculumsId) {
         try {
-          const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects`,
-            {
-              params: { curriculum_id: curriculumsId },
-            }
-          );
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects`, {
+            params: { curriculum_id: curriculumsId },
+          });
           const subjectData = response.data.data || []; // ตรวจสอบและกำหนดค่าเป็นอาร์เรย์ว่างหากไม่มีข้อมูล
           setSubjectsData(subjectData);
           setHasData(response.data.data.length > 0); // ตรวจสอบว่ามีข้อมูลหรือไม่
@@ -240,12 +251,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     const fetchYearData = async () => {
       if (subjectId) {
         try {
-          const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects/year`,
-            {
-              params: { subject_id: subjectId },
-            }
-          );
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects/year`, {
+            params: { subject_id: subjectId },
+          });
           const yearData = response.data.data || []; // ตรวจสอบและกำหนดค่าเป็นอาร์เรย์ว่างหากไม่มีข้อมูล
           setYearData(yearData);
           setHasData(response.data.data.length > 0); // ตรวจสอบว่ามีข้อมูลหรือไม่
@@ -263,12 +271,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     const fetchTermData = async () => {
       if (subjectId && yearId) {
         try {
-          const response = await axios.get(
-            `${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects/year/sections`,
-            {
-              params: { subject_id: subjectId, year: yearId },
-            }
-          );
+          const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/curriculums/subjects/year/sections`, {
+            params: { subject_id: subjectId, year: yearId },
+          });
           const termData = response.data.data || []; // ตรวจสอบและกำหนดค่าเป็นอาร์เรย์ว่างหากไม่มีข้อมูล
           setTermData(termData);
           setHasData(response.data.data.length > 0); // ตรวจสอบว่ามีข้อมูลหรือไม่
@@ -285,9 +290,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   useEffect(() => {
     const fetchTeacherData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/instructors`
-        );
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/instructors`);
         const teacherData = response.data.data || [];
         setTeacherData(teacherData);
         setSelectableSubTeachers(teacherData);
@@ -305,9 +308,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/students`
-        );
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/students`);
         const studentData = response.data.data || [];
         setSelectStudent(studentData);
       } catch (error) {
@@ -367,14 +368,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   //-----------------------ฟังชันเก็บค่าอาจารย์ที่ปรึกษารอง(Select)----------------------//
   const [selectedValueAdvisorSub, setSelectedValueAdvisorSub] = useState('');
   const [selectableSubTeachers, setSelectableSubTeachers] = useState([]);
-  const [additionalSubAdvisorForms, setAdditionalSubAdvisorForms] = useState(
-    []
-  );
+  const [additionalSubAdvisorForms, setAdditionalSubAdvisorForms] = useState([]);
   useEffect(() => {
-    const updatedAllAdvisorSubValues = [
-      selectedValueAdvisorSub,
-      ...additionalSubAdvisorForms,
-    ].filter((value) => value !== '');
+    const updatedAllAdvisorSubValues = [selectedValueAdvisorSub, ...additionalSubAdvisorForms].filter((value) => value !== '');
     setAllAdvisorSubValues(updatedAllAdvisorSubValues);
   }, [selectedValueAdvisorSub, additionalSubAdvisorForms]);
 
@@ -401,10 +397,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
       const updatedForms = [...prevForms];
       updatedForms[formIndex] = selectedSubAdvisor;
 
-      const updatedAllAdvisorSubValues = [
-        selectedValueAdvisorSub,
-        ...updatedForms,
-      ].filter((value) => value !== '');
+      const updatedAllAdvisorSubValues = [selectedValueAdvisorSub, ...updatedForms].filter((value) => value !== '');
       setAllAdvisorSubValues(updatedAllAdvisorSubValues);
 
       return Array.from(new Set(updatedForms));
@@ -417,10 +410,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     return (
       <FormControl
         fullWidth
-        style={{ marginTop: '15px' }}>
+        style={{ marginTop: '15px' }}
+      >
         <InputLabel
           id={`additional-sub-advisor-label-${formIndex}`}
-          sx={inputLabelStyle}>
+          sx={inputLabelStyle}
+        >
           Sup Adviser {formIndex + 2}
         </InputLabel>
         <Select
@@ -428,14 +423,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
           label={`additional sub advisor ${formIndex + 1}`}
           labelId={`additional-sub-advisor-label-${formIndex}`}
           value={additionalSubAdvisor || ''}
-          onChange={(event) =>
-            handleAdditionalSubAdvisorChange(event, formIndex)
-          }>
+          onChange={(event) => handleAdditionalSubAdvisorChange(event, formIndex)}
+        >
           {selectableSubTeachers.map((contentTeacher) => (
             <MenuItem
               key={contentTeacher.tea_id}
               value={contentTeacher.tea_id}
-              disabled={allAdvisorSubValues.includes(contentTeacher.tea_id)}>
+              disabled={allAdvisorSubValues.includes(contentTeacher.tea_id)}
+            >
               {contentTeacher.tea_name} {contentTeacher.tea_lname}
             </MenuItem>
           ))}
@@ -452,10 +447,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const [additionalCommitteeForms, setAdditionalCommitteeForms] = useState([]);
 
   useEffect(() => {
-    const updatedAllCommitteeValues = [
-      selectedValueCommittee,
-      ...additionalCommitteeForms,
-    ].filter((value) => value !== '');
+    const updatedAllCommitteeValues = [selectedValueCommittee, ...additionalCommitteeForms].filter((value) => value !== '');
     setAllCommitteeValues(updatedAllCommitteeValues);
   }, [selectedValueCommittee, additionalCommitteeForms]);
 
@@ -482,10 +474,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
       const updatedForms = [...prevForms];
       updatedForms[formIndex] = selectedCommittee;
 
-      const updatedAllCommitteeValues = [
-        selectedValueCommittee,
-        ...updatedForms,
-      ].filter((value) => value !== '');
+      const updatedAllCommitteeValues = [selectedValueCommittee, ...updatedForms].filter((value) => value !== '');
       setAllCommitteeValues(updatedAllCommitteeValues);
 
       return Array.from(new Set(updatedForms));
@@ -498,10 +487,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     return (
       <FormControl
         fullWidth
-        style={{ marginTop: '15px' }}>
+        style={{ marginTop: '15px' }}
+      >
         <InputLabel
           id={`additional-committee-label-${formIndex}`}
-          sx={inputLabelStyle}>
+          sx={inputLabelStyle}
+        >
           Committee {formIndex + 2}
         </InputLabel>
         <Select
@@ -509,16 +500,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
           label={`additional committee ${formIndex + 1}`}
           labelId={`additional-committee-label-${formIndex}`}
           value={additionalCommittee || ''}
-          onChange={(event) =>
-            handleAdditionalCommitteeChange(event, formIndex)
-          }>
+          onChange={(event) => handleAdditionalCommitteeChange(event, formIndex)}
+        >
           {selecCommittee.map((contentTeacher) => (
             <MenuItem
               key={contentTeacher.tea_id}
               value={contentTeacher.tea_id}
-              disabled={allCommitteeValues.includes(
-                contentTeacher.instructor_id
-              )}>
+              disabled={allCommitteeValues.includes(contentTeacher.instructor_id)}
+            >
               {contentTeacher.tea_name} {contentTeacher.tea_lname}
             </MenuItem>
           ))}
@@ -538,24 +527,17 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const autocompleteRef = useRef();
 
   useEffect(() => {
-    const updatedAllStudentValues = [
-      selectedValueStudent,
-      ...additionalStudentForms,
-    ].filter((value) => value !== '');
+    const updatedAllStudentValues = [selectedValueStudent, ...additionalStudentForms].filter((value) => value !== '');
     setAllStudentValues(updatedAllStudentValues);
   }, [selectedValueStudent, additionalStudentForms]);
 
   useEffect(() => {
-    const updatedAllStudent = allStudentValues
-      .map((value) => value?.Id)
-      .filter((id) => id !== undefined);
+    const updatedAllStudent = allStudentValues.map((value) => value?.Id).filter((id) => id !== undefined);
     setAllStudent(updatedAllStudent);
   }, [allStudentValues]);
 
   const handleAddStudentData = () => {
-    setAdditionalStudentForms((prevForms) =>
-      Array.from(new Set([...prevForms, '']))
-    );
+    setAdditionalStudentForms((prevForms) => Array.from(new Set([...prevForms, ''])));
   };
 
   const handleClearStudentData = () => {
@@ -576,10 +558,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     setAdditionalStudentForms((prevForms) => {
       const updatedForms = [...prevForms];
       updatedForms[formIndex] = value;
-      const updatedAllStudentValues = [
-        selectedValueStudent,
-        ...updatedForms,
-      ].filter((value) => value !== '');
+      const updatedAllStudentValues = [selectedValueStudent, ...updatedForms].filter((value) => value !== '');
       setAllStudentValues(updatedAllStudentValues);
 
       return Array.from(new Set(updatedForms));
@@ -588,9 +567,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
 
   // display Student Name on Autocomplete
   const getOptionLabel = (option) => {
-    return option
-      ? `${option.stu_name} ${option.stu_lname} ${option.stu_id}`
-      : '';
+    return option ? `${option.stu_name} ${option.stu_lname} ${option.stu_id}` : '';
   };
 
   const AdditionalStudentForm = ({ formIndex }) => {
@@ -598,13 +575,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
       <FormControl
         sx={dropdownStyle}
         fullWidth
-        style={{ marginTop: '15px' }}>
+        style={{ marginTop: '15px' }}
+      >
         <Autocomplete
           id={`additional-student-label-${formIndex}`}
           value={additionalStudentForms[formIndex] || null}
-          onChange={(event, newValue) =>
-            handleAdditionalStudentChange(event, newValue, formIndex)
-          }
+          onChange={(event, newValue) => handleAdditionalStudentChange(event, newValue, formIndex)}
           options={selectStudent}
           getOptionLabel={getOptionLabel}
           renderInput={(params) => (
@@ -624,7 +600,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
       <div className='heading-section'>
         <h2
           className='tf-title pb-30'
-          style={{ color: 'rgba(221, 242, 71, 1)', fontFamily: 'Manrope' }}>
+          style={{ color: 'rgba(221, 242, 71, 1)', fontFamily: 'Manrope' }}
+        >
           ADD PROJECT
         </h2>
       </div>
@@ -632,18 +609,22 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
         <Card
           style={{
             backgroundColor: '#161616',
-          }}>
+          }}
+        >
           <form>
             <CardContent>
               <Grid
                 container
-                spacing={5}>
+                spacing={5}
+              >
                 <Grid
                   item
-                  xs={12}>
+                  xs={12}
+                >
                   <Typography
                     variant='body2'
-                    sx={typographyStyle}>
+                    sx={typographyStyle}
+                  >
                     Required information** (Please specify information in order)
                   </Typography>
                 </Grid>
@@ -652,11 +633,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={6}>
+                  sm={6}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='curriculum-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Curriculums
                     </InputLabel>
                     <Select
@@ -665,11 +648,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       value={curriculumsId}
                       onChange={handleCurriculumsChange}
                       labelId='curriculum-label'
-                      error={submitted && !curriculumsId}>
+                      error={submitted && !curriculumsId}
+                    >
                       {curriculumsData.map((curriculum) => (
                         <MenuItem
                           key={curriculum.curriculum_id}
-                          value={curriculum.curriculum_id}>
+                          value={curriculum.curriculum_id}
+                        >
                           {curriculum.curriculum_name}
                         </MenuItem>
                       ))}
@@ -681,11 +666,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={6}>
+                  sm={6}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='subject-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Subjects
                     </InputLabel>
                     <Select
@@ -695,12 +682,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       onChange={handleSubjectChange}
                       labelId='subject-label'
                       error={submitted && !subjectId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!curriculumsId || !hasData}>
+                      disabled={!curriculumsId || !hasData}
+                    >
                       {subjectsData && subjectsData.length > 0 ? (
                         subjectsData.map((subject) => (
                           <MenuItem
                             key={subject.subject_id}
-                            value={subject.subject_id}>
+                            value={subject.subject_id}
+                          >
                             {subject.subject_name_th}
                           </MenuItem>
                         ))
@@ -715,11 +704,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={4}>
+                  sm={4}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='year-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Year
                     </InputLabel>
                     <Select
@@ -729,12 +720,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       onChange={handleYearChange}
                       labelId='year-label'
                       error={submitted && !yearId} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!subjectId || !hasData}>
+                      disabled={!subjectId || !hasData}
+                    >
                       {yearData && yearData.length > 0 ? (
                         yearData.map((year) => (
                           <MenuItem
                             key={year.sem_year}
-                            value={year.sem_year}>
+                            value={year.sem_year}
+                          >
                             {year.sem_year}
                           </MenuItem>
                         ))
@@ -749,11 +742,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={4}>
+                  sm={4}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='term-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Term/Sec
                     </InputLabel>
                     <Select
@@ -763,12 +758,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       onChange={handleTermChange}
                       labelId='term-label'
                       error={submitted && !selectedTerm} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      disabled={!yearId || !hasData}>
+                      disabled={!yearId || !hasData}
+                    >
                       {termData && termData.length > 0 ? (
                         termData.map((term) => (
                           <MenuItem
                             key={term.section_id}
-                            value={term.section_id}>
+                            value={term.section_id}
+                          >
                             Term{term.semester_order} {term.section_name}
                           </MenuItem>
                         ))
@@ -783,7 +780,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={4}>
+                  sm={4}
+                >
                   <TextField
                     sx={textFieldStyle}
                     fullWidth
@@ -800,11 +798,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={4}>
+                  sm={4}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='term-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Pre-project Type
                     </InputLabel>
                     <Select
@@ -815,7 +815,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       labelId='Project-Type'
                       onChange={handleProjectTypeChange}
                       error={submitted && !projecttype} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      value={projecttype}>
+                      value={projecttype}
+                    >
                       <MenuItem value={'HardWare'}>HardWare</MenuItem>
                       <MenuItem value={'SoftWare'}>SoftWare</MenuItem>
                       <MenuItem value={'Network'}>Network</MenuItem>
@@ -827,11 +828,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={4}>
+                  sm={4}
+                >
                   <FormControl fullWidth>
                     <InputLabel
                       id='term-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Pre-project status
                     </InputLabel>
                     <Select
@@ -842,7 +845,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       labelId='Project-Type'
                       onChange={handleProjectStatusChange}
                       error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
-                      value={projectstatus}>
+                      value={projectstatus}
+                    >
                       <MenuItem value={'0'}>Reject</MenuItem>
                       <MenuItem value={'1'}>Wait for Approve</MenuItem>
                       <MenuItem value={'2'}>Inprocess</MenuItem>
@@ -856,17 +860,20 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 {/* Project-Name Th,En TextField */}
                 <Grid
                   item
-                  xs={12}>
+                  xs={12}
+                >
                   <Typography
                     variant='body2'
-                    sx={typographyStyle}>
+                    sx={typographyStyle}
+                  >
                     Pre-project Name **
                   </Typography>
                 </Grid>
                 <Grid
                   item
                   xs={12}
-                  sm={6}>
+                  sm={6}
+                >
                   <TextField
                     sx={textFieldStyle}
                     fullWidth
@@ -884,7 +891,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={6}>
+                  sm={6}
+                >
                   <TextField
                     sx={textFieldStyle}
                     fullWidth
@@ -904,10 +912,12 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={12}>
+                  sm={12}
+                >
                   <Typography
                     variant='body2'
-                    sx={typographyStyle}>
+                    sx={typographyStyle}
+                  >
                     Adviser Name **
                   </Typography>
                   <br></br>
@@ -915,7 +925,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   <FormControl fullWidth>
                     <InputLabel
                       id='advisor-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Adviser
                     </InputLabel>
                     <Select
@@ -931,11 +942,13 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                           color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
                           fontFamily: 'Azeret Mono',
                         },
-                      }}>
+                      }}
+                    >
                       {teacherData.map((contentTeacher, value) => (
                         <MenuItem
                           key={value}
-                          value={contentTeacher.tea_id}>
+                          value={contentTeacher.tea_id}
+                        >
                           {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
@@ -946,21 +959,25 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={12}>
+                  sm={12}
+                >
                   <Typography
                     variant='body2'
-                    sx={typographyStyle}>
+                    sx={typographyStyle}
+                  >
                     Sub Adviser**
                   </Typography>
                   <Grid
                     container
                     justifyContent='flex-end'
-                    alignItems='center'>
+                    alignItems='center'
+                  >
                     <Grid item>
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleAddSubAdvisorData}>
+                        onClick={handleAddSubAdvisorData}
+                      >
                         Add
                       </Button>
                     </Grid>
@@ -968,7 +985,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleClearSubAdvisorData}>
+                        onClick={handleClearSubAdvisorData}
+                      >
                         Clear
                       </Button>
                     </Grid>
@@ -976,7 +994,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   <FormControl fullWidth>
                     <InputLabel
                       id='sub-advisor-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Sub Adviser
                     </InputLabel>
                     <Select
@@ -984,14 +1003,14 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       label='Sub Advisor'
                       labelId='sub-advisor-label'
                       value={selectedValueAdvisorSub || ''}
-                      onChange={handleSubAdvisorChange}>
+                      onChange={handleSubAdvisorChange}
+                    >
                       {selectableSubTeachers.map((contentTeacher) => (
                         <MenuItem
                           key={contentTeacher.tea_id}
                           value={contentTeacher.tea_id}
-                          disabled={additionalSubAdvisorForms.includes(
-                            contentTeacher.tea_id
-                          )}>
+                          disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
+                        >
                           {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
@@ -1010,21 +1029,25 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={12}>
+                  sm={12}
+                >
                   <Typography
                     variant='body2'
-                    sx={typographyStyle}>
+                    sx={typographyStyle}
+                  >
                     Committee Name**
                   </Typography>
                   <Grid
                     container
                     justifyContent='flex-end'
-                    alignItems='center'>
+                    alignItems='center'
+                  >
                     <Grid item>
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleAddCommitteeData}>
+                        onClick={handleAddCommitteeData}
+                      >
                         Add
                       </Button>
                     </Grid>
@@ -1032,7 +1055,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleClearCommitteeData}>
+                        onClick={handleClearCommitteeData}
+                      >
                         Clear
                       </Button>
                     </Grid>
@@ -1040,7 +1064,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   <FormControl fullWidth>
                     <InputLabel
                       id='committee-label'
-                      sx={inputLabelStyle}>
+                      sx={inputLabelStyle}
+                    >
                       Committee
                     </InputLabel>
                     <Select
@@ -1055,9 +1080,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                         <MenuItem
                           key={contentTeacher.tea_id}
                           value={contentTeacher.tea_id}
-                          disabled={additionalCommitteeForms.includes(
-                            contentTeacher.tea_id
-                          )}>
+                          disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
+                        >
                           {contentTeacher.tea_name} {contentTeacher.tea_lname}
                         </MenuItem>
                       ))}
@@ -1076,21 +1100,25 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 <Grid
                   item
                   xs={12}
-                  sm={12}>
+                  sm={12}
+                >
                   <Typography
                     sx={typographyStyle}
-                    variant='body2'>
+                    variant='body2'
+                  >
                     Student Member Name**
                   </Typography>
                   <Grid
                     container
                     justifyContent='flex-end'
-                    alignItems='center'>
+                    alignItems='center'
+                  >
                     <Grid item>
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleAddStudentData}>
+                        onClick={handleAddStudentData}
+                      >
                         Add
                       </Button>
                     </Grid>
@@ -1098,7 +1126,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       <Button
                         sx={buttonStyle}
                         size='small'
-                        onClick={handleClearStudentData}>
+                        onClick={handleClearStudentData}
+                      >
                         Clear
                       </Button>
                     </Grid>
@@ -1107,11 +1136,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     <FormControl fullWidth>
                       <Autocomplete
                         id='student-label'
-                        value={
-                          selectedValueStudent === ''
-                            ? null
-                            : selectedValueStudent
-                        }
+                        value={selectedValueStudent === '' ? null : selectedValueStudent}
                         onChange={handleStudentChange}
                         options={selectStudent}
                         getOptionLabel={getOptionLabel}
@@ -1143,7 +1168,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 type='submit'
                 sx={buttonStyle2}
                 variant='outlined'
-                onClick={handleInsertSubmit}>
+                onClick={handleInsertSubmit}
+              >
                 Insert
               </Button>
               <Button
@@ -1151,7 +1177,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                 size='large'
                 color='warning'
                 variant='outlined'
-                onClick={handleResetForm}>
+                onClick={handleResetForm}
+              >
                 Reset
               </Button>
               <Button
@@ -1163,7 +1190,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                   setActiveIndex(1);
                   //window.location.reload();
                   //router.push(`/Backoffice`);
-                }}>
+                }}
+              >
                 Back
               </Button>
             </CardActions>

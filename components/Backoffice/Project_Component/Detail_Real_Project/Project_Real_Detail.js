@@ -16,7 +16,6 @@ export default function Project_Real_Detail({ activeIndex, setActiveIndex, cross
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/project?project_id=${crossdataProject}`);
-        console.log('ข้อมูลตอบสนอง', response);
         setProjectData(response.data);
       } catch (error) {
         console.error(error);

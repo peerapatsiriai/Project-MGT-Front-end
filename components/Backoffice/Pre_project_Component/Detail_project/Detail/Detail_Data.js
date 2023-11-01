@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Detail_Data({ Project_data, Committee_data, Students_data, SubAdviser_data }) {
+  console.log('00000', Project_data.project_type);
   return (
     <>
       <div>
@@ -104,7 +105,9 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
             {/* Content 09 */}
             <div className='details-item'>
               <span>Adviser</span>
-              <span className='tf-color'>ไม่มีชื่อมาให้ใน Api</span>
+              <span className='tf-color'>
+                {Project_data.tea_name} {Project_data.tea_lname}
+              </span>
             </div>
             {/* End Content 09 */}
 
