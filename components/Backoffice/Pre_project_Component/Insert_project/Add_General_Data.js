@@ -54,7 +54,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   const [allStudentValues, setAllStudentValues] = useState([]); // เก็บข้อมูลนักเรียนทั้งหมด(ใช้อันนี้บัคเยอะนะ)
   const [allStudent, setAllStudent] = useState([]); // รับ Id นักเรียนเพื่อส่งฟอร์ม
 
-  // รีข้อมูล Inpit ทุกครั้งที่เปลี่ยนหน้า
+  // รีข้อมูล Input ทุกครั้งที่เปลี่ยนหน้า
   useEffect(() => {
     setCurriculumsId('');
     setSubjectId('');
@@ -75,6 +75,8 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
     setAdditionalStudentForms([]); // เซ็ตค่า additionalStudentForms เป็นอาเรย์ว่าง
     setAllStudentValues([]); // เซ็ตค่า allStudentValues เป็นอาเรย์ว่าง
     setAllStudent([]);
+
+    setSubmitted(false);
   }, [activeIndex]);
 
   // ฟังก์ชันรีเซ็ตข้อมูลในฟอร์ม
