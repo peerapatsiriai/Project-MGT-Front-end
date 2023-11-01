@@ -18,6 +18,16 @@ import Select from '@mui/material/Select';
 import Autocomplete from '@mui/material/Autocomplete';
 // import LoadingComponent from 'src/pages/pages/component/LoadingComponent';
 
+// Custom Style
+import {
+  dropdownStyle,
+  inputLabelStyle,
+  typographyStyle,
+  textFieldStyle,
+  buttonStyle,
+  buttonStyle2,
+} from 'public/assets/style_custom/style';
+
 export default function Edit_General_Data({ activeIndex, setActiveIndex, crossData }) {
   const requestdata = crossData; // Get project id from properties
 
@@ -451,8 +461,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         fullWidth
         style={{ marginTop: '15px' }}
       >
-        <InputLabel id={`additional-sub-advisor-label-${formIndex}`}>ที่ปรึกษารอง {formIndex + 2}</InputLabel>
+        <InputLabel id={`additional-sub-advisor-label-${formIndex}`} sx={inputLabelStyle}>Sup Adviser {formIndex + 2}</InputLabel>
         <Select
+          sx={dropdownStyle}
           label={`additional sub advisor ${formIndex + 1}`}
           labelId={`additional-sub-advisor-label-${formIndex}`}
           value={additionalSubAdvisor || ''}
@@ -522,8 +533,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         fullWidth
         style={{ marginTop: '15px' }}
       >
-        <InputLabel id={`additional-committee-label-${formIndex}`}>กรรมการ {formIndex + 2}</InputLabel>
+        <InputLabel id={`additional-committee-label-${formIndex}`} sx={inputLabelStyle}>Committee {formIndex + 2}</InputLabel>
         <Select
+          sx={dropdownStyle}
           label={`additional committee ${formIndex + 1}`}
           labelId={`additional-committee-label-${formIndex}`}
           value={additionalCommittee || ''}
@@ -623,8 +635,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
           getOptionLabel={getOptionLabel}
           renderInput={(params) => (
             <TextField
+              sx={textFieldStyle}
               {...params}
-              label={`นักศึกษา ${formIndex + 2}`}
+              label={`Student ${formIndex + 2}`}
             />
           )}
         />
@@ -635,17 +648,12 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   return (
     <div>
       <div className='heading-section'>
-        <h2 className='tf-title pb-30'>EDIT PROJECT</h2>
+        <h2 className='tf-title pb-30'
+          style={{ color: 'rgba(221, 242, 71, 1)', fontFamily: 'Manrope' }}
+        >EDIT PROJECT</h2>
       </div>
-      <div
-        style={{
-          backgroundColor: 'rgba(255, 255, 255, 0.3)',
-          padding: '20px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-        }}
-      >
-        <Card>
+      <div>
+        <Card style={{ backgroundColor: '#161616' }} >
           {/* <LoadingComponent /> */}
           <form>
             <CardContent>
@@ -659,9 +667,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
+                    sx={typographyStyle}
                   >
-                    ข้อมูลจำเป็น**(กรุณาระบุข้อมูลตามลำดับ)
+                    Required information** (Please specify information in order)
                   </Typography>
                 </Grid>
 
@@ -672,8 +680,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={6}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='curriculum-label'>หลักสูตร</InputLabel>
+                    <InputLabel id='curriculum-label' sx={inputLabelStyle}>
+                      Curriculums
+                    </InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Curriculum'
                       value={curriculumsId}
                       onChange={handleCurriculumsChange}
@@ -699,8 +710,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={6}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='subject-label'>วิชา</InputLabel>
+                    <InputLabel id='subject-label' sx={inputLabelStyle}>Subjects</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Subject'
                       value={subjectId}
                       onChange={handleSubjectChange}
@@ -718,7 +730,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                           </MenuItem>
                         ))
                       ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                        <MenuItem disabled>Nodata</MenuItem>
                       )}
                     </Select>
                   </FormControl>
@@ -731,8 +743,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={4}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='year-label'>ปีการศึกษา</InputLabel>
+                    <InputLabel id='year-label' sx={inputLabelStyle}>Year</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Year'
                       value={yearId}
                       onChange={handleYearChange}
@@ -750,7 +763,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                           </MenuItem>
                         ))
                       ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                        <MenuItem disabled>Nodata</MenuItem>
                       )}
                     </Select>
                   </FormControl>
@@ -763,8 +776,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={4}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>เทอม/เซค</InputLabel>
+                    <InputLabel id='term-label' sx={inputLabelStyle} >Term/Sec</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Term'
                       value={selectedTerm}
                       onChange={handleTermChange}
@@ -778,11 +792,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                             key={term.section_id}
                             value={term.section_id}
                           >
-                            เทอม{term.semester_order} {term.section_name}
+                            Term{term.semester_order} {term.section_name}
                           </MenuItem>
                         ))
                       ) : (
-                        <MenuItem disabled>ไม่มีข้อมูล</MenuItem>
+                        <MenuItem disabled>Nodata</MenuItem>
                       )}
                     </Select>
                   </FormControl>
@@ -795,9 +809,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={4}
                 >
                   <TextField
+                    sx={textFieldStyle}
                     fullWidth
                     type='text'
-                    label='รหัสโครงงาน'
+                    label='Pre-projec Code'
                     placeholder='CE0101'
                     value={projectCode}
                     error={submitted && !projectCode} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
@@ -812,8 +827,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={4}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>ประเภทของโครงงาน</InputLabel>
+                    <InputLabel id='term-label' sx={inputLabelStyle}>Pre-project Type</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Project-Type'
                       defaultValue=''
                       id='select-04'
@@ -836,8 +852,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={4}
                 >
                   <FormControl fullWidth>
-                    <InputLabel id='term-label'>สถานะของโครงงาน</InputLabel>
+                    <InputLabel id='term-label' sx={inputLabelStyle}>Pre-porject Status</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Project-Status'
                       defaultValue=''
                       id='select-04'
@@ -846,13 +863,12 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                       value={projectstatus}
                     >
-                      <MenuItem value={'0'}>ไม่ผ่าน</MenuItem>
-                      <MenuItem value={'1'}>โครงงานยังไม่ได้รับการอนุมัติ</MenuItem>
-                      <MenuItem value={'2'}>ยังไม่ได้ดำเนินการ</MenuItem>
-                      <MenuItem value={'3'}>อยู่ระหว่างการดำเนินการ</MenuItem>
-                      <MenuItem value={'4'}>สามารถสอบได้</MenuItem>
-                      <MenuItem value={'5'}>ยังไม่ผ่านการสอบ</MenuItem>
-                      <MenuItem value={'6'}>ผ่านแล้วแต่ยังไม่ได้โอน</MenuItem>
+                      <MenuItem value={'0'}>Reject</MenuItem>
+                      <MenuItem value={'1'}>Wait for Approve</MenuItem>
+                      <MenuItem value={'2'}>Inprocess</MenuItem>
+                      <MenuItem value={'3'}>Can examination</MenuItem>
+                      <MenuItem value={'4'}>Examinationing</MenuItem>
+                      <MenuItem value={'5'}>Examination passed</MenuItem>
                     </Select>
                   </FormControl>
                 </Grid>
@@ -864,9 +880,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
+                    sx={typographyStyle}
                   >
-                    ชื่อโครงงาน**
+                    Pre-project Name **
                   </Typography>
                 </Grid>
                 <Grid
@@ -875,6 +891,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={6}
                 >
                   <TextField
+                    sx={textFieldStyle}
                     fullWidth
                     type='text'
                     label='ชื่อโครงงาน(ภาษาไทย)'
@@ -893,6 +910,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   sm={6}
                 >
                   <TextField
+                    sx={textFieldStyle}
                     fullWidth
                     type='text'
                     label='ชื่อโครงงาน(ภาษาอังกฤษ)'
@@ -914,13 +932,16 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600, mb: 5 }}
+                    sx={typographyStyle}
                   >
-                    ชื่ออาจารย์ที่ปรึกษา**
+                    Adviser
                   </Typography>
+                  <br></br>
+                  <br></br>
                   <FormControl fullWidth>
-                    <InputLabel id='advisor-label'>ที่ปรึกษา</InputLabel>
+                    <InputLabel id='advisor-label' sx={inputLabelStyle}>Adviser</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Advisor'
                       labelId='advisor-label'
                       value={advisorId}
@@ -947,9 +968,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
+                    sx={typographyStyle}
                   >
-                    ชื่ออาจารย์ที่ปรึกษารอง**
+                    Sub Adviser**
                   </Typography>
                   <Grid
                     container
@@ -960,22 +981,25 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       <Button
                         size='small'
                         onClick={handleAddSubAdvisorData}
+                        sx={buttonStyle}
                       >
-                        เพิ่มข้อมูล
+                        Add
                       </Button>
                     </Grid>
                     <Grid item>
                       <Button
+                        sx={buttonStyle}
                         size='small'
                         onClick={handleClearSubAdvisorData}
                       >
-                        ล้างข้อมูล
+                        Clear
                       </Button>
                     </Grid>
                   </Grid>
                   <FormControl fullWidth>
-                    <InputLabel id='sub-advisor-label'>ที่ปรึกษารอง</InputLabel>
+                    <InputLabel id='sub-advisor-label' sx={inputLabelStyle}>Sup Adviser</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Sub Advisor'
                       labelId='sub-advisor-label'
                       value={selectedValueAdvisorSub || ''}
@@ -1009,9 +1033,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
+                    sx={typographyStyle}
                   >
-                    ชื่อคณะกรรมการ**
+                    Committee Name**
                   </Typography>
                   <Grid
                     container
@@ -1020,24 +1044,27 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                   >
                     <Grid item>
                       <Button
+                        sx={buttonStyle}
                         size='small'
                         onClick={handleAddCommitteeData}
                       >
-                        เพิ่มข้อมูล
+                        Add
                       </Button>
                     </Grid>
                     <Grid item>
                       <Button
+                        sx={buttonStyle}
                         size='small'
                         onClick={handleClearCommitteeData}
                       >
-                        ล้างข้อมูล
+                        Clear
                       </Button>
                     </Grid>
                   </Grid>
                   <FormControl fullWidth>
-                    <InputLabel id='committee-label'>กรรมการ</InputLabel>
+                    <InputLabel id='committee-label' sx={inputLabelStyle}>Committee</InputLabel>
                     <Select
+                      sx={dropdownStyle}
                       label='Committee'
                       labelId='committee-label'
                       value={selectedValueCommittee || ''}
@@ -1072,9 +1099,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 >
                   <Typography
                     variant='body2'
-                    sx={{ fontWeight: 600 }}
+                    sx={typographyStyle}
                   >
-                    รายชื่อนักศึกษา**
+                    Students **
                   </Typography>
                   <Grid
                     container
@@ -1085,16 +1112,18 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       <Button
                         size='small'
                         onClick={handleAddStudentData}
+                        sx={buttonStyle}
                       >
-                        เพิ่มข้อมูล
+                        Add
                       </Button>
                     </Grid>
                     <Grid item>
                       <Button
                         size='small'
                         onClick={handleClearStudentData}
+                        sx={buttonStyle}
                       >
-                        ล้างข้อมูล
+                        Clear
                       </Button>
                     </Grid>
                   </Grid>
@@ -1108,8 +1137,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                         getOptionLabel={getOptionLabel}
                         renderInput={(params) => (
                           <TextField
+                            sx={textFieldStyle}
                             {...params}
-                            label='ชื่อนักศึกษา'
+                            label='Student Name'
                             error={submitted && allStudent.length === 0}
                           />
                         )}
@@ -1131,19 +1161,20 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 size='large'
                 color='success'
                 type='submit'
-                sx={{ mr: 2 }}
+                sx={buttonStyle2}
                 variant='outlined'
                 onClick={handleEditSubmit}
               >
-                บัณทึก
+                Insert
               </Button>
               <Button
                 size='large'
                 color='warning'
                 variant='outlined'
                 onClick={handleResetForm}
+                sx={buttonStyle2}
               >
-                รีข้อมูล
+                Reset
               </Button>
               <Button
                 size='large'
@@ -1152,8 +1183,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 onClick={function () {
                   setActiveIndex(1);
                 }}
+                sx={buttonStyle2}
               >
-                ย้อนกลับ
+                Back
               </Button>
             </CardActions>
           </form>

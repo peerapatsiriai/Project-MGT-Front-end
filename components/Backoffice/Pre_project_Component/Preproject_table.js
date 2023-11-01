@@ -163,6 +163,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
           <div
             data-wow-delay='0s'
             className='wow fadeInUp col-12'
+            style={{ marginLeft: '-16px' }}
           >
             <div className='product-item offers'>
               <h6>
