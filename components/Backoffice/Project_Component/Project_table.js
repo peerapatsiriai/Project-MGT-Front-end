@@ -109,7 +109,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                 data-line='#000'
               />
             </div>
-            <h2 style={{ fontFamily: 'EB Garamond' }}>Project Management page</h2>
+            <h2 >Project <br></br>Management Page</h2>
             <div className='bg-home7'>
               <AutoSlider1 />
               <AutoSlider2 />
@@ -166,7 +166,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                         key={project.preproject_id}
                       >
                         <div className='column'>{project.project_code}</div>
-                        <div className='column'>{project.project_name_th}</div>
+                        <div className='column' style={{ fontFamily: 'Kanit, sans-serif' }}>{project.project_name_th}</div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
                         </div>

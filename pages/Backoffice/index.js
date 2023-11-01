@@ -508,8 +508,8 @@ export default function Home() {
 
               {/* footer Sidebar Show */}
               <div className='bottom'>
-                <p>© 2023 Npc99</p>
-                <p>Saran_Kawaii</p>
+                <p>RMUTL</p>
+                <p>Project-MGT</p>
               </div>
               {/* End footer Sidebar Show */}
             </div>
