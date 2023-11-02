@@ -354,7 +354,7 @@ export default function Home() {
               <div className='over-content'>
                 {/* Menu Sidebar Show */}
                 <div className='content'>
-                  <h6>Marketplace</h6>
+                  <h6>Backoffice Menu</h6>
                   <ul className='menu-tab'>
                     {/* pre_project Tab */}
                     <li
@@ -514,8 +514,8 @@ export default function Home() {
 
               {/* footer Sidebar Show */}
               <div className='bottom'>
-                <p>© 2023 Npc99</p>
-                <p>Saran_Kawaii</p>
+                <p>RMUTL</p>
+                <p>Project-MGT</p>
               </div>
               {/* End footer Sidebar Show */}
             </div>

@@ -36,7 +36,8 @@ export const dropdownStyle = {
     fontFamily: 'Azeret Mono',
     color: 'rgba(221, 242, 71, 1)',
     '& input': {
-      color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+      //color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
+      color: 'rgba(221, 242, 71, 1)', // Change this to your desired label color
       fontFamily: 'Azeret Mono',
     },
     '& label': {
@@ -77,11 +78,11 @@ export const dropdownStyle = {
   // For submit button
   export const buttonStyle2 = {
     fontWeight: 700,
-    fontSize: '14px',
+    fontSize: '13px',
     lineHeight: '22px',
     backgroundColor: 'rgba(221, 242, 71, 1)',
     color: 'rgba(22, 22, 22, 1)',
-    borderRadius: '14px',
+    borderRadius: '10px',
     padding: '10px',
     height: '50px',
     border: 'none',
@@ -91,6 +92,7 @@ export const dropdownStyle = {
     MozTransition: 'all ease 0.3s',
     transition: 'all ease 0.3s',
     width: '90px',
+    height: '43px !important',
     margin: '0px 10px',
     '&:hover': {
       // outline: '0',

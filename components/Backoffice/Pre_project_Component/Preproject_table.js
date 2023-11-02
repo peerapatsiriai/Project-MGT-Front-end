@@ -163,6 +163,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
           <div
             data-wow-delay='0s'
             className='wow fadeInUp col-12'
+            style={{ marginLeft: '-16px' }}
           >
             <div className='product-item offers'>
               <h6>
@@ -197,7 +198,7 @@ export default function Preproject_table({ activeIndex, setActiveIndex, crossDat
                         key={project.preproject_id}
                       >
                         <div className='column'>{project.project_code}</div>
-                        <div className='column'>{project.preproject_name_th}</div>
+                        <div className='column' style={{ fontFamily: 'Kanit, sans-serif' }}>{project.preproject_name_th}</div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
                         </div>
