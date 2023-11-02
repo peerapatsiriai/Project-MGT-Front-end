@@ -1,7 +1,8 @@
 //------------------------------ Custom Style --------------------------//
 export const dropdownStyle = {
     border: '1px solid #DDF247',
-    fontFamily: 'Manrope',
+    //fontFamily: 'Manrope',
+    fontFamily: 'Kanit, sans-serif',
     color: 'rgba(221, 242, 71, 1)', // change color of arrow icon in dropdown but not work
     '.MuiSelect-icon': {
       color: 'rgba(255, 255, 255, 0.53)',
@@ -38,7 +39,8 @@ export const dropdownStyle = {
     '& input': {
       //color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
       color: 'rgba(221, 242, 71, 1)', // Change this to your desired label color
-      fontFamily: 'Azeret Mono',
+      //fontFamily: 'Azeret Mono',
+      fontFamily: 'Kanit, sans-serif',
     },
     '& label': {
       color: 'rgba(255, 255, 255, 0.53)', // Change this to your desired label color
