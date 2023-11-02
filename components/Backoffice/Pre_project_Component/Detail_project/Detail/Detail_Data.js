@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
 export default function Detail_Data({ Project_data, Committee_data, Students_data, SubAdviser_data }) {
-  console.log('00000', Project_data.project_type);
   return (
     <>
       <div>

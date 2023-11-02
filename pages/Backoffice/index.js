@@ -25,6 +25,12 @@ import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_pr
 import Project_table from '@/components/Backoffice/Project_Component/Project_table';
 //==============================================Project Detail===============================================//
 import Project_Real_Detail from '@/components/Backoffice/Project_Component/Detail_Real_Project/Project_Real_Detail';
+import Chapter01_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter01/Chapter01_upload';
+import Chapter02_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter02/Chapter02_upload';
+import Chapter03_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter03/Chapter03_upload';
+import Chapter04_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter04/Chapter04_upload';
+import Chapter05_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter05/Chapter05_upload';
+import Chapter06_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter06/Chapter06_upload';
 
 export default function Home() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -726,6 +732,132 @@ export default function Home() {
                   setActiveIndex={setActiveIndex}
                   crossdataProject={crossdataProject}
                 />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter01_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter02_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_3 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter03_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_4 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter04_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_5 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter05_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1_6 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <Chapter06_upload
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                      crossdataProject={crossdataProject}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
             {/*------------------------------End Display Content-------------------------------*/}

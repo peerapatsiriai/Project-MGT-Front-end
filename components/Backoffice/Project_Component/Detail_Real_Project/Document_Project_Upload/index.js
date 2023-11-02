@@ -2,6 +2,36 @@ import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Document_Project_Upload({ DocumentData, activeIndex, setActiveIndex, crossData }) {
+  // Rout to Chapter01 Upload Document page
+  const Chapter01Page = (project_id) => {
+    setActiveIndex(2.1_1);
+  };
+
+  // Rout to Chapter02 Upload Document page
+  const Chapter02Page = (project_id) => {
+    setActiveIndex(2.1_2);
+  };
+
+  // Rout to Chapter03 Upload Document page
+  const Chapter03Page = (project_id) => {
+    setActiveIndex(2.1_3);
+  };
+
+  // Rout to Chapter04 Upload Document page
+  const Chapter04Page = (project_id) => {
+    setActiveIndex(2.1_4);
+  };
+
+  // Rout to Chapter05 Upload Document page
+  const Chapter05Page = (project_id) => {
+    setActiveIndex(2.1_5);
+  };
+
+  // Rout to Chapter06 Upload Document page
+  const Chapter06Page = (project_id) => {
+    setActiveIndex(2.1_6);
+  };
+
   return (
     <>
       <div className='tf-section discover-item loadmore-8-item'>
@@ -31,7 +61,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE01Page(crossData)}
+                      onClick={() => Chapter01Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -78,7 +108,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE02Page(crossData)}
+                      onClick={() => Chapter02Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -125,7 +155,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE03Page(crossData)}
+                      onClick={() => Chapter03Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -172,7 +202,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE04Page(crossData)}
+                      onClick={() => Chapter04Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -181,7 +211,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
                   </div>
                 </div>
                 <h5 className='name'>
-                  <Link href='#'>CE04</Link>
+                  <Link href='#'>บทที่ 4</Link>
                 </h5>
                 {/* Send Time */}
                 <div className='meta-info flex items-center justify-between'>
@@ -219,7 +249,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE05Page(crossData)}
+                      onClick={() => Chapter05Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
@@ -266,7 +296,7 @@ export default function Document_Project_Upload({ DocumentData, activeIndex, set
 
                   <div className='button-place-bid'>
                     <a
-                      //   onClick={() => CE06Page(crossData)}
+                      onClick={() => Chapter06Page(crossData)}
                       href='#'
                       className='tf-button'
                     >
