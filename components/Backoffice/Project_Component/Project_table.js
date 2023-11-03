@@ -132,11 +132,12 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
           <div
             data-wow-delay='0s'
             className='wow fadeInUp col-12'
+            style={{ marginLeft: '-16px' }}
           >
             <div className='product-item offers'>
               <h6>
                 <i className='icon-description' />
-                data
+                Data
               </h6>
               <i className='icon-keyboard_arrow_down' />
               <div
