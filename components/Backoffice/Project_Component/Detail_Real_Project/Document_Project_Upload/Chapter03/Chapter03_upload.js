@@ -87,7 +87,7 @@ const Chapter03_upload = ({ activeIndex, setActiveIndex, crossdataProject }) => 
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=306&document_type=บทที่3`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=${projectID}&document_type=บทที่3`
         );
         setIndex(response.data.index);
       } catch (error) {

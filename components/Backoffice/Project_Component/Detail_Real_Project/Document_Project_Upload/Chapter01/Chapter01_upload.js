@@ -89,8 +89,9 @@ const Chapter01_upload = ({ activeIndex, setActiveIndex, crossdataProject }) => 
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=306&document_type=บทที่1`
+          `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=${projectID}&document_type=บทที่1`
         );
+        console.log('จง ฮิ', response);
         setIndex(response.data.index);
       } catch (error) {
         console.error(error);
@@ -270,7 +271,6 @@ const Chapter01_upload = ({ activeIndex, setActiveIndex, crossdataProject }) => 
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=${projectID}&document_type=บทที่1`
         );
-        console.log('Jong Data ', response);
 
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
         const rowData = response.data.documentList.map((document) => ({
