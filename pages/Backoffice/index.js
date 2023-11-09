@@ -25,6 +25,7 @@ import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_pr
 import Project_table from '@/components/Backoffice/Project_Component/Project_table';
 //==============================================Project Detail===============================================//
 import Project_Real_Detail from '@/components/Backoffice/Project_Component/Detail_Real_Project/Project_Real_Detail';
+import Real_project_edit_component from '@/components/Backoffice/Project_Component/Real_project_edit/Real_project_edit_component';
 import Chapter01_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter01/Chapter01_upload';
 import Chapter02_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter02/Chapter02_upload';
 import Chapter03_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter03/Chapter03_upload';
@@ -858,6 +859,16 @@ export default function Home() {
                     />
                   </div>
                 </div>
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Real_project_edit_component
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                  crossdataProject={crossdataProject}
+                />
               </div>
             </div>
             {/*------------------------------End Display Content-------------------------------*/}

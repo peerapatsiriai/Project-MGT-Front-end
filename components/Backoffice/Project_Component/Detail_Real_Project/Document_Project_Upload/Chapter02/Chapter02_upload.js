@@ -50,8 +50,6 @@ const Chapter02_upload = ({ activeIndex, setActiveIndex, crossdataProject }) => 
   // เก็บค่าจาก Props ลงในตัวแปร
   const projectID = crossdataProject;
 
-  console.log('รหัสโครงการหน้า Upload', projectID);
-
   const [selectedFile, setSelectedFile] = useState(null); // ตัวแปรเก็บค่าไฟล์ที่อัปโหลด
   const [documentName, setDocumentName] = useState(''); // เก็บชื่อเอกสารพร้อมนามสกุลก่อนกดอัปโหลดไฟล์
   const [showFileDetails, setShowFileDetails] = useState(false); // ตัวแปรควบคุมการแสดงรายละเอียดเอกสาร
@@ -270,7 +268,6 @@ const Chapter02_upload = ({ activeIndex, setActiveIndex, crossdataProject }) => 
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttypeproject?project_id=${projectID}&document_type=บทที่2`
         );
-        console.log('Jong Data ', response);
 
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
         const rowData = response.data.documentList.map((document) => ({

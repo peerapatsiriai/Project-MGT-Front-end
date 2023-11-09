@@ -84,8 +84,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${projectID}`);
-
-        // console.log('ข้อมูลโครงงาน', response.data)
         setDocumentName('CE05_' + response.data.PreprojectData[0].preproject_name_th);
       } catch (error) {
         console.error(error);
@@ -102,10 +100,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         const response = await axios.get(
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE05`
         );
-
-        // console.log('ข้อมูลเอกสาร', response.data)
-
-        // console.log('ข้อมูลIndex', response.data.index)
         setIndex(response.data.index);
       } catch (error) {
         console.error(error);
@@ -228,7 +222,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
         instructor: '',
         role: Role,
       };
-      console.log(data);
 
       try {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/uploadpreprojectdocuments`, data);
@@ -259,7 +252,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //--------------------------------------------------------------ฟังก์ชันดาวน์โหลดเอกสาร--------------------------------------------------//
   // กำหนดตัวแปร
   const [rowdata, setRowData] = useState([]); // ตัวแปรเก็บค่า Row
-  console.log('ข้อมูลแถว', rowdata);
 
   // กำหนดหัว Colum
   const columns = [
@@ -309,8 +301,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE05`
         );
 
-        // console.log('ข้อมูล CE05', response.data)
-
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
         const rowData = response.data.documentList.map((document) => ({
           id: document.document_id,
@@ -333,8 +323,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const handleDownload = async (FileName) => {
     const fileName = FileName;
     const docType = 'CE05';
-
-    console.log('ชื่อไฟล์', fileName);
 
     try {
       const downloadResponse = await fetch('/api/download', {
@@ -417,15 +405,11 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const [instructor, setInstructorData] = useState([]); // เก็บค่าข้อมูลอาจารย์
   const [committee, setCommitteeData] = useState([]); // เก็บค่าข้อมูลกรรมการ
 
-  //   console.log('ควยลอก', advisor)
-
   //ตัวแปรรับข้อมูล
   const [getStudentData, setGetStudentData] = useState(''); // รับค่าข้อมูลนักศึกษา
   const [getAdvisor, setGetAdvisorData] = useState(''); // รับค่าข้อมูลอาจารที่ปรึกษา
   const [getInstructor, setGetInstructorData] = useState([]); // รับค่าข้อมูลอาจารย์
   const [getCommittee, setGetCommitteeData] = useState([]); // รับค่าข้อมูลกรรมการ
-
-  // console.log('ชื่อกรรมการ', getCommittee)
 
   // เก็บข้อมูลลง Api
   useEffect(() => {
@@ -435,9 +419,6 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE05`
         );
 
-        // console.log('ข้อมูล CE05', response.data)
-        console.log('คนจริง', response.data);
-        console.log('อาจารย์ที่ปรึกษา', response.data.adviser);
         setGetStudentData(response.data.students);
         setGetAdvisorData(response.data.adviser);
         setGetCommitteeData(response.data.committee);

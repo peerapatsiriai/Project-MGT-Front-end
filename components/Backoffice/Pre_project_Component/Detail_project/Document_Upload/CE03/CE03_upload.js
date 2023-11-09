@@ -268,7 +268,6 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   //--------------------------------------------------------------ฟังก์ชันดาวน์โหลดเอกสาร--------------------------------------------------//
   // กำหนดตัวแปร
   const [rowdata, setRowData] = useState([]); // ตัวแปรเก็บค่า Row
-  console.log('ข้อมูลแถว', rowdata);
 
   // กำหนดหัว Colum
   const columns = [
@@ -324,8 +323,6 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
           `${process.env.NEXT_PUBLIC_API}api/project-mgt/getallonedocumenttype?preproject_id=${projectID}&document_type=CE03`
         );
 
-        // console.log('ข้อมูล CE03', response.data.documentList[0].document_description)
-
         // สร้างอาเรย์ของ object ที่เข้ากับ DataGrid เพื่อใช้ map row
         const rowData = response.data.documentList.map((document) => ({
           id: document.document_id,
@@ -349,8 +346,6 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const handleDownload = async (FileName) => {
     const fileName = FileName;
     const docType = 'CE03';
-
-    console.log('ชื่อไฟล์', fileName);
 
     try {
       const downloadResponse = await fetch('/api/download', {
@@ -431,8 +426,6 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   const [studentData, setStudentData] = useState(''); // เก็บค่าข้อมูลนักศึกษา
   const [advisor, setAdvisorData] = useState(''); // เก็บค่าข้อมูลอาจารที่ปรึกษา
   const [instructor, setInstructorData] = useState([]); // เก็บค่าข้อมูลอาจารย์
-
-  //   console.log('ควยลอก', advisor)
 
   //ตัวแปรรับข้อมูล
   const [getStudentData, setGetStudentData] = useState(''); // รับค่าข้อมูลนักศึกษา

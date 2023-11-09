@@ -50,8 +50,6 @@ const CE01_upload = ({ activeIndex, setActiveIndex, crossData }) => {
   // เก็บค่าจาก Props ลงในตัวแปร
   const projectID = crossData;
 
-  console.log('รหัสโครงการหน้า Upload', projectID);
-
   const [selectedFile, setSelectedFile] = useState(null); // ตัวแปรเก็บค่าไฟล์ที่อัปโหลด
   const [documentName, setDocumentName] = useState(''); // เก็บชื่อเอกสารพร้อมนามสกุลก่อนกดอัปโหลดไฟล์
   const [showFileDetails, setShowFileDetails] = useState(false); // ตัวแปรควบคุมการแสดงรายละเอียดเอกสาร

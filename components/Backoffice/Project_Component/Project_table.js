@@ -14,7 +14,7 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
   // data variables
   const [projectdata, setProjectData] = useState([]);
 
-  console.log('ข้อมูลโปรเจค', projectdata);
+  console.log('ข้อมูลโปรเจค อิอิ', projectdata);
 
   // sweetalert2 Import
   const Swal = require('sweetalert2');
@@ -45,6 +45,12 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
   const handleDetailProjectClick = (project_id) => {
     setCrossDataProject(project_id);
     setActiveIndex(2.1);
+  };
+
+  // Rout to Edit Project page
+  const handleEditProjectClick = (project_id) => {
+    setCrossDataProject(project_id);
+    setActiveIndex(2.2);
   };
 
   //=====================================End Rount page Functions================================//
@@ -109,7 +115,9 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                 data-line='#000'
               />
             </div>
-            <h2 >Project <br></br>Management Page</h2>
+            <h2>
+              Project <br></br>Management Page
+            </h2>
             <div className='bg-home7'>
               <AutoSlider1 />
               <AutoSlider2 />
@@ -167,7 +175,12 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                         key={project.preproject_id}
                       >
                         <div className='column'>{project.project_code}</div>
-                        <div className='column' style={{ fontFamily: 'Kanit, sans-serif' }}>{project.project_name_th}</div>
+                        <div
+                          className='column'
+                          style={{ fontFamily: 'Kanit, sans-serif' }}
+                        >
+                          {project.project_name_th}
+                        </div>
                         <div className='column'>
                           Term{project.semester_order} {project.section_name} {project.sem_year}
                         </div>
@@ -244,6 +257,15 @@ export default function Project_table({ activeIndex, setActiveIndex, crossData, 
                                   style={{ cursor: 'pointer' }}
                                 >
                                   <span>Detail</span>
+                                </div>
+                              </div>
+                              <div className='dropdown-item'>
+                                <div
+                                  className='sort-filter'
+                                  onClick={() => handleEditProjectClick(project.project_id)}
+                                  style={{ cursor: 'pointer' }}
+                                >
+                                  <span>Edit</span>
                                 </div>
                               </div>
                               <div className='dropdown-item'>

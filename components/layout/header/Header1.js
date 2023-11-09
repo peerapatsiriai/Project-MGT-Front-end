@@ -102,24 +102,28 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu }) {
                     </ul>
                   </nav>
                   {/* /#main-nav */}
+                  {/* action top bar */}
                   <div className='flat-wallet flex'>
+                    {/* Login Button */}
                     <div id='wallet-header'>
                       <Link
-                        href='/market-wallet'
+                        href='/Login'
                         id='connectbtn'
                         className='tf-button style-1'
                       >
-                        <span>Wallet connect</span>
+                        <span>Login</span>
                         <i className='icon-wa' />
                       </Link>
                     </div>
-                    <div
+                    {/* End Login Button */}
+                    {/* <div
                       className='canvas'
                       onClick={handleSidebar}
                     >
                       <span />
-                    </div>
+                    </div> */}
                   </div>
+                  {/* End action top bar */}
                 </div>
               </div>
             </div>

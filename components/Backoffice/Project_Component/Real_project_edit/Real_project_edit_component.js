@@ -28,8 +28,8 @@ import {
   buttonStyle2,
 } from 'public/assets/style_custom/style';
 
-export default function Edit_General_Data({ activeIndex, setActiveIndex, crossData }) {
-  const requestdata = crossData; // Get project id from properties
+export default function Real_project_edit_component({ activeIndex, setActiveIndex, crossdataProject }) {
+  const requestdata = crossdataProject; // Get project id from properties
 
   // นำเข้าตัวsweetalert2
   const Swal = require('sweetalert2');
@@ -54,6 +54,32 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   //เก็บตัวแปรนักเรียน
   const [allStudentValues, setAllStudentValues] = useState([]); // เก็บข้อมูลนักเรียนทั้งหมด(ใช้อันนี้บัคเยอะนะ)
   const [allStudent, setAllStudent] = useState([]); // รับ Id นักเรียนเพื่อส่งฟอร์ม
+
+  // ล้างค่าข้อมูล Component เก่าก่อนจะเซตค่าใหม่
+  useEffect(() => {
+    setCurriculumsId('');
+    setSubjectId('');
+    setYearId('');
+    setProjectType('');
+    setAdvisorId('');
+    setProjectCode('');
+    setProjectNameTh('');
+    setProjectNameEn('');
+    setSelectedTerm('');
+    setProjectStatus('');
+    setSelectedValueAdvisorSub(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalSubAdvisorForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    setSelectedValueCommittee(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalCommitteeForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    // ล้างค่าของ นศ.
+    setSelectedValueStudent(''); // เซ็ตค่า selectedValueStudent เป็น null หรือค่าว่าง
+    setAdditionalStudentForms([]); // เซ็ตค่า additionalStudentForms เป็นอาเรย์ว่าง
+    setAllStudentValues([]); // เซ็ตค่า allStudentValues เป็นอาเรย์ว่าง
+    setAllStudent([]);
+
+    // รีสถานะกล่องแดง
+    setSubmitted(false);
+  }, [activeIndex]);
 
   // ฟังก์ชันรีเซ็ตข้อมูลในฟอร์ม
   const handleResetForm = () => {
@@ -149,10 +175,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
     }
 
     const data = {
-      preproject_id: requestdata,
+      project_id: requestdata,
       section_id: selectedTerm,
-      preproject_name_th: projectNameTh,
-      preproject_name_eng: projectNameEn,
+      project_name_th: projectNameTh,
+      project_name_eng: projectNameEn,
       project_code: projectCode,
       project_status: projectstatus,
       project_type: projecttype,
@@ -162,15 +188,16 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
       studen_id: allStudent,
     };
 
+    // console.log('ข้อมูลพี่จง', data);
+
     axios
-      .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/updatepreproject`, data)
+      .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/updateproject`, data)
       .then((response) => {
         console.log(response);
         handleClose();
 
         // window.location.reload()
         Route.replace(Route.asPath, undefined, { scroll: false });
-        handleCancel(); // รีข้อมูล
       })
       .catch((error) => {
         console.log(error);
@@ -181,7 +208,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
       title: 'อัปเดทข้อมูลแล้วเสร็จ',
     });
 
-    setActiveIndex(1);
+    setActiveIndex(2);
   };
 
   // ตัวแปรเช็คว่ามีข้อมูลให้ Map หรือไม่
@@ -198,7 +225,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   useEffect(() => {
     const fetchEditData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${requestdata}`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/project?project_id=${requestdata}`);
 
         setCurriculumsId(response.data.PreprojectData[0].curriculum_id);
         setSubjectId(response.data.PreprojectData[0].subject_id);
@@ -687,7 +714,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 </Grid>
 
                 {/* Curriculum Select */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={6}
@@ -717,10 +744,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       ))}
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
 
                 {/* Subject Select */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={6}
@@ -755,10 +782,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       )}
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
 
                 {/* Year Select */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={4}
@@ -793,7 +820,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       )}
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
 
                 {/* Term Select */}
                 <Grid
@@ -843,7 +870,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                     sx={textFieldStyle}
                     fullWidth
                     type='text'
-                    label='Pre-projec Code'
+                    label='Projec Code'
                     placeholder='CE0101'
                     value={projectCode}
                     error={submitted && !projectCode} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
@@ -862,7 +889,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       id='term-label'
                       sx={inputLabelStyle}
                     >
-                      Pre-project Type
+                      Project Type
                     </InputLabel>
                     <Select
                       sx={dropdownStyle}
@@ -882,7 +909,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 </Grid>
 
                 {/* Project-Status Select */}
-                <Grid
+                {/* <Grid
                   item
                   xs={12}
                   sm={4}
@@ -912,7 +939,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       <MenuItem value={'5'}>Examination passed</MenuItem>
                     </Select>
                   </FormControl>
-                </Grid>
+                </Grid> */}
 
                 {/* Project-Name Th,En TextField */}
                 <Grid
@@ -923,7 +950,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                     variant='body2'
                     sx={typographyStyle}
                   >
-                    Pre-project Name **
+                    Project Name **
                   </Typography>
                 </Grid>
                 <Grid
@@ -1221,7 +1248,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 variant='outlined'
                 onClick={handleEditSubmit}
               >
-                Insert
+                Edit
               </Button>
               <Button
                 size='large'
@@ -1237,7 +1264,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                 color='error'
                 variant='outlined'
                 onClick={function () {
-                  setActiveIndex(1);
+                  setActiveIndex(2);
                 }}
                 sx={buttonStyle2}
               >
