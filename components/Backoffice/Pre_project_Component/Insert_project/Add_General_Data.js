@@ -429,11 +429,11 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
         >
           {selectableSubTeachers.map((contentTeacher) => (
             <MenuItem
-              key={contentTeacher.tea_id}
-              value={contentTeacher.tea_id}
-              disabled={allAdvisorSubValues.includes(contentTeacher.tea_id)}
+              key={contentTeacher.teacher_id}
+              value={contentTeacher.teacher_id}
+              disabled={allAdvisorSubValues.includes(contentTeacher.teacher_id)}
             >
-              {contentTeacher.tea_name} {contentTeacher.tea_lname}
+              {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
             </MenuItem>
           ))}
         </Select>
@@ -506,11 +506,11 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
         >
           {selecCommittee.map((contentTeacher) => (
             <MenuItem
-              key={contentTeacher.tea_id}
-              value={contentTeacher.tea_id}
+              key={contentTeacher.teacher_id}
+              value={contentTeacher.teacher_id}
               disabled={allCommitteeValues.includes(contentTeacher.instructor_id)}
             >
-              {contentTeacher.tea_name} {contentTeacher.tea_lname}
+              {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
             </MenuItem>
           ))}
         </Select>
@@ -534,7 +534,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
   }, [selectedValueStudent, additionalStudentForms]);
 
   useEffect(() => {
-    const updatedAllStudent = allStudentValues.map((value) => value?.Id).filter((id) => id !== undefined);
+    const updatedAllStudent = allStudentValues.map((value) => value?.student_id).filter((id) => id !== undefined);
     setAllStudent(updatedAllStudent);
   }, [allStudentValues]);
 
@@ -569,7 +569,7 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
 
   // display Student Name on Autocomplete
   const getOptionLabel = (option) => {
-    return option ? `${option.stu_name} ${option.stu_lname} ${option.stu_id}` : '';
+    return option ? `${option.prefix} ${option.first_name} ${option.last_name} ${option.id_rmutl}` : '';
   };
 
   const AdditionalStudentForm = ({ formIndex }) => {
@@ -949,9 +949,9 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                       {teacherData.map((contentTeacher, value) => (
                         <MenuItem
                           key={value}
-                          value={contentTeacher.tea_id}
+                          value={contentTeacher.teacher_id}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1009,11 +1009,11 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     >
                       {selectableSubTeachers.map((contentTeacher) => (
                         <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
+                          key={contentTeacher.teacher_id}
+                          value={contentTeacher.teacher_id}
+                          disabled={additionalSubAdvisorForms.includes(contentTeacher.teacher_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1080,11 +1080,11 @@ export default function Add_General_Data({ activeIndex, setActiveIndex }) {
                     >
                       {selecCommittee.map((contentTeacher) => (
                         <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
+                          key={contentTeacher.teacher_id}
+                          value={contentTeacher.teacher_id}
+                          disabled={additionalCommitteeForms.includes(contentTeacher.teacher_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>

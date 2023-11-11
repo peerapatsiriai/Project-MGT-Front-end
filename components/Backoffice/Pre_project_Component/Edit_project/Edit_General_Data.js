@@ -199,7 +199,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
     const fetchEditData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${requestdata}`);
-
+        console.log('data Setto', response.data);
         setCurriculumsId(response.data.PreprojectData[0].curriculum_id);
         setSubjectId(response.data.PreprojectData[0].subject_id);
         setYearId(response.data.PreprojectData[0].sem_year);
@@ -209,19 +209,19 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         setProjectStatus(response.data.PreprojectData[0].project_status);
         setProjectNameTh(response.data.PreprojectData[0].preproject_name_th);
         setProjectNameEn(response.data.PreprojectData[0].preproject_name_eng);
-        setAdvisorId(response.data.PreprojectData[0].tea_id);
+        setAdvisorId(response.data.PreprojectData[0].teacher_id);
 
         //--------------------------------------เซตค่าเริ่มต้นให้ Sub Advisors--------------------------------------------//
 
         // เช็คว่ามีข้อมูล Sub Advisors มากกว่า 0 ค่าหรือไม่
         if (response.data.PreprojectSubAdviser.length > 0) {
-          setSelectedValueAdvisorSub(response.data.PreprojectSubAdviser[0].tea_id);
+          setSelectedValueAdvisorSub(response.data.PreprojectSubAdviser[0].teacher_id);
 
           // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
           const subAdvisersFromSecondElement = response.data.PreprojectSubAdviser.slice(1);
 
           // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
-          const initialSubAdvisorIds = subAdvisersFromSecondElement.map((subAdvisor) => subAdvisor.tea_id);
+          const initialSubAdvisorIds = subAdvisersFromSecondElement.map((subAdvisor) => subAdvisor.teacher_id);
           setAdditionalSubAdvisorForms(initialSubAdvisorIds);
         }
 
@@ -229,13 +229,13 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
 
         //--------------------------------------เซตค่าเริ่มต้นให้ Committee--------------------------------------------//
 
-        setSelectedValueCommittee(response.data.PreprojectCommittee[0].tea_id);
+        setSelectedValueCommittee(response.data.PreprojectCommittee[0].teacher_id);
 
         // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
         const CommitteeFromSecondElement = response.data.PreprojectCommittee.slice(1);
 
         // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
-        const initialCommittee = CommitteeFromSecondElement.map((committee) => committee.tea_id);
+        const initialCommittee = CommitteeFromSecondElement.map((committee) => committee.teacher_id);
         setAdditionalCommitteeForms(initialCommittee);
 
         //--------------------------------------จบการเซตค่าเริ่มต้นให้ Committee--------------------------------------------//
@@ -245,11 +245,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         // ใช้ slice() เพื่อเลือกข้อมูลใน Array ตั้งแต่ช่องที่ 1 เป็นต้นไป
         const StudentFromSecondElement = response.data.PreprojectStudent.slice(1);
         // เซ็ตค่าเริ่มต้นให้กับ state additionalSubAdvisorForms
-        const initialStudent = StudentFromSecondElement.map((student) => student.Id);
+        const initialStudent = StudentFromSecondElement.map((student) => student.student_id);
         setAdditionalStudentForms(initialStudent);
 
         // นำค่าที่เซตเริ่มต้นทั้งหมดไปเก็บใน allStudentValues
-        const allStudentData = [response.data.PreprojectStudent[0].Id, ...initialStudent].filter((value) => value !== '');
+        const allStudentData = [response.data.PreprojectStudent[0].student_id, ...initialStudent].filter((value) => value !== '');
         setAllStudent(allStudentData);
 
         //--------------------------------------จบการเซตค่าเริ่มต้นให้ Student--------------------------------------------//
@@ -476,11 +476,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         >
           {selectableSubTeachers.map((contentTeacher) => (
             <MenuItem
-              key={contentTeacher.tea_id}
-              value={contentTeacher.tea_id}
-              disabled={allAdvisorSubValues.includes(contentTeacher.tea_id)}
+              key={contentTeacher.teacher_id}
+              value={contentTeacher.teacher_id}
+              disabled={allAdvisorSubValues.includes(contentTeacher.teacher_id)}
             >
-              {contentTeacher.tea_name}
+              {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
             </MenuItem>
           ))}
         </Select>
@@ -553,11 +553,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
         >
           {selecCommittee.map((contentTeacher) => (
             <MenuItem
-              key={contentTeacher.tea_id}
-              value={contentTeacher.tea_id}
-              disabled={allCommitteeValues.includes(contentTeacher.tea_id)}
+              key={contentTeacher.teacher_id}
+              value={contentTeacher.teacher_id}
+              disabled={allCommitteeValues.includes(contentTeacher.teacher_id)}
             >
-              {contentTeacher.tea_name}
+              {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
             </MenuItem>
           ))}
         </Select>
@@ -582,7 +582,7 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
 
   // อัปเดทค่า นักศึกษาใหม่
   useEffect(() => {
-    const updatedAllStudent = allStudentValues.map((value) => value?.Id).filter((id) => id !== undefined);
+    const updatedAllStudent = allStudentValues.map((value) => value?.student_id).filter((id) => id !== undefined);
     setAllStudent(updatedAllStudent);
   }, [allStudentValues]);
 
@@ -618,14 +618,14 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   const getOptionLabel = (option) => {
     if (!option) return '';
 
-    const selectedStudent = selectStudent.find((student) => student.Id === option);
+    const selectedStudent = selectStudent.find((student) => student.student_id === option);
 
     if (selectedStudent) {
-      return `${selectedStudent.stu_name} ${selectedStudent.stu_lname} ${selectedStudent.stu_id}`;
+      return `${selectedStudent.prefix} ${selectedStudent.first_name} ${selectedStudent.last_name} ${selectedStudent.id_rmutl}`;
     }
 
     if (option) {
-      return `${option.stu_name} ${option.stu_lname} ${option.stu_id}`;
+      return `${option.prefix} ${option.first_name} ${option.last_name} ${option.id_rmutl}`;
     }
 
     return '';
@@ -998,9 +998,9 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       {teacherData.map((contentTeacher, value) => (
                         <MenuItem
                           key={value}
-                          value={contentTeacher.tea_id}
+                          value={contentTeacher.teacher_id}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1058,11 +1058,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                     >
                       {selectableSubTeachers.map((contentTeacher) => (
                         <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalSubAdvisorForms.includes(contentTeacher.tea_id)}
+                          key={contentTeacher.teacher_id}
+                          value={contentTeacher.teacher_id}
+                          disabled={additionalSubAdvisorForms.includes(contentTeacher.teacher_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>
@@ -1129,11 +1129,11 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                     >
                       {selecCommittee.map((contentTeacher) => (
                         <MenuItem
-                          key={contentTeacher.tea_id}
-                          value={contentTeacher.tea_id}
-                          disabled={additionalCommitteeForms.includes(contentTeacher.tea_id)}
+                          key={contentTeacher.teacher_id}
+                          value={contentTeacher.teacher_id}
+                          disabled={additionalCommitteeForms.includes(contentTeacher.teacher_id)}
                         >
-                          {contentTeacher.tea_name} {contentTeacher.tea_lname}
+                          {contentTeacher.prefix} {contentTeacher.first_name} {contentTeacher.last_name}
                         </MenuItem>
                       ))}
                     </Select>
