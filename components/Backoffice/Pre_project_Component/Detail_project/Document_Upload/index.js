@@ -83,7 +83,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' />s */}
                     {DocumentData.ce01.status}
                   </h6>
                 </div>
@@ -130,7 +130,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     {DocumentData.ce02.status}
                   </h6>
                 </div>
@@ -177,7 +177,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     {DocumentData.ce03.status}
                   </h6>
                 </div>
@@ -224,7 +224,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     {DocumentData.ce04.status}
                   </h6>
                 </div>
@@ -271,7 +271,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     {DocumentData.ce05.status}
                   </h6>
                 </div>
@@ -318,7 +318,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     {DocumentData.ce06.status}
                   </h6>
                 </div>
@@ -365,7 +365,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     Pass
                   </h6>
                 </div>
@@ -412,7 +412,7 @@ export default function Document_Upload({ DocumentData, activeIndex, setActiveIn
                 <div className='meta-info flex items-center justify-between'>
                   <span className='text-bid'>Document Status</span>
                   <h6 className='price gem'>
-                    <i className='icon-gem' />
+                    {/* <i className='icon-gem' /> */}
                     Pass
                   </h6>
                 </div>
