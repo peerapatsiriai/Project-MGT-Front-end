@@ -28,9 +28,7 @@ export default function Slider({ data }) {
                 </p>
               </div>
             </div>
-            <div className='col-12'>
-              {/* <Img_slide /> */}
-            </div>
+            <div className='col-12'>{/* <Img_slide /> */}</div>
           </div>
         </div>
       </div>
