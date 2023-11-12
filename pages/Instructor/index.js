@@ -322,7 +322,7 @@ export default function Instructor() {
               <div className='over-content'>
                 {/* Menu Sidebar Show */}
                 <div className='content'>
-                  <h6>Backoffice Menu</h6>
+                  <h6>Instructor Menu</h6>
                   <ul className='menu-tab'>
                     {/* Sec Management tab */}
                     <li

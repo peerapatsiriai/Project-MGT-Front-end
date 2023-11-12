@@ -511,10 +511,10 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                     {getStudentData.length > 0 ? (
                       getStudentData.map((student) => (
                         <MenuItem
-                          key={student.stu_id}
-                          value={student.stu_id}
+                          key={student.student_id}
+                          value={student.student_id}
                         >
-                          {student.stu_name} {student.stu_lname} รหัสนักศึกษา {student.stu_id}
+                          {student.prefix} {student.first_name} {student.last_name} รหัสนักศึกษา {student.id_rmutl}
                         </MenuItem>
                       ))
                     ) : (
@@ -541,10 +541,10 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                     {getAdvisor.length > 0 ? (
                       getAdvisor.map((advisor) => (
                         <MenuItem
-                          key={advisor.tea_id}
-                          value={advisor.tea_id}
+                          key={advisor.teacher_id}
+                          value={advisor.teacher_id}
                         >
-                          {advisor.tea_name} {advisor.tea_lname}
+                          {advisor.prefix} {advisor.first_name} {advisor.last_name}
                         </MenuItem>
                       ))
                     ) : (
@@ -571,10 +571,10 @@ const CE05_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                     {getCommittee.length > 0 ? (
                       getCommittee.map((committee) => (
                         <MenuItem
-                          key={committee.tea_id}
-                          value={committee.tea_id}
+                          key={committee.teacher_id}
+                          value={committee.teacher_id}
                         >
-                          {committee.tea_name} {committee.tea_lname}
+                          {committee.prefix} {committee.first_name} {committee.last_name}
                         </MenuItem>
                       ))
                     ) : (

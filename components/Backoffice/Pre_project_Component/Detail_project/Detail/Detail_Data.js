@@ -105,7 +105,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
             <div className='details-item'>
               <span>Adviser</span>
               <span className='tf-color'>
-                {Project_data.tea_name} {Project_data.tea_lname}
+                {Project_data.prefix} {Project_data.first_name} {Project_data.last_name}
               </span>
             </div>
             {/* End Content 09 */}
@@ -117,7 +117,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {SubAdviser_data.length > 0
                   ? SubAdviser_data.map((subAdviser, index) => (
                       <span key={index}>
-                        {subAdviser.tea_name} {subAdviser.tea_lname}
+                        {subAdviser.prefix} {subAdviser.first_name} {subAdviser.last_name}
                         {index < SubAdviser_data.length - 1 ? ', ' : ''}
                       </span>
                     ))
@@ -133,7 +133,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {Committee_data.length > 0
                   ? Committee_data.map((Committee, index) => (
                       <span key={index}>
-                        {Committee.tea_name} {Committee.tea_lname}
+                        {Committee.prefix} {Committee.first_name} {Committee.last_name}
                         {index < Committee_data.length - 1 ? ', ' : ''}
                       </span>
                     ))
@@ -149,7 +149,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {Students_data.length > 0
                   ? Students_data.map((Students, index) => (
                       <span key={index}>
-                        {Students.stu_name} {Students.stu_lname}
+                        {Students.prefix} {Students.first_name} {Students.last_name}
                         {index < Students_data.length - 1 ? ', ' : ''}
                       </span>
                     ))

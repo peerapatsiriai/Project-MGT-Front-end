@@ -55,6 +55,32 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   const [allStudentValues, setAllStudentValues] = useState([]); // เก็บข้อมูลนักเรียนทั้งหมด(ใช้อันนี้บัคเยอะนะ)
   const [allStudent, setAllStudent] = useState([]); // รับ Id นักเรียนเพื่อส่งฟอร์ม
 
+  // ล้างค่าข้อมูล Component เก่าก่อนจะเซตค่าใหม่
+  useEffect(() => {
+    setCurriculumsId('');
+    setSubjectId('');
+    setYearId('');
+    setProjectType('');
+    setAdvisorId('');
+    setProjectCode('');
+    setProjectNameTh('');
+    setProjectNameEn('');
+    setSelectedTerm('');
+    setProjectStatus('');
+    setSelectedValueAdvisorSub(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalSubAdvisorForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    setSelectedValueCommittee(''); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน select ตัวแรก
+    setAdditionalCommitteeForms([]); //  ล้างค่าข้อมูลอาจารย์ AdvisorSub ใน Additional select
+    // ล้างค่าของ นศ.
+    setSelectedValueStudent(''); // เซ็ตค่า selectedValueStudent เป็น null หรือค่าว่าง
+    setAdditionalStudentForms([]); // เซ็ตค่า additionalStudentForms เป็นอาเรย์ว่าง
+    setAllStudentValues([]); // เซ็ตค่า allStudentValues เป็นอาเรย์ว่าง
+    setAllStudent([]);
+
+    // รีสถานะกล่องแดง
+    setSubmitted(false);
+  }, [activeIndex]);
+
   // ฟังก์ชันรีเซ็ตข้อมูลในฟอร์ม
   const handleResetForm = () => {
     setCurriculumsId('');

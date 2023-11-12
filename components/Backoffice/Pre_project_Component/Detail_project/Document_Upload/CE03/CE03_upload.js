@@ -608,10 +608,10 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                     {getStudentData.length > 0 ? (
                       getStudentData.map((student) => (
                         <MenuItem
-                          key={student.stu_id}
-                          value={student.stu_id}
+                          key={student.student_id}
+                          value={student.student_id}
                         >
-                          {student.stu_name} {student.stu_lname} รหัสนักศึกษา {student.stu_id}
+                          {student.prefix} {student.first_name} {student.last_name} รหัสนักศึกษา {student.id_rmutl}
                         </MenuItem>
                       ))
                     ) : (
@@ -638,10 +638,10 @@ const CE03_upload = ({ activeIndex, setActiveIndex, crossData }) => {
                     {getAdvisor.length > 0 ? (
                       getAdvisor.map((advisor) => (
                         <MenuItem
-                          key={advisor.tea_id}
-                          value={advisor.tea_id}
+                          key={advisor.teacher_id}
+                          value={advisor.teacher_id}
                         >
-                          {advisor.tea_name} {advisor.tea_lname}
+                          {advisor.prefix} {advisor.first_name} {advisor.last_name}
                         </MenuItem>
                       ))
                     ) : (
