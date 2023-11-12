@@ -29,7 +29,7 @@ export default function Slider({ data }) {
               </div>
             </div>
             <div className='col-12'>
-              <Img_slide />
+              {/* <Img_slide /> */}
             </div>
           </div>
         </div>
