@@ -105,11 +105,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
             <div className='details-item'>
               <span>Adviser</span>
               <span className='tf-color'>
-<<<<<<< HEAD
                 {Project_data.prefix} {Project_data.first_name} {Project_data.last_name}
-=======
-                {Project_data.first_name} {Project_data.last_name}
->>>>>>> 78cac0746f86ac86c495c6fdbb941cd04a63debf
               </span>
             </div>
             {/* End Content 09 */}
@@ -137,11 +133,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {Committee_data.length > 0
                   ? Committee_data.map((Committee, index) => (
                       <span key={index}>
-<<<<<<< HEAD
                         {Committee.prefix} {Committee.first_name} {Committee.last_name}
-=======
-                        {Committee.first_name} {Committee.last_name}
->>>>>>> 78cac0746f86ac86c495c6fdbb941cd04a63debf
                         {index < Committee_data.length - 1 ? ', ' : ''}
                       </span>
                     ))
@@ -157,11 +149,7 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
                 {Students_data.length > 0
                   ? Students_data.map((Students, index) => (
                       <span key={index}>
-<<<<<<< HEAD
                         {Students.prefix} {Students.first_name} {Students.last_name}
-=======
-                        {Students.first_name} {Students.last_name}
->>>>>>> 78cac0746f86ac86c495c6fdbb941cd04a63debf
                         {index < Students_data.length - 1 ? ', ' : ''}
                       </span>
                     ))
