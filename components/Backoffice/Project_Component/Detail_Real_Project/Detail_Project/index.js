@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-export default function Detail_Data({ Project_data, Committee_data, Students_data, SubAdviser_data }) {
+export default function Detail_Project({ Project_data, Committee_data, Students_data, SubAdviser_data }) {
   return (
     <>
       <div>
@@ -23,14 +23,14 @@ export default function Detail_Data({ Project_data, Committee_data, Students_dat
             {/* Content 01 */}
             <div className='details-item'>
               <span>Project Name TH</span>
-              <span className='tf-color'>{Project_data.preproject_name_th || Project_data.project_name_th}</span>
+              <span className='tf-color'>{Project_data.project_name_th}</span>
             </div>
             {/* End Content 01 */}
 
             {/* Content 02 */}
             <div className='details-item'>
               <span>Project Name EN</span>
-              <span className='tf-color'>{Project_data.preproject_name_eng || Project_data.project_name_eng}</span>
+              <span className='tf-color'>{Project_data.project_name_eng}</span>
             </div>
             {/* End Content 02 */}
 

@@ -5,11 +5,13 @@ import axios from 'axios';
 // Component Import
 import Slider from '../../Pre_project_Component/Detail_project/Project_Slider/Slider';
 import Detail_Data from '../../Pre_project_Component/Detail_project/Detail/Detail_Data';
+import Detail_Project from './Detail_Project';
 import Document_Project_Upload from './Document_Project_Upload';
 
 export default function Project_Real_Detail({ activeIndex, setActiveIndex, crossdataProject }) {
   // data variables
   const [prejectdata, setProjectData] = useState([]);
+  console.log('prejectdata', prejectdata);
 
   // Fetch data from API
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function Project_Real_Detail({ activeIndex, setActiveIndex, cross
             {/* Slide Content */}
             <Slider data={prejectdata.PreprojectData[0]} />
             {/* Detail Content */}
-            <Detail_Data
+            <Detail_Project
               Project_data={prejectdata.PreprojectData[0]}
               Committee_data={prejectdata.PreprojectCommittee}
               Students_data={prejectdata.PreprojectStudent}

@@ -1,39 +1,14 @@
-import ActiveBid from '@/components/sections/ActiveBid';
 import Link from 'next/link';
 import { useState } from 'react';
 
 // Component Import
-//============================================== Pre-Project-table===============================================//
-import Preproject_table from '@/components/Backoffice/Pre_project_Component/Preproject_table';
-//==============================================Insert Project===============================================//
-import Create from '@/components/sections/Create';
-import Add_General_Data from '@/components/Backoffice/Pre_project_Component/Insert_project/Add_General_Data';
-//==============================================Edit Pre-Project===============================================//
-import Edit_General_Data from '@/components/Backoffice/Pre_project_Component/Edit_project/Edit_General_Data';
-//==============================================Project Transfer===============================================//
-import Pre_project_transfer from '@/components/Backoffice/Pre_project_Component/Transfer_pre_project/Pre_project_transfer';
-//==============================================Pre-Project Detail===============================================//
-import Project_Detail from '@/components/Backoffice/Pre_project_Component/Detail_project/Project_Detail';
-import CE01_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE01/CE01_upload';
-import CE02_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE02/CE02_upload';
-import CE03_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE03/CE03_upload';
-import CE04_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE04/CE04_upload';
-import CE05_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE05/CE05_upload';
-import CE06_upload from '@/components/Backoffice/Pre_project_Component/Detail_project/Document_Upload/CE06/CE06_upload';
+//============================================== Section-table===============================================//
+import Sec_Management from '@/components/Instructor/Sec_Management';
+import Project_section from '@/components/Instructor/Sec_Management/Project_section';
+import Pre_project_section from '@/components/Instructor/Sec_Management/Pre_project_section';
+import Insert_Sec from '@/components/Instructor/Sec_Management/Insert_Sec';
 
-//============================================== Project-table===============================================//
-import Project_table from '@/components/Backoffice/Project_Component/Project_table';
-//==============================================Project Detail===============================================//
-import Project_Real_Detail from '@/components/Backoffice/Project_Component/Detail_Real_Project/Project_Real_Detail';
-import Real_project_edit_component from '@/components/Backoffice/Project_Component/Real_project_edit/Real_project_edit_component';
-import Chapter01_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter01/Chapter01_upload';
-import Chapter02_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter02/Chapter02_upload';
-import Chapter03_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter03/Chapter03_upload';
-import Chapter04_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter04/Chapter04_upload';
-import Chapter05_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter05/Chapter05_upload';
-import Chapter06_upload from '@/components/Backoffice/Project_Component/Detail_Real_Project/Document_Project_Upload/Chapter06/Chapter06_upload';
-
-export default function Home() {
+export default function Instructor_project() {
   const [activeIndex, setActiveIndex] = useState(1);
   const handleOnClick = (index) => {
     setActiveIndex(index);
@@ -49,9 +24,7 @@ export default function Home() {
   const handleMobileSidebar = () => setMobileSidebar(!isMobileSidebar);
 
   // data variables
-  const [crossdata, setCrossData] = useState([]); // Send Pre_project_id data across properties
-  const [crossdataProject, setCrossDataProject] = useState([]); // Send Project_id data across properties
-  const [searchTerm, setSearchTerm] = useState(''); // Search data variable
+  const [crossSecData, setCrossSecData] = useState([]); // Send Sec data across properties
 
   return (
     <>
@@ -69,10 +42,6 @@ export default function Home() {
                   method='get'
                   role='search'
                   className='search-form relative'
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleSearch(searchTerm);
-                  }}
                 >
                   <input
                     type='search'
@@ -83,8 +52,6 @@ export default function Home() {
                     title='Search for'
                     required
                     style={{ background: '#161616', color: '#8A8AA0' }}
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
                   />
                   <button
                     className='search search-submit'
@@ -341,23 +308,23 @@ export default function Home() {
 
               {/* header Sidebar Show */}
               <div className='create menu-tab'>
-                {/* <a
+                <a
                   className='tf-button style-1 type-1 tablinks'
                   data-tabs='create'
-                  onClick={() => handleOnClick(9)}
+                  href='/Instructor'
                 >
-                  <span>Create</span>
-                  <i className='icon-create' />
-                </a> */}
+                  <span>Preproject Menu</span>
+                  {/* <i className='icon-create' /> */}
+                </a>
               </div>
               {/*End header Sidebar Show */}
 
               <div className='over-content'>
                 {/* Menu Sidebar Show */}
                 <div className='content'>
-                  <h6>Backoffice Menu</h6>
+                  <h6>Instructor Project Menu</h6>
                   <ul className='menu-tab'>
-                    {/* pre_project Tab */}
+                    {/* Sec Management tab */}
                     <li
                       className={activeIndex === 1 ? 'tablinks active' : 'tablinks'}
                       data-tabs='Pre_project'
@@ -417,11 +384,11 @@ export default function Home() {
                           fill='#DDF247'
                         />
                       </svg>
-                      Pre project Table
+                      Sec Management
                     </li>
-                    {/* End pre_project Tab */}
+                    {/* End Sec Management */}
 
-                    {/* Project Tab */}
+                    {/* Some Content */}
                     <li
                       className={activeIndex === 2 ? 'tablinks active' : 'tablinks'}
                       data-tabs='Project'
@@ -505,67 +472,9 @@ export default function Home() {
                           fill='#DDF247'
                         />
                       </svg>
-                      Project Table
+                      Some Content
                     </li>
-                    {/* End Project Tab */}
-
-                    {/* Timeline Tab */}
-                    <li
-                      className={activeIndex === 3 ? 'tablinks active' : 'tablinks'}
-                      data-tabs='explore'
-                      onClick={() => handleOnClick(3)}
-                    >
-                      <svg
-                        width={22}
-                        height={22}
-                        viewBox='0 0 22 22'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'
-                      >
-                        <g opacity='0.2'>
-                          <path
-                            fillRule='evenodd'
-                            clipRule='evenodd'
-                            d='M5.73177 3.20834C3.21094 3.20834 3.21094 3.39901 3.21094 5.72918V5.75209C3.21094 6.76684 3.21094 7.50018 3.45935 7.81001C3.70227 8.11068 4.42369 8.25001 5.73177 8.25001C7.03985 8.25001 7.76127 8.10976 8.00419 7.80909C8.2526 7.50018 8.2526 6.76684 8.2526 5.75118C8.2526 3.39901 8.2526 3.20834 5.73177 3.20834ZM5.73177 9.62501C4.18627 9.62501 3.02669 9.46276 2.3896 8.67168C1.83594 7.98509 1.83594 7.04826 1.83594 5.75209L2.52344 5.72918H1.83594C1.83594 3.09834 2.00185 1.83334 5.73177 1.83334C9.46169 1.83334 9.6276 3.09834 9.6276 5.72918C9.6276 7.04734 9.6276 7.98509 9.07394 8.67168C8.43685 9.46276 7.27727 9.62501 5.73177 9.62501Z'
-                            fill='white'
-                          />
-                          <path
-                            fillRule='evenodd'
-                            clipRule='evenodd'
-                            d='M15.8177 3.20834C13.2969 3.20834 13.2969 3.39901 13.2969 5.72918V5.75209C13.2969 6.76684 13.2969 7.50018 13.5453 7.81001C13.7882 8.11068 14.5096 8.25001 15.8177 8.25001C17.1258 8.25001 17.8472 8.10976 18.0901 7.80909C18.3385 7.50018 18.3385 6.76684 18.3385 5.75118C18.3385 3.39901 18.3385 3.20834 15.8177 3.20834ZM15.8177 9.62501C14.2722 9.62501 13.1126 9.46276 12.4755 8.67168C11.9219 7.98509 11.9219 7.04826 11.9219 5.75209L12.6094 5.72918H11.9219C11.9219 3.09834 12.0878 1.83334 15.8177 1.83334C19.5476 1.83334 19.7135 3.09834 19.7135 5.72918C19.7135 7.04734 19.7135 7.98509 19.1599 8.67168C18.5228 9.46276 17.3632 9.62501 15.8177 9.62501Z'
-                            fill='white'
-                          />
-                          <path
-                            fillRule='evenodd'
-                            clipRule='evenodd'
-                            d='M5.73177 13.2917C3.21094 13.2917 3.21094 13.4824 3.21094 15.8125V15.8354C3.21094 16.8502 3.21094 17.5835 3.45935 17.8934C3.70227 18.194 4.42369 18.3334 5.73177 18.3334C7.03985 18.3334 7.76127 18.1931 8.00419 17.8924C8.2526 17.5835 8.2526 16.8502 8.2526 15.8345C8.2526 13.4824 8.2526 13.2917 5.73177 13.2917ZM5.73177 19.7084C4.18627 19.7084 3.02669 19.5461 2.3896 18.755C1.83594 18.0684 1.83594 17.1316 1.83594 15.8354L2.52344 15.8125H1.83594C1.83594 13.1817 2.00185 11.9167 5.73177 11.9167C9.46169 11.9167 9.6276 13.1817 9.6276 15.8125C9.6276 17.1307 9.6276 18.0684 9.07394 18.755C8.43685 19.5461 7.27727 19.7084 5.73177 19.7084Z'
-                            fill='white'
-                          />
-                          <path
-                            fillRule='evenodd'
-                            clipRule='evenodd'
-                            d='M15.8177 13.2917C13.2969 13.2917 13.2969 13.4824 13.2969 15.8125V15.8354C13.2969 16.8502 13.2969 17.5835 13.5453 17.8934C13.7882 18.194 14.5096 18.3334 15.8177 18.3334C17.1258 18.3334 17.8472 18.1931 18.0901 17.8924C18.3385 17.5835 18.3385 16.8502 18.3385 15.8345C18.3385 13.4824 18.3385 13.2917 15.8177 13.2917ZM15.8177 19.7084C14.2722 19.7084 13.1126 19.5461 12.4755 18.755C11.9219 18.0684 11.9219 17.1316 11.9219 15.8354L12.6094 15.8125H11.9219C11.9219 13.1817 12.0878 11.9167 15.8177 11.9167C19.5476 11.9167 19.7135 13.1817 19.7135 15.8125C19.7135 17.1307 19.7135 18.0684 19.1599 18.755C18.5228 19.5461 17.3632 19.7084 15.8177 19.7084Z'
-                            fill='white'
-                          />
-                        </g>
-                      </svg>
-                      <svg
-                        width={22}
-                        height={22}
-                        viewBox='0 0 22 22'
-                        fill='none'
-                        xmlns='http://www.w3.org/2000/svg'
-                      >
-                        <path
-                          fillRule='evenodd'
-                          clipRule='evenodd'
-                          d='M4.16134 1.83334H7.25967C8.55217 1.83334 9.58801 2.88751 9.58801 4.18093V7.30584C9.58801 8.60751 8.55217 9.65251 7.25967 9.65251H4.16134C2.87801 9.65251 1.83301 8.60751 1.83301 7.30584V4.18093C1.83301 2.88751 2.87801 1.83334 4.16134 1.83334ZM4.16134 12.3472H7.25967C8.55217 12.3472 9.58801 13.3932 9.58801 14.6948V17.8197C9.58801 19.1122 8.55217 20.1664 7.25967 20.1664H4.16134C2.87801 20.1664 1.83301 19.1122 1.83301 17.8197V14.6948C1.83301 13.3932 2.87801 12.3472 4.16134 12.3472ZM17.8381 1.83334H14.7398C13.4473 1.83334 12.4114 2.88751 12.4114 4.18093V7.30584C12.4114 8.60751 13.4473 9.65251 14.7398 9.65251H17.8381C19.1214 9.65251 20.1664 8.60751 20.1664 7.30584V4.18093C20.1664 2.88751 19.1214 1.83334 17.8381 1.83334ZM14.7398 12.3472H17.8381C19.1214 12.3472 20.1664 13.3932 20.1664 14.6948V17.8197C20.1664 19.1122 19.1214 20.1664 17.8381 20.1664H14.7398C13.4473 20.1664 12.4114 19.1122 12.4114 17.8197V14.6948C12.4114 13.3932 13.4473 12.3472 14.7398 12.3472Z'
-                          fill='#DDF247'
-                        />
-                      </svg>
-                      Timeline
-                    </li>
-                    {/* End Timeline Tab */}
+                    {/* Some Content */}
                   </ul>
                 </div>
                 {/* End Menu Sidebar Show */}
@@ -582,353 +491,53 @@ export default function Home() {
 
             {/*------------------------------Display Content-------------------------------*/}
             <div className='content-tabs'>
-              <div
-                id='create'
-                className={activeIndex === 9 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <Create />
-              </div>
-
-              {/* display Pre_project table */}
+              {/* Sec table Managment */}
               <div
                 id='market'
                 className={activeIndex === 1 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Preproject_table
+                <Sec_Management
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
-                  crossData={crossdata}
-                  setCrossData={setCrossData}
-                  searchValue={searchTerm}
+                  crossSecData={crossSecData}
+                  setCrossSecData={setCrossSecData}
                 />
               </div>
               <div
                 id='market'
                 className={activeIndex === 1.1 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Add_General_Data
+                <Project_section
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
+                  crossSecData={crossSecData}
+                  setCrossSecData={setCrossSecData}
                 />
               </div>
               <div
                 id='market'
                 className={activeIndex === 1.2 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Edit_General_Data
+                <Pre_project_section
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
-                  crossData={crossdata}
+                  crossSecData={crossSecData}
+                  setCrossSecData={setCrossSecData}
                 />
               </div>
               <div
                 id='market'
                 className={activeIndex === 1.3 ? 'tabcontent active' : 'tabcontent'}
               >
-                <Project_Detail
+                <Insert_Sec
                   activeIndex={activeIndex}
                   setActiveIndex={setActiveIndex}
-                  crossData={crossdata}
-                />
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_1 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE01_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_2 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE02_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_3 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE03_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_4 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE04_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_5 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE05_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 1.3_6 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <CE06_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossData={crossdata}
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                id='market'
-                className={activeIndex === 1.4 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <Pre_project_transfer
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                  crossData={crossdata}
-                />
-              </div>
-
-              {/* display Project table */}
-              <div
-                id='bid'
-                className={activeIndex === 2 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <Project_table
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                  crossdataProject={crossdataProject}
-                  setCrossDataProject={setCrossDataProject}
-                  searchValue={searchTerm}
-                />
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <Project_Real_Detail
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                  crossdataProject={crossdataProject}
-                />
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_1 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter01_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_2 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter02_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_3 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter03_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_4 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter04_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_5 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter05_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.1_6 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <div
-                  style={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
-                    width: '100%',
-                  }}
-                >
-                  <div style={{ width: 'auto', padding: '5px' }}>
-                    <Chapter06_upload
-                      activeIndex={activeIndex}
-                      setActiveIndex={setActiveIndex}
-                      crossdataProject={crossdataProject}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div
-                id='market'
-                className={activeIndex === 2.2 ? 'tabcontent active' : 'tabcontent'}
-              >
-                <Real_project_edit_component
-                  activeIndex={activeIndex}
-                  setActiveIndex={setActiveIndex}
-                  crossdataProject={crossdataProject}
+                  crossSecData={crossSecData}
+                  setCrossSecData={setCrossSecData}
                 />
               </div>
             </div>
+
             {/*------------------------------End Display Content-------------------------------*/}
           </div>
         </div>

@@ -43,61 +43,29 @@ export default function Header1({ scroll, isMobileMenu, handleMobileMenu }) {
                       id='menu-primary-menu'
                       className='menu'
                     >
-                      <li className='menu-item menu-item-has-children current-menu-item'>
-                        <a>Home</a>
-                        <ul className='sub-menu'>
-                          <li className='menu-item current-item'>
-                            <Link href='/Backoffice'>Backoffice</Link>
-                          </li>
-                          <li className='menu-item'>
-                            <Link href='/'>Home 2</Link>
-                          </li>
-                        </ul>
-                      </li>
                       <li className='menu-item'>
-                        <Link href='/about-us'>About us</Link>
+                        <Link href='/'>Home</Link>
                       </li>
+
                       <li className='menu-item menu-item-has-children'>
-                        <a>Explore</a>
+                        <a>Backoffice</a>
                         <ul className='sub-menu'>
-                          <li className='menu-item'>
-                            <Link href='/'>Test 1</Link>
+                          <li className='menu-item '>
+                            <Link href='/Backoffice'>Backoffice</Link>
                           </li>
                         </ul>
                       </li>
 
                       <li className='menu-item menu-item-has-children'>
-                        <a>Pages</a>
+                        <a>Instructor</a>
                         <ul className='sub-menu'>
-                          <li className='menu-item has-item'>
-                            <Link href='/'>Test</Link>
-                            <ul className='nav-sub-menu'>
-                              <li className='nav-menu-item'>
-                                <Link href='/'>Create</Link>
-                              </li>
-                              <li className='nav-menu-item'>
-                                <Link href='/'>Edit</Link>
-                              </li>
-                            </ul>
+                          <li className='menu-item '>
+                            <Link href='/Instructor'>Instructor Preproject</Link>
                           </li>
                           <li className='menu-item'>
-                            <Link href='/login'>Login</Link>
-                          </li>
-                          <li className='menu-item'>
-                            <Link href='/sign-up'>Sign up</Link>
+                            <Link href='/Instructor_project'>Instructor Project</Link>
                           </li>
                         </ul>
-                      </li>
-                      <li className='menu-item menu-item-has-children'>
-                        <a>Blog</a>
-                        <ul className='sub-menu'>
-                          <li className='menu-item'>
-                            <Link href='/blog-detail'>Blog Details</Link>
-                          </li>
-                        </ul>
-                      </li>
-                      <li className='menu-item'>
-                        <Link href='/contact-us'>Contact</Link>
                       </li>
                     </ul>
                   </nav>

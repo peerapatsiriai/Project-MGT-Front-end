@@ -7,6 +7,8 @@ import Sec_Management from '@/components/Instructor/Sec_Management';
 import Project_section from '@/components/Instructor/Sec_Management/Project_section';
 import Pre_project_section from '@/components/Instructor/Sec_Management/Pre_project_section';
 import Insert_Sec from '@/components/Instructor/Sec_Management/Insert_Sec';
+//============================================== Upload Document Templat CE01-CE06===============================================//
+import Templat_preproject_Document from '@/components/Instructor/Templat_preproject_Document';
 
 export default function Instructor() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -308,21 +310,21 @@ export default function Instructor() {
 
               {/* header Sidebar Show */}
               <div className='create menu-tab'>
-                {/* <a
+                <a
                   className='tf-button style-1 type-1 tablinks'
                   data-tabs='create'
-                  onClick={() => handleOnClick(9)}
+                  href='/Instructor_project'
                 >
-                  <span>Create</span>
-                  <i className='icon-create' />
-                </a> */}
+                  <span>Project Menu</span>
+                  {/* <i className='icon-create' /> */}
+                </a>
               </div>
               {/*End header Sidebar Show */}
 
               <div className='over-content'>
                 {/* Menu Sidebar Show */}
                 <div className='content'>
-                  <h6>Instructor Menu</h6>
+                  <h6>Instructor Preproject Menu</h6>
                   <ul className='menu-tab'>
                     {/* Sec Management tab */}
                     <li
@@ -388,7 +390,7 @@ export default function Instructor() {
                     </li>
                     {/* End Sec Management */}
 
-                    {/* Some Content */}
+                    {/* Upload preproject templat document */}
                     <li
                       className={activeIndex === 2 ? 'tablinks active' : 'tablinks'}
                       data-tabs='Project'
@@ -472,9 +474,9 @@ export default function Instructor() {
                           fill='#DDF247'
                         />
                       </svg>
-                      Some Content
+                      Upload Templat
                     </li>
-                    {/* Some Content */}
+                    {/* End Upload preproject templat document */}
                   </ul>
                 </div>
                 {/* End Menu Sidebar Show */}
@@ -534,6 +536,15 @@ export default function Instructor() {
                   setActiveIndex={setActiveIndex}
                   crossSecData={crossSecData}
                   setCrossSecData={setCrossSecData}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Templat_preproject_Document
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
                 />
               </div>
             </div>
