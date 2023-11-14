@@ -60,7 +60,6 @@ export default function Sec_Management({ activeIndex, setActiveIndex, crossSecDa
         const data = {
           section_id: section_id,
         };
-        console.log('sec data', data);
         if (section_id !== '') {
           axios
             .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/activesection`, data)

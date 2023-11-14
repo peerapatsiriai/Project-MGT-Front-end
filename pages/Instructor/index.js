@@ -8,7 +8,8 @@ import Project_section from '@/components/Instructor/Sec_Management/Project_sect
 import Pre_project_section from '@/components/Instructor/Sec_Management/Pre_project_section';
 import Insert_Sec from '@/components/Instructor/Sec_Management/Insert_Sec';
 //============================================== Upload Document Templat CE01-CE06===============================================//
-import Templat_preproject_Document from '@/components/Instructor/Templat_preproject_Document';
+import Templat_preproject_Document from '@/components/Instructor/Templat_preproject_Document'; // Table
+import AddPreprojectDocTemp from '@/components/Instructor/Templat_preproject_Document/AddPreprojectDocTemp'; // Insert
 
 export default function Instructor() {
   const [activeIndex, setActiveIndex] = useState(1);
@@ -547,8 +548,27 @@ export default function Instructor() {
                   setActiveIndex={setActiveIndex}
                 />
               </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <AddPreprojectDocTemp
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
-
             {/*------------------------------End Display Content-------------------------------*/}
           </div>
         </div>

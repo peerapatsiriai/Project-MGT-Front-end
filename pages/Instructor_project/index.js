@@ -8,6 +8,10 @@ import Project_section from '@/components/Instructor/Sec_Management/Project_sect
 import Pre_project_section from '@/components/Instructor/Sec_Management/Pre_project_section';
 import Insert_Sec from '@/components/Instructor/Sec_Management/Insert_Sec';
 
+//================================= Upload Document Templat CHAPTER01-CHAPTER06=============================//
+import Templat_project_Document from '@/components/Instructor_project/Templat_project_Document';
+import AddProjectDocTemp from '@/components/Instructor_project/AddProjectDocTemp';
+
 export default function Instructor_project() {
   const [activeIndex, setActiveIndex] = useState(1);
   const handleOnClick = (index) => {
@@ -388,7 +392,7 @@ export default function Instructor_project() {
                     </li>
                     {/* End Sec Management */}
 
-                    {/* Some Content */}
+                    {/* Upload Templat */}
                     <li
                       className={activeIndex === 2 ? 'tablinks active' : 'tablinks'}
                       data-tabs='Project'
@@ -472,9 +476,9 @@ export default function Instructor_project() {
                           fill='#DDF247'
                         />
                       </svg>
-                      Some Content
+                      Upload Templat
                     </li>
-                    {/* Some Content */}
+                    {/* End Upload Templat */}
                   </ul>
                 </div>
                 {/* End Menu Sidebar Show */}
@@ -535,6 +539,36 @@ export default function Instructor_project() {
                   crossSecData={crossSecData}
                   setCrossSecData={setCrossSecData}
                 />
+              </div>
+              {/* Document table Managment */}
+              <div
+                id='market'
+                className={activeIndex === 2 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <Templat_project_Document
+                  activeIndex={activeIndex}
+                  setActiveIndex={setActiveIndex}
+                />
+              </div>
+              <div
+                id='market'
+                className={activeIndex === 2.1 ? 'tabcontent active' : 'tabcontent'}
+              >
+                <div
+                  style={{
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0, 0, 0, 0.6)',
+                    width: '100%',
+                  }}
+                >
+                  <div style={{ width: 'auto', padding: '5px' }}>
+                    <AddProjectDocTemp
+                      activeIndex={activeIndex}
+                      setActiveIndex={setActiveIndex}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
 

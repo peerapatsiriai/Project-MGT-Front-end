@@ -6,7 +6,7 @@ import axios from 'axios';
 import AutoSlider1 from '@/components/slider/AutoSlider1';
 import AutoSlider2 from '@/components/slider/AutoSlider2';
 
-export default function Templat_preproject_Document({ activeIndex, setActiveIndex, crossSecData, setCrossSecData }) {
+export default function Templat_project_Document({ activeIndex, setActiveIndex, crossSecData, setCrossSecData }) {
   // data variables
   const [docTemp, setDocTemp] = useState([]);
   // sweetalert2 Import
@@ -16,7 +16,7 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/getallformdocument_ce`);
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/getallformdocument_ch`);
         setDocTemp(response.data.data);
       } catch (error) {
         console.error(error);
@@ -35,7 +35,7 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
   //=====================================End Rount page Functions================================//
 
   // ฟังก์ชันสำหรับ Active docTemp
-  const handleActiveDocument = (ce_doc_id, ce_status) => {
+  const handleActiveDocument = (ch_doc_id, ch_status) => {
     Swal.fire({
       title: 'Do you want to active this Document ?',
       icon: 'warning',
@@ -45,12 +45,11 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
     }).then((result) => {
       if (result.isConfirmed) {
         const data = {
-          ce_doc_id: ce_doc_id,
+          ch_doc_id: ch_doc_id,
         };
-
-        if (ce_doc_id !== '') {
+        if (ch_doc_id !== '') {
           axios
-            .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/activecedocument_ce`, data)
+            .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/activecedocument_ch`, data)
             .then(function (response) {
               console.log(response);
 
@@ -62,8 +61,8 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
               // ทำการอัปเดตค่าในตารางทันทีหลังจากได้รับการประมวลผลจาก API
               setDocTemp((prevData) => {
                 const updatedData = prevData.map((docTemp) =>
-                  docTemp.ce_doc_id === ce_doc_id
-                    ? { ...docTemp, ce_status: 1 } // ทำการอัปเดตค่า ce_status เป็น '1' (Active)
+                  docTemp.ch_doc_id === ch_doc_id
+                    ? { ...docTemp, ch_status: 1 } // ทำการอัปเดตค่า ce_status เป็น '1' (Active)
                     : docTemp
                 );
                 return updatedData;
@@ -88,7 +87,7 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
   };
 
   // ฟังก์ชันสำหรับ Unactive docTemp
-  const handleUnActiveDocument = (ce_doc_id, ce_status) => {
+  const handleUnActiveDocument = (ch_doc_id, ch_status) => {
     Swal.fire({
       title: 'Do you want to Unactive this Document ?',
       icon: 'warning',
@@ -98,11 +97,11 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
     }).then((result) => {
       if (result.isConfirmed) {
         const data = {
-          ce_doc_id: String(ce_doc_id),
+          ch_doc_id: String(ch_doc_id),
         };
-        if (ce_doc_id !== '') {
+        if (ch_doc_id !== '') {
           axios
-            .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/unactivecedocument_ce`, data)
+            .post(`${process.env.NEXT_PUBLIC_API}api/project-mgt/unactivecedocument_ch`, data)
             .then(function (response) {
               console.log(response);
 
@@ -114,8 +113,8 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
               // ทำการอัปเดตค่าในตารางทันทีหลังจากได้รับการประมวลผลจาก API
               setDocTemp((prevData) => {
                 const updatedData = prevData.map((docTemp) =>
-                  docTemp.ce_doc_id === ce_doc_id
-                    ? { ...docTemp, ce_status: 0 } // ทำการอัปเดตค่า ce_status เป็น '0' (UnActive)
+                  docTemp.ch_doc_id === ch_doc_id
+                    ? { ...docTemp, ch_status: 0 } // ทำการอัปเดตค่า ch_status เป็น '0' (UnActive)
                     : docTemp
                 );
                 return updatedData;
@@ -218,20 +217,24 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
                   docTemp.map((docTemp) => (
                     <div
                       className='table-item'
-                      key={docTemp.ce_doc_id}
+                      key={docTemp.ch_doc_id}
                     >
-                      <div className='column'>{docTemp.ce_type}</div>
+                      <div className='column'>{docTemp.ch_type}</div>
                       <div className='column'>
-                        {docTemp.ce_file_name.length <= 11
-                          ? docTemp.ce_file_name
-                          : `${docTemp.ce_file_name.slice(0, 4)}...${docTemp.ce_file_name.slice(-8)}`}
+                        <div className='column'>
+                          {docTemp.ch_file_name !== undefined && docTemp.ch_file_name !== null
+                            ? docTemp.ch_file_name.length <= 11
+                              ? docTemp.ch_file_name
+                              : `${docTemp.ch_file_name.slice(0, 12)}...`
+                            : ''}
+                        </div>
                       </div>
                       <div className='column'>
                         <span>
                           <span className='tf-color'>
                             {(() => {
-                              if (docTemp.ce_status === 0) return 'Unactive';
-                              else if (docTemp.ce_status === 1) return 'Active';
+                              if (docTemp.ch_status === 0) return 'Unactive';
+                              else if (docTemp.ch_status === 1) return 'Active';
                               else return 'Unknown Status';
                             })()}
                           </span>
@@ -244,7 +247,7 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
                           <div
                             className='tf-button style-2 type-1 tablinks'
                             data-tabs='create'
-                            onClick={() => handleActiveDocument(docTemp.ce_doc_id, docTemp.ce_status)}
+                            onClick={() => handleActiveDocument(docTemp.ch_doc_id, docTemp.ch_status)}
                             style={{ cursor: 'pointer' }}
                           >
                             <span>Active</span>
@@ -259,7 +262,7 @@ export default function Templat_preproject_Document({ activeIndex, setActiveInde
                           <div
                             className='tf-button style-2 type-1 tablinks'
                             data-tabs='create'
-                            onClick={() => handleUnActiveDocument(docTemp.ce_doc_id, docTemp.ce_status)}
+                            onClick={() => handleUnActiveDocument(docTemp.ch_doc_id, docTemp.ch_status)}
                             style={{ cursor: 'pointer' }}
                           >
                             <span>Unactive</span>
