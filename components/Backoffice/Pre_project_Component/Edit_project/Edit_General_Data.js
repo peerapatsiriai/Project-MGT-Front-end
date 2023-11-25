@@ -55,6 +55,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
   const [allStudentValues, setAllStudentValues] = useState([]); // เก็บข้อมูลนักเรียนทั้งหมด(ใช้อันนี้บัคเยอะนะ)
   const [allStudent, setAllStudent] = useState([]); // รับ Id นักเรียนเพื่อส่งฟอร์ม
 
+  //project status/type from api
+  const [statusApi, setStatusApi] = useState(''); // รับค่า Status จาก Api
+  const [typeApi, setTypeApi] = useState(''); // รับค่า Type จาก Api
+
   // ล้างค่าข้อมูล Component เก่าก่อนจะเซตค่าใหม่
   useEffect(() => {
     setCurriculumsId('');
@@ -112,10 +116,10 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
     const { value } = e.target;
     let updatedValue = value;
     if (type === 'th') {
-      updatedValue = updatedValue.replace(/[^ก-๙เ\s]/g, '');
+      // updatedValue = updatedValue.replace(/[^ก-๙เ\s]/g, '');
       setProjectNameTh(updatedValue);
     } else if (type === 'en') {
-      updatedValue = updatedValue.replace(/[^a-zA-Z\s]/g, '');
+      // updatedValue = updatedValue.replace(/[^a-zA-Z\s]/g, '');
       setProjectNameEn(updatedValue);
     }
   };
@@ -225,7 +229,6 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
     const fetchEditData = async () => {
       try {
         const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject?preproject_id=${requestdata}`);
-        console.log('data Setto', response.data);
         setCurriculumsId(response.data.PreprojectData[0].curriculum_id);
         setSubjectId(response.data.PreprojectData[0].subject_id);
         setYearId(response.data.PreprojectData[0].sem_year);
@@ -392,6 +395,36 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
     };
 
     fetchStudentData();
+  }, []);
+
+  // ดึงข้อมูล Status จาก Api
+  useEffect(() => {
+    const fetchStatusData = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/preproject_status`);
+        const statusData = response.data.data || [];
+        setStatusApi(statusData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchStatusData();
+  }, []);
+
+  // ดึงข้อมูล Type จาก Api
+  useEffect(() => {
+    const fetchStatusData = async () => {
+      try {
+        const response = await axios.get(`${process.env.NEXT_PUBLIC_API}api/project-mgt/project_type`);
+        const typeData = response.data.data || [];
+        setTypeApi(typeData);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchStatusData();
   }, []);
 
   // ฟังก์ชันจัดการการเปลี่ยนแปลงของค่าใน Select dropdown
@@ -900,9 +933,18 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       error={submitted && !projecttype} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                       value={projecttype}
                     >
-                      <MenuItem value={'HardWare'}>HardWare</MenuItem>
-                      <MenuItem value={'SoftWare'}>SoftWare</MenuItem>
-                      <MenuItem value={'Network'}>Network</MenuItem>
+                      {typeApi && typeApi.length > 0 ? (
+                        typeApi.map((type) => (
+                          <MenuItem
+                            key={type.type_id}
+                            value={type.type_name}
+                          >
+                            {type.type_name}
+                          </MenuItem>
+                        ))
+                      ) : (
+                        <MenuItem disabled>No data</MenuItem>
+                      )}
                     </Select>
                   </FormControl>
                 </Grid>
@@ -930,12 +972,18 @@ export default function Edit_General_Data({ activeIndex, setActiveIndex, crossDa
                       error={submitted && !projectstatus} // แสดงสีแดงเมื่อกดส่งและค่าว่าง
                       value={projectstatus}
                     >
-                      <MenuItem value={'0'}>Reject</MenuItem>
-                      <MenuItem value={'1'}>Wait for Approve</MenuItem>
-                      <MenuItem value={'2'}>Inprocess</MenuItem>
-                      <MenuItem value={'3'}>Can examination</MenuItem>
-                      <MenuItem value={'4'}>Examinationing</MenuItem>
-                      <MenuItem value={'5'}>Examination passed</MenuItem>
+                      {statusApi && statusApi.length > 0 ? (
+                        statusApi.map((status) => (
+                          <MenuItem
+                            key={status.status_id}
+                            value={status.status_id}
+                          >
+                            {status.status_name}
+                          </MenuItem>
+                        ))
+                      ) : (
+                        <MenuItem disabled>No data</MenuItem>
+                      )}
                     </Select>
                   </FormControl>
                 </Grid>
